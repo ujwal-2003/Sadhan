@@ -30,8 +30,6 @@ public class Company_Registration extends javax.swing.JFrame {
 
         logo = new javax.swing.JLabel();
         heading = new javax.swing.JTextField();
-        Company = new javax.swing.JLabel();
-        Seeker = new javax.swing.JLabel();
         Company_Name = new javax.swing.JTextField();
         username_ = new javax.swing.JTextField();
         contact = new javax.swing.JTextField();
@@ -39,9 +37,12 @@ public class Company_Registration extends javax.swing.JFrame {
         Address = new javax.swing.JTextField();
         Password = new javax.swing.JTextField();
         re_enter_password = new javax.swing.JTextField();
+        underline_company = new javax.swing.JPanel();
+        Company = new javax.swing.JButton();
+        Seeker = new javax.swing.JButton();
+        box = new javax.swing.JPanel();
         login_here = new javax.swing.JLabel();
-        box = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        Register = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,48 +58,78 @@ public class Company_Registration extends javax.swing.JFrame {
         heading.setText("RENT YOUR ADVENTURE");
         heading.addActionListener(this::headingActionPerformed);
         getContentPane().add(heading);
-        heading.setBounds(110, 140, 330, 50);
+        heading.setBounds(110, 130, 330, 50);
 
-        Company.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        Company.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Company.setText("Company");
-        getContentPane().add(Company);
-        Company.setBounds(130, 200, 90, 30);
-
-        Seeker.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        Seeker.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Seeker.setText("Seeker");
-        getContentPane().add(Seeker);
-        Seeker.setBounds(350, 200, 70, 30);
-
-        Company_Name.setText("Company Name");
+        Company_Name.setText("Company Name       :");
+        Company_Name.setSelectionEnd(17);
+        Company_Name.setSelectionStart(17);
+        Company_Name.setSize(new java.awt.Dimension(140, 30));
         Company_Name.addActionListener(this::Company_NameActionPerformed);
         getContentPane().add(Company_Name);
         Company_Name.setBounds(110, 250, 330, 30);
 
-        username_.setText("username_");
+        username_.setText("username_              :");
+        username_.setSelectionEnd(17);
+        username_.setSelectionStart(17);
+        username_.setSize(new java.awt.Dimension(140, 30));
         getContentPane().add(username_);
         username_.setBounds(110, 300, 330, 30);
 
-        contact.setText("Contact no.");
+        contact.setText("Contact no.             :");
+        contact.setSelectionEnd(17);
+        contact.setSelectionStart(17);
+        contact.setSize(new java.awt.Dimension(140, 30));
         getContentPane().add(contact);
         contact.setBounds(110, 350, 330, 30);
 
-        Email.setText("Email");
+        Email.setText("Email                      :");
+        Email.setSelectionEnd(17);
+        Email.setSelectionStart(17);
+        Email.setSize(new java.awt.Dimension(140, 30));
         getContentPane().add(Email);
         Email.setBounds(110, 400, 330, 30);
 
-        Address.setText("Address");
+        Address.setText("Address                  : ");
+        Address.setSelectionEnd(17);
+        Address.setSelectionStart(17);
+        Address.setSize(new java.awt.Dimension(140, 30));
         getContentPane().add(Address);
         Address.setBounds(110, 450, 330, 30);
 
-        Password.setText("Password");
+        Password.setText("Password                : ");
+        Password.setSelectionEnd(17);
+        Password.setSelectionStart(17);
+        Password.setSize(new java.awt.Dimension(140, 30));
         getContentPane().add(Password);
         Password.setBounds(110, 500, 330, 30);
 
-        re_enter_password.setText("Re-enter password");
+        re_enter_password.setText("Re-enter password  :");
+        re_enter_password.setSelectionEnd(17);
+        re_enter_password.setSelectionStart(17);
+        re_enter_password.setSize(new java.awt.Dimension(140, 30));
         getContentPane().add(re_enter_password);
         re_enter_password.setBounds(110, 550, 330, 30);
+
+        underline_company.setBackground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(underline_company);
+        underline_company.setBounds(120, 230, 140, 3);
+
+        Company.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        Company.setText("Company");
+        Company.setIconTextGap(5);
+        getContentPane().add(Company);
+        Company.setBounds(120, 190, 140, 40);
+
+        Seeker.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        Seeker.setText("Seeker");
+        Seeker.setIconTextGap(5);
+        Seeker.addActionListener(this::SeekerActionPerformed);
+        getContentPane().add(Seeker);
+        Seeker.setBounds(290, 190, 140, 40);
+
+        box.setBackground(new java.awt.Color(57, 174, 221));
+        getContentPane().add(box);
+        box.setBounds(70, 120, 410, 480);
 
         login_here.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         login_here.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -106,21 +137,16 @@ public class Company_Registration extends javax.swing.JFrame {
         getContentPane().add(login_here);
         login_here.setBounds(160, 668, 230, 30);
 
-        box.setBackground(new java.awt.Color(57, 174, 221));
-        box.addActionListener(this::boxActionPerformed);
-        getContentPane().add(box);
-        box.setBounds(70, 120, 410, 480);
-
-        jButton1.setBackground(new java.awt.Color(0, 191, 239));
-        jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        jButton1.setText("Register");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(200, 620, 130, 36);
+        Register.setBackground(new java.awt.Color(0, 191, 239));
+        Register.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        Register.setText("Register");
+        getContentPane().add(Register);
+        Register.setBounds(200, 620, 130, 36);
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/9A1EE0B2-10E5-41BE-8D1C-91C264E52440.png"))); // NOI18N
         background.setText("jLabel1");
         getContentPane().add(background);
-        background.setBounds(0, 0, 1280, 720);
+        background.setBounds(0, 0, 1280, 1206);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -133,9 +159,9 @@ public class Company_Registration extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Company_NameActionPerformed
 
-    private void boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxActionPerformed
+    private void SeekerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeekerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_boxActionPerformed
+    }//GEN-LAST:event_SeekerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,19 +190,20 @@ public class Company_Registration extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Address;
-    private javax.swing.JLabel Company;
+    private javax.swing.JButton Company;
     private javax.swing.JTextField Company_Name;
     private javax.swing.JTextField Email;
     private javax.swing.JTextField Password;
-    private javax.swing.JLabel Seeker;
+    private javax.swing.JButton Register;
+    private javax.swing.JButton Seeker;
     private javax.swing.JLabel background;
-    private javax.swing.JTextField box;
+    private javax.swing.JPanel box;
     private javax.swing.JTextField contact;
     private javax.swing.JTextField heading;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel login_here;
     private javax.swing.JLabel logo;
     private javax.swing.JTextField re_enter_password;
+    private javax.swing.JPanel underline_company;
     private javax.swing.JTextField username_;
     // End of variables declaration//GEN-END:variables
 }
