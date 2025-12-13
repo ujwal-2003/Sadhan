@@ -28,21 +28,128 @@ public class adminDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        llogo = new javax.swing.JLabel();
+        jlogout = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        llogout = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jprofile = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1280, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1366, 768));
+        setResizable(false);
+        getContentPane().setLayout(null);
+
+        llogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        getContentPane().add(llogo);
+        llogo.setBounds(6, 6, 110, 110);
+
+        jlogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logout_box_icon_206016 (1).png"))); // NOI18N
+        jlogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jlogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jlogout);
+        jlogout.setBounds(1180, 20, 37, 32);
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setText("Vehicle Approval Request");
+        jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(980, 150, 280, 40);
+
+        llogout.setText("logout");
+        getContentPane().add(llogout);
+        llogout.setBounds(1180, 60, 37, 16);
+
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton3.setText("Company");
+        jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jButton3);
+        jButton3.setBounds(110, 150, 280, 40);
+
+        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton4.setText("Seeker");
+        jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jButton4);
+        jButton4.setBounds(540, 150, 280, 40);
+
+        jprofile.setText("profile");
+        jprofile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jprofileMouseClicked(evt);
+            }
+        });
+        jprofile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jprofileActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jprofile);
+        jprofile.setBounds(1260, 10, 87, 65);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/admindashboard.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1370, 770);
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setText("Exit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(1050, 20, 51, 32);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    private login loginpage;
+    private void jlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jlogoutActionPerformed
+        // TODO add your handling code here:
+       if (loginpage==null){
+            loginpage =new login();
+            loginpage.setSize(1366, 768);
+            
+        }
+        if (loginpage.isVisible()){
+            loginpage.setVisible(false);
+        }else{
+            loginpage.setVisible(true);
+            loginpage.toFront();
+        }
+        this.dispose();
+    }//GEN-LAST:event_jlogoutActionPerformed
+
+    private void jprofileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jprofileMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_jprofileMouseClicked
+
+    private void jprofileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jprofileActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jprofileActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +177,14 @@ public class adminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jlogout;
+    private javax.swing.JButton jprofile;
+    private javax.swing.JLabel llogo;
+    private javax.swing.JLabel llogout;
     // End of variables declaration//GEN-END:variables
 }

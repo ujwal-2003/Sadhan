@@ -16,6 +16,7 @@ public class companyDashboard extends javax.swing.JFrame {
     /**
      * Creates new form companyDashboard
      */
+
     public companyDashboard() {
         initComponents();
     }
@@ -30,11 +31,11 @@ public class companyDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jlogout = new javax.swing.JButton();
-        jhistory = new javax.swing.JButton();
         jadd = new javax.swing.JButton();
+        jhistory = new javax.swing.JButton();
+        llogo = new javax.swing.JLabel();
         llogout = new javax.swing.JLabel();
         lhistory = new javax.swing.JLabel();
-        llogo = new javax.swing.JLabel();
         jreport = new javax.swing.JButton();
         lreport = new javax.swing.JLabel();
         jprofile = new javax.swing.JButton();
@@ -42,9 +43,12 @@ public class companyDashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        profile2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1366, 768));
+        setResizable(false);
+        getContentPane().setLayout(null);
 
         jlogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logout_box_icon_206016 (1).png"))); // NOI18N
         jlogout.addActionListener(new java.awt.event.ActionListener() {
@@ -52,13 +56,8 @@ public class companyDashboard extends javax.swing.JFrame {
                 jlogoutActionPerformed(evt);
             }
         });
-
-        jhistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/history-clock-button_icon-icons.com_72701 (2).png"))); // NOI18N
-        jhistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jhistoryActionPerformed(evt);
-            }
-        });
+        getContentPane().add(jlogout);
+        jlogout.setBounds(1210, 20, 37, 32);
 
         jadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/addnewdocument_118445 (1).png"))); // NOI18N
         jadd.addActionListener(new java.awt.event.ActionListener() {
@@ -66,12 +65,31 @@ public class companyDashboard extends javax.swing.JFrame {
                 jaddActionPerformed(evt);
             }
         });
+        getContentPane().add(jadd);
+        jadd.setBounds(6, 134, 42, 36);
 
-        llogout.setText("logout");
-
-        lhistory.setText("history");
+        jhistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/history-clock-button_icon-icons.com_72701 (2).png"))); // NOI18N
+        jhistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jhistoryActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jhistory);
+        jhistory.setBounds(1160, 20, 37, 32);
 
         llogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        getContentPane().add(llogo);
+        llogo.setBounds(6, 6, 110, 110);
+
+        llogout.setForeground(new java.awt.Color(255, 255, 255));
+        llogout.setText("logout");
+        getContentPane().add(llogout);
+        llogout.setBounds(1210, 50, 37, 16);
+
+        lhistory.setForeground(new java.awt.Color(255, 255, 255));
+        lhistory.setText("history");
+        getContentPane().add(lhistory);
+        lhistory.setBounds(1160, 50, 37, 16);
 
         jreport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/report_document_finance_business.png"))); // NOI18N
         jreport.addActionListener(new java.awt.event.ActionListener() {
@@ -79,21 +97,41 @@ public class companyDashboard extends javax.swing.JFrame {
                 jreportActionPerformed(evt);
             }
         });
+        getContentPane().add(jreport);
+        jreport.setBounds(1110, 20, 37, 32);
 
+        lreport.setForeground(new java.awt.Color(255, 255, 255));
         lreport.setText("report");
+        getContentPane().add(lreport);
+        lreport.setBounds(1110, 50, 37, 16);
 
         jprofile.setText("profile");
+        jprofile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jprofileMouseClicked(evt);
+            }
+        });
         jprofile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jprofileActionPerformed(evt);
             }
         });
+        getContentPane().add(jprofile);
+        jprofile.setBounds(1260, 10, 87, 65);
 
         view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/view_show_icon_124811 (1).png"))); // NOI18N
+        getContentPane().add(view);
+        view.setBounds(6, 182, 42, 32);
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("view");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(54, 198, 24, 16);
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("add");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(54, 154, 37, 16);
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("Exit");
@@ -102,85 +140,13 @@ public class companyDashboard extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(1050, 20, 51, 32);
 
-        profile2.setText("profile");
-        profile2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                profile2MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(llogo)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jadd, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                            .addComponent(view, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 947, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lreport, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                            .addComponent(jreport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lhistory, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                            .addComponent(jhistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(llogout, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                            .addComponent(jlogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(12, 12, 12)
-                        .addComponent(jprofile, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(profile2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jprofile, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(profile2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jreport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jlogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jhistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(llogout)
-                                    .addComponent(lhistory)
-                                    .addComponent(lreport)))
-                            .addComponent(llogo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jadd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(view)
-                    .addComponent(jLabel1))
-                .addContainerGap(502, Short.MAX_VALUE))
-        );
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/companyDashboard.png"))); // NOI18N
+        jLabel3.setText("jLabel3");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(0, 0, 1370, 768);
 
         pack();
         setLocationRelativeTo(null);
@@ -189,13 +155,28 @@ public class companyDashboard extends javax.swing.JFrame {
     private void jhistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jhistoryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jhistoryActionPerformed
-
+     private login loginpage;
     private void jlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jlogoutActionPerformed
         // TODO add your handling code here:
+         if (adWindow==null){
+            loginpage =new login();
+            loginpage.setSize(1366, 768);
+            
+        }
+        if (loginpage.isVisible()){
+            loginpage.setVisible(false);
+        }else{
+            loginpage.setVisible(true);
+            loginpage.toFront();
+        }
+        this.dispose();
     }//GEN-LAST:event_jlogoutActionPerformed
 
     private void jaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jaddActionPerformed
         // TODO add your handling code here:
+        
+       
+        
     }//GEN-LAST:event_jaddActionPerformed
 
     private void jreportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jreportActionPerformed
@@ -204,18 +185,30 @@ public class companyDashboard extends javax.swing.JFrame {
 
     private void jprofileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jprofileActionPerformed
         // TODO add your handling code here:
-        new aboutProfile().setVisible(true);
+      
     }//GEN-LAST:event_jprofileActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void profile2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile2MouseClicked
+    private aboutProfile adWindow;
+    private void jprofileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jprofileMouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(companyDashboard.this,"you are welcome to this profile");  /*creating event*/
-    }//GEN-LAST:event_profile2MouseClicked
+        if (adWindow==null){
+            adWindow =new aboutProfile();
+            adWindow.setSize(500, 550);
+            
+        }
+        if (adWindow.isVisible()){
+            adWindow.setVisible(false);
+        }else{
+            adWindow.setVisible(true);
+            adWindow.toFront();
+        }
+        
+        
+    }//GEN-LAST:event_jprofileMouseClicked
 
     /**
      * @param args the command line arguments
@@ -246,6 +239,7 @@ public class companyDashboard extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton jadd;
     private javax.swing.JButton jhistory;
     private javax.swing.JButton jlogout;
@@ -255,7 +249,6 @@ public class companyDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel llogo;
     private javax.swing.JLabel llogout;
     private javax.swing.JLabel lreport;
-    private javax.swing.JLabel profile2;
     private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 }

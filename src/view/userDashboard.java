@@ -28,31 +28,146 @@ public class userDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        background = new javax.swing.JLabel();
+        llogo = new javax.swing.JLabel();
+        jlogout = new javax.swing.JButton();
+        jhistory = new javax.swing.JButton();
+        llogout = new javax.swing.JLabel();
+        lhistory = new javax.swing.JLabel();
+        jprofile = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        view = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(1280,720
-        );
-        setSize(new java.awt.Dimension(1280, 720));
+        setBackground(new java.awt.Color(102, 102, 102));
+        setPreferredSize(new java.awt.Dimension(1366, 768));
+        setResizable(false);
+        setSize(new java.awt.Dimension(1366, 768));
+        getContentPane().setLayout(null);
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled design (6).png"))); // NOI18N
+        llogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        getContentPane().add(llogo);
+        llogo.setBounds(6, 6, 110, 110);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-        );
+        jlogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logout_box_icon_206016 (1).png"))); // NOI18N
+        jlogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jlogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jlogout);
+        jlogout.setBounds(1210, 20, 37, 32);
+
+        jhistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/history-clock-button_icon-icons.com_72701 (2).png"))); // NOI18N
+        jhistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jhistoryActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jhistory);
+        jhistory.setBounds(1160, 20, 37, 32);
+
+        llogout.setForeground(new java.awt.Color(255, 255, 255));
+        llogout.setText("logout");
+        getContentPane().add(llogout);
+        llogout.setBounds(1210, 60, 37, 16);
+
+        lhistory.setForeground(new java.awt.Color(255, 255, 255));
+        lhistory.setText("history");
+        getContentPane().add(lhistory);
+        lhistory.setBounds(1160, 60, 37, 16);
+
+        jprofile.setText("profile");
+        jprofile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jprofileMouseClicked(evt);
+            }
+        });
+        jprofile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jprofileActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jprofile);
+        jprofile.setBounds(1260, 10, 87, 65);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/searchmagnifierinterfacesymbol1_79893 (1).png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(1110, 90, 31, 31);
+
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTextField1.setText("Search Vehicle");
+        getContentPane().add(jTextField1);
+        jTextField1.setBounds(200, 90, 900, 31);
+
+        view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/view_show_icon_124811 (1).png"))); // NOI18N
+        view.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewActionPerformed(evt);
+            }
+        });
+        getContentPane().add(view);
+        view.setBounds(1290, 110, 30, 32);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText(" List");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(1290, 150, 37, 16);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/userdashboard.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1370, 770);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+        private login loginpage;
+    private void jlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jlogoutActionPerformed
+        // TODO add your handling code here:
+        if (loginpage==null){
+            loginpage =new login();
+            loginpage.setSize(1366, 768);
+            
+        }
+        if (loginpage.isVisible()){
+            loginpage.setVisible(false);
+        }else{
+            loginpage.setVisible(true);
+            loginpage.toFront();
+        }
+        this.dispose();
+    
+        
+    }//GEN-LAST:event_jlogoutActionPerformed
+
+    private void jprofileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jprofileMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jprofileMouseClicked
+
+    private void jprofileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jprofileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jprofileActionPerformed
+
+    private void jhistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jhistoryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jhistoryActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,6 +195,16 @@ public class userDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel background;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton jhistory;
+    private javax.swing.JButton jlogout;
+    private javax.swing.JButton jprofile;
+    private javax.swing.JLabel lhistory;
+    private javax.swing.JLabel llogo;
+    private javax.swing.JLabel llogout;
+    private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 }
