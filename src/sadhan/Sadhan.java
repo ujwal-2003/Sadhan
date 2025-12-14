@@ -4,17 +4,51 @@
  */
 package sadhan;
 
+
+
+
+import database.Database;
+
+import database.MySqlConnection;
+
+
+
 /**
+
  *
- * @author hp
+
+ * @author User
+
  */
+
 public class Sadhan {
 
+
+
     /**
+
      * @param args the command line arguments
+
      */
+
     public static void main(String[] args) {
+
         // TODO code application logic here
+
+       Database db = new MySqlConnection();
+
+       if(db.openConnection() !=null){
+
+           System.out.println("Connectioon succesful");
+
+         
+
+       }else{
+
+           System.out.println("Not successful");
+
+       }
     }
-    
 }
+
+
