@@ -28,15 +28,11 @@ public class Booking_Form extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        customer_details = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jTextField1 = new javax.swing.JTextField();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
@@ -46,26 +42,26 @@ public class Booking_Form extends javax.swing.JFrame {
         jTextField7 = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
         jTextField13 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jPanel17 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
+        return_date = new javax.swing.JLabel();
         jTextField14 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         Submit = new javax.swing.JButton();
         full_name = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        email = new javax.swing.JLabel();
+        phone_number = new javax.swing.JLabel();
+        address = new javax.swing.JLabel();
+        city = new javax.swing.JLabel();
+        pickup_date = new javax.swing.JLabel();
+        pickup_location = new javax.swing.JLabel();
+        pickup_time = new javax.swing.JLabel();
+        rental_duration = new javax.swing.JLabel();
+        return_time = new javax.swing.JLabel();
+        driver_licence = new javax.swing.JLabel();
+        province = new javax.swing.JLabel();
+        customer_details = new javax.swing.JLabel();
+        booking_details = new javax.swing.JLabel();
+        with_driver = new javax.swing.JLabel();
+        self_drive = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
@@ -75,82 +71,35 @@ public class Booking_Form extends javax.swing.JFrame {
         jPanel3.setPreferredSize(new java.awt.Dimension(1280, 720));
         jPanel3.setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        customer_details.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
-        customer_details.setText("Customer Details");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(customer_details, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(customer_details))
-        );
-
-        jPanel3.add(jPanel2);
-        jPanel2.setBounds(210, 70, 110, 20);
-
         jTextField2.setBorder(null);
         jTextField2.addActionListener(this::jTextField2ActionPerformed);
         jPanel3.add(jTextField2);
-        jTextField2.setBounds(290, 140, 200, 20);
+        jTextField2.setBounds(290, 140, 250, 20);
 
+        jTextField4.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
         jTextField4.setBorder(null);
         jTextField4.addActionListener(this::jTextField4ActionPerformed);
         jPanel3.add(jTextField4);
-        jTextField4.setBounds(290, 170, 540, 20);
+        jTextField4.setBounds(290, 170, 750, 20);
 
         jTextField3.setBorder(null);
         jPanel3.add(jTextField3);
-        jTextField3.setBounds(810, 140, 220, 20);
+        jTextField3.setBounds(790, 140, 250, 20);
 
         jTextField5.setBorder(null);
         jTextField5.addActionListener(this::jTextField5ActionPerformed);
         jPanel3.add(jTextField5);
-        jTextField5.setBounds(290, 200, 210, 20);
+        jTextField5.setBounds(290, 200, 250, 20);
 
         jTextField1.setBorder(null);
         jTextField1.addActionListener(this::jTextField1ActionPerformed);
         jPanel3.add(jTextField1);
-        jTextField1.setBounds(290, 110, 200, 20);
-
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
-        jLabel9.setText("BOOKING DETAILS");
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(jLabel9))
-        );
-
-        jPanel3.add(jPanel10);
-        jPanel10.setBounds(160, 260, 130, 20);
+        jTextField1.setBounds(290, 110, 250, 20);
 
         jTextField6.setBorder(null);
         jTextField6.addActionListener(this::jTextField6ActionPerformed);
         jPanel3.add(jTextField6);
-        jTextField6.setBounds(810, 200, 220, 20);
+        jTextField6.setBounds(790, 200, 250, 20);
 
         jPanel8.setBackground(new java.awt.Color(0, 153, 51));
         jPanel8.setForeground(new java.awt.Color(51, 153, 0));
@@ -176,89 +125,53 @@ public class Booking_Form extends javax.swing.JFrame {
         );
 
         jPanel3.add(jPanel8);
-        jPanel8.setBounds(250, 440, 100, 20);
+        jPanel8.setBounds(240, 440, 100, 20);
 
         jTextField8.setBorder(null);
         jTextField8.addActionListener(this::jTextField8ActionPerformed);
         jPanel3.add(jTextField8);
-        jTextField8.setBounds(290, 300, 290, 20);
+        jTextField8.setBounds(290, 300, 250, 20);
 
         jTextField9.setBorder(null);
         jTextField9.addActionListener(this::jTextField9ActionPerformed);
         jPanel3.add(jTextField9);
-        jTextField9.setBounds(290, 330, 180, 20);
+        jTextField9.setBounds(290, 340, 250, 20);
 
         jTextField10.setBorder(null);
         jTextField10.addActionListener(this::jTextField10ActionPerformed);
         jPanel3.add(jTextField10);
-        jTextField10.setBounds(290, 370, 180, 20);
+        jTextField10.setBounds(290, 380, 250, 20);
 
+        jTextField7.setFont(new java.awt.Font("Eras Demi ITC", 0, 12)); // NOI18N
         jTextField7.setBorder(null);
         jPanel3.add(jTextField7);
-        jTextField7.setBounds(810, 320, 220, 20);
+        jTextField7.setBounds(780, 380, 260, 20);
 
+        jTextField12.setFont(new java.awt.Font("Eras Demi ITC", 0, 12)); // NOI18N
         jTextField12.setBorder(null);
         jPanel3.add(jTextField12);
-        jTextField12.setBounds(810, 240, 220, 20);
+        jTextField12.setBounds(780, 300, 260, 20);
 
+        jTextField13.setFont(new java.awt.Font("Eras Demi ITC", 0, 12)); // NOI18N
         jTextField13.setBorder(null);
         jPanel3.add(jTextField13);
-        jTextField13.setBounds(810, 280, 220, 20);
+        jTextField13.setBounds(780, 340, 260, 20);
 
-        jLabel12.setText("Return Date");
-        jPanel3.add(jLabel12);
-        jLabel12.setBounds(190, 370, 70, 20);
-
-        jLabel17.setText("With Driver");
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
-                .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(jLabel17))
-        );
-
-        jPanel3.add(jPanel17);
-        jPanel17.setBounds(220, 480, 70, 20);
-
-        jLabel18.setText("Self-Drive");
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(jLabel18))
-        );
-
-        jPanel3.add(jPanel18);
-        jPanel18.setBounds(310, 480, 70, 20);
+        return_date.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
+        return_date.setText("Return Date");
+        jPanel3.add(return_date);
+        return_date.setBounds(200, 380, 70, 20);
 
         jTextField14.setBorder(null);
         jTextField14.addActionListener(this::jTextField14ActionPerformed);
         jPanel3.add(jTextField14);
         jTextField14.setBounds(420, 540, 490, 20);
 
-        jLabel2.setFont(new java.awt.Font("Stencil", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Castellar", 0, 24)); // NOI18N
         jLabel2.setText("VEHICLE BOOKING FORM");
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel3.add(jLabel2);
-        jLabel2.setBounds(490, 10, 350, 56);
+        jLabel2.setBounds(510, 10, 360, 50);
 
         Submit.setBackground(new java.awt.Color(0, 153, 0));
         Submit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -267,56 +180,87 @@ public class Booking_Form extends javax.swing.JFrame {
         jPanel3.add(Submit);
         Submit.setBounds(600, 590, 110, 27);
 
-        full_name.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        full_name.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
         full_name.setText("Full Name");
         jPanel3.add(full_name);
-        full_name.setBounds(220, 110, 57, 14);
+        full_name.setBounds(210, 110, 70, 14);
 
-        jLabel6.setText("E-mail");
-        jPanel3.add(jLabel6);
-        jLabel6.setBounds(730, 140, 34, 16);
+        email.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
+        email.setText("E-mail");
+        jPanel3.add(email);
+        email.setBounds(720, 140, 31, 14);
 
-        jLabel4.setText("Phone Number");
-        jPanel3.add(jLabel4);
-        jLabel4.setBounds(200, 140, 81, 16);
+        phone_number.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
+        phone_number.setText("Phone Number");
+        jPanel3.add(phone_number);
+        phone_number.setBounds(200, 140, 90, 14);
 
-        jLabel8.setText("Address");
-        jPanel3.add(jLabel8);
-        jLabel8.setBounds(230, 170, 52, 16);
+        address.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
+        address.setText("Address");
+        jPanel3.add(address);
+        address.setBounds(220, 170, 52, 14);
 
-        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("City");
-        jPanel3.add(jLabel7);
-        jLabel7.setBounds(230, 200, 28, 16);
+        city.setBackground(new java.awt.Color(255, 255, 255));
+        city.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
+        city.setText("City");
+        jPanel3.add(city);
+        city.setBounds(230, 200, 28, 14);
 
-        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Pickup Date");
-        jPanel3.add(jLabel5);
-        jLabel5.setBounds(190, 300, 70, 16);
+        pickup_date.setBackground(new java.awt.Color(255, 255, 255));
+        pickup_date.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
+        pickup_date.setText("Pickup Date");
+        jPanel3.add(pickup_date);
+        pickup_date.setBounds(190, 300, 70, 14);
 
-        jLabel11.setText("Pickup Location");
-        jPanel3.add(jLabel11);
-        jLabel11.setBounds(180, 330, 100, 16);
+        pickup_location.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
+        pickup_location.setText("Pickup Location");
+        jPanel3.add(pickup_location);
+        pickup_location.setBounds(190, 340, 100, 14);
 
-        jLabel13.setText("Pickup Time");
-        jPanel3.add(jLabel13);
-        jLabel13.setBounds(720, 240, 70, 16);
+        pickup_time.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
+        pickup_time.setText("Pickup Time");
+        jPanel3.add(pickup_time);
+        pickup_time.setBounds(690, 300, 70, 14);
 
-        jLabel14.setText("Rental Duration");
-        jPanel3.add(jLabel14);
-        jLabel14.setBounds(710, 280, 90, 16);
+        rental_duration.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
+        rental_duration.setText("Rental Duration");
+        jPanel3.add(rental_duration);
+        rental_duration.setBounds(680, 340, 90, 14);
 
-        jLabel15.setText("Return Time");
-        jPanel3.add(jLabel15);
-        jLabel15.setBounds(730, 320, 70, 16);
+        return_time.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
+        return_time.setText("Return Time");
+        jPanel3.add(return_time);
+        return_time.setBounds(690, 380, 70, 14);
 
-        jLabel19.setText("Driver Licence No.(If self Drive):");
-        jPanel3.add(jLabel19);
-        jLabel19.setBounds(220, 540, 180, 16);
+        driver_licence.setFont(new java.awt.Font("Eras Medium ITC", 0, 14)); // NOI18N
+        driver_licence.setText("Driver Licence No.(If self Drive):");
+        jPanel3.add(driver_licence);
+        driver_licence.setBounds(210, 540, 210, 16);
 
-        jLabel10.setText("Province");
-        jPanel3.add(jLabel10);
-        jLabel10.setBounds(730, 200, 52, 16);
+        province.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
+        province.setText("Province");
+        jPanel3.add(province);
+        province.setBounds(710, 200, 52, 14);
+
+        customer_details.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        customer_details.setText("Customer Details");
+        jPanel3.add(customer_details);
+        customer_details.setBounds(190, 60, 130, 20);
+
+        booking_details.setFont(new java.awt.Font("Eras Medium ITC", 0, 12)); // NOI18N
+        booking_details.setText("BOOKING DETAILS");
+        jPanel3.add(booking_details);
+        booking_details.setBounds(180, 256, 130, 20);
+
+        with_driver.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        with_driver.setText("With Driver");
+        jPanel3.add(with_driver);
+        with_driver.setBounds(200, 480, 80, 16);
+
+        self_drive.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        self_drive.setText("Self-Drive");
+        jPanel3.add(self_drive);
+        self_drive.setBounds(300, 480, 70, 16);
 
         getContentPane().add(jPanel3);
         jPanel3.setBounds(0, 0, 1300, 750);
@@ -391,29 +335,15 @@ public class Booking_Form extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Submit;
+    private javax.swing.JLabel address;
+    private javax.swing.JLabel booking_details;
+    private javax.swing.JLabel city;
     private javax.swing.JLabel customer_details;
+    private javax.swing.JLabel driver_licence;
+    private javax.swing.JLabel email;
     private javax.swing.JLabel full_name;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JTextField jTextField1;
@@ -429,5 +359,15 @@ public class Booking_Form extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel phone_number;
+    private javax.swing.JLabel pickup_date;
+    private javax.swing.JLabel pickup_location;
+    private javax.swing.JLabel pickup_time;
+    private javax.swing.JLabel province;
+    private javax.swing.JLabel rental_duration;
+    private javax.swing.JLabel return_date;
+    private javax.swing.JLabel return_time;
+    private javax.swing.JLabel self_drive;
+    private javax.swing.JLabel with_driver;
     // End of variables declaration//GEN-END:variables
 }
