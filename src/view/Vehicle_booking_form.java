@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import dao.VehicleBookingDao;
+import model.VehicleBooking;
+import javax.swing.JOptionPane;
+import java.sql.Date;
+
 
 /**
  *
@@ -74,7 +79,7 @@ public class Vehicle_booking_form extends javax.swing.JFrame {
         vehicle_booking_form.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
         vehicle_booking_form.setText("Vehicle Booking Form");
         jPanel1.add(vehicle_booking_form);
-        vehicle_booking_form.setBounds(510, -10, 350, 90);
+        vehicle_booking_form.setBounds(520, 0, 350, 90);
 
         customer_details.setFont(new java.awt.Font("MV Boli", 1, 18)); // NOI18N
         customer_details.setText("Customer Details");
@@ -153,55 +158,55 @@ public class Vehicle_booking_form extends javax.swing.JFrame {
 
         email_.addActionListener(this::email_ActionPerformed);
         jPanel1.add(email_);
-        email_.setBounds(820, 200, 260, 20);
+        email_.setBounds(820, 200, 260, 30);
 
         fullname.addActionListener(this::fullnameActionPerformed);
         jPanel1.add(fullname);
-        fullname.setBounds(380, 160, 250, 20);
+        fullname.setBounds(380, 160, 250, 30);
 
         phonenumber.addActionListener(this::phonenumberActionPerformed);
         jPanel1.add(phonenumber);
-        phonenumber.setBounds(380, 200, 250, 20);
+        phonenumber.setBounds(380, 200, 250, 30);
 
         address_.addActionListener(this::address_ActionPerformed);
         jPanel1.add(address_);
-        address_.setBounds(380, 240, 700, 20);
+        address_.setBounds(380, 240, 700, 30);
 
         city_.addActionListener(this::city_ActionPerformed);
         jPanel1.add(city_);
-        city_.setBounds(380, 280, 260, 20);
+        city_.setBounds(380, 280, 260, 30);
 
         pickupdate.addActionListener(this::pickupdateActionPerformed);
         jPanel1.add(pickupdate);
-        pickupdate.setBounds(380, 390, 250, 20);
+        pickupdate.setBounds(380, 390, 250, 30);
 
         pickuplocation.addActionListener(this::pickuplocationActionPerformed);
         jPanel1.add(pickuplocation);
-        pickuplocation.setBounds(380, 430, 250, 20);
+        pickuplocation.setBounds(380, 430, 250, 30);
 
         returndate.addActionListener(this::returndateActionPerformed);
         jPanel1.add(returndate);
-        returndate.setBounds(380, 470, 250, 20);
+        returndate.setBounds(380, 470, 250, 30);
 
         returnlocation.addActionListener(this::returnlocationActionPerformed);
         jPanel1.add(returnlocation);
-        returnlocation.setBounds(380, 510, 250, 20);
+        returnlocation.setBounds(380, 510, 250, 30);
 
         returntime.addActionListener(this::returntimeActionPerformed);
         jPanel1.add(returntime);
-        returntime.setBounds(820, 470, 260, 20);
+        returntime.setBounds(820, 470, 260, 30);
 
         rentalduration.addActionListener(this::rentaldurationActionPerformed);
         jPanel1.add(rentalduration);
-        rentalduration.setBounds(820, 430, 260, 20);
+        rentalduration.setBounds(820, 430, 260, 30);
 
         pickuptime.addActionListener(this::pickuptimeActionPerformed);
         jPanel1.add(pickuptime);
-        pickuptime.setBounds(820, 390, 260, 20);
+        pickuptime.setBounds(820, 390, 260, 30);
 
         province_.addActionListener(this::province_ActionPerformed);
         jPanel1.add(province_);
-        province_.setBounds(820, 280, 260, 20);
+        province_.setBounds(820, 280, 260, 30);
 
         driver_option.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         driver_option.setText("Driver Option:");
@@ -213,12 +218,13 @@ public class Vehicle_booking_form extends javax.swing.JFrame {
         jPanel1.add(driver_licence);
         driver_licence.setBounds(250, 620, 190, 16);
         jPanel1.add(driverlicence);
-        driverlicence.setBounds(440, 620, 510, 22);
+        driverlicence.setBounds(440, 620, 510, 30);
 
         ok.setBackground(new java.awt.Color(51, 153, 0));
         ok.setFont(new java.awt.Font("Broadway", 3, 14)); // NOI18N
         ok.setForeground(new java.awt.Color(204, 255, 255));
         ok.setText("OK");
+        ok.addActionListener(this::okActionPerformed);
         jPanel1.add(ok);
         ok.setBounds(660, 660, 72, 24);
 
@@ -299,6 +305,53 @@ public class Vehicle_booking_form extends javax.swing.JFrame {
     private void with_driverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_with_driverActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_with_driverActionPerformed
+
+    private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
+        // TODO add your handling code here:
+        try {
+        VehicleBooking v = new VehicleBooking();
+
+        v.fullName = fullname.getText();
+        v.phone = phonenumber.getText();
+        v.email = email_.getText();
+        v.address = address_.getText();
+        v.city = city_.getText();
+        v.province = province_.getText();
+
+        v.pickupDate = Date.valueOf(pickupdate.getText());
+        v.pickupTime = pickuptime.getText();
+        v.pickupLocation = pickuplocation.getText();
+
+        v.returnDate = Date.valueOf(returndate.getText());
+        v.returnTime = returntime.getText();
+        v.returnLocation = returnlocation.getText();
+
+        v.rentalDuration = rentalduration.getText();
+
+        if (self_drive.isSelected()) {
+            v.driverOption = "Self-Drive";
+            v.driverLicence = driverlicence.getText();
+        } else if (with_driver.isSelected()) {
+            v.driverOption = "With-Driver";
+            v.driverLicence = "";
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select driver option");
+            return;
+        }
+
+        VehicleBookingDao dao = new VehicleBookingDao();
+
+        if (dao.insert(v)) {
+            JOptionPane.showMessageDialog(this, "Booking Saved Successfully!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error while saving booking!");
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this,
+            "Please check date format (yyyy-mm-dd)");
+    }
+    }//GEN-LAST:event_okActionPerformed
 
     /**
      * @param args the command line arguments
