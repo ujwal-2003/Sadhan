@@ -5,7 +5,7 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.*;
 
 public class MySqlConnection implements Database {
@@ -17,6 +17,7 @@ public class MySqlConnection implements Database {
     @Override
     public Connection openConnection() {
         try {
+          
             String username = "root";
             String password = "actofgod12345";
             String database = "Sadhan";
@@ -26,20 +27,19 @@ public class MySqlConnection implements Database {
                     username,
                     password
             );
-
-            if (connection != null) {
-                System.out.println("Connection successful");
-            } else {
-                System.out.println("Connection unsuccessful");
-            }
-
+            System.out.println("Connection successful");
+            
+            System.out.println(database);
             return connection;
+            
 
         } catch (SQLException e) {
-            System.out.println("Error while connecting: " + e.getMessage());
+            System.out.println(e);
             return null;
         }
-    }
+            
+ }
+
 
     @Override
     public void closeConnection(Connection conn) {
@@ -49,7 +49,7 @@ public class MySqlConnection implements Database {
                 System.out.println("Connection closed");
             }
         } catch (SQLException e) {
-            System.out.println("Error while closing: " + e.getMessage());
+            System.out.println(e);
         }
     }
 
@@ -60,7 +60,7 @@ public class MySqlConnection implements Database {
             return stmt.executeQuery(query);
 
         } catch (SQLException e) {
-            System.out.println("Error in runQuery: " + e.getMessage());
+            System.out.println(e);
             return null;
         }
     }
@@ -72,7 +72,7 @@ public class MySqlConnection implements Database {
             return stmt.executeUpdate(query);
 
         } catch (SQLException e) {
-            System.out.println("Error in executeUpdate: " + e.getMessage());
+            System.out.println(e);
             return -1;
         }
     }
