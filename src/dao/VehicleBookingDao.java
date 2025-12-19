@@ -1,17 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
+
 import database.DBConnection;
 import model.VehicleBooking;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-/**
- *
- * @author WELCOME
- */
 public class VehicleBookingDao {
     public boolean insert(VehicleBooking v) {
 
@@ -50,11 +44,13 @@ public class VehicleBookingDao {
 
             status = ps.executeUpdate() > 0;
 
+            ps.close();
+            con.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return status;
     }
-    
 }
