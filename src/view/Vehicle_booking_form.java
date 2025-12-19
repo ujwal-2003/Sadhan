@@ -174,7 +174,7 @@ public class Vehicle_booking_form extends javax.swing.JFrame {
 
         city_.addActionListener(this::city_ActionPerformed);
         jPanel1.add(city_);
-        city_.setBounds(380, 280, 260, 30);
+        city_.setBounds(380, 280, 250, 30);
 
         pickupdate.addActionListener(this::pickupdateActionPerformed);
         jPanel1.add(pickupdate);
