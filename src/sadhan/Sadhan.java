@@ -4,6 +4,9 @@
  */
 package sadhan;
 
+import Controller.Login_Controller;
+import view.login;
+
 /**
  *
  * @author hp
@@ -13,8 +16,14 @@ public class Sadhan {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+public static void main(String[] args) {
         // TODO code application logic here
+
+       login lg= new login();
+       Login_Controller controller = new Login_Controller(lg);
+       
+       
+
     }
     
 }
