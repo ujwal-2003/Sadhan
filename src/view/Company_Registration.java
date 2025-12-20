@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import javax.swing.*;
+import java.sql.*;
+
 
 /**
  *
@@ -11,13 +14,60 @@ package view;
 public class Company_Registration extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Company_Registration.class.getName());
+    private JCheckBox showPasswordCompany;
+    private JCheckBox showRePasswordCompany;
+    private char defaultEchoChar;
+    private char defaultReEchoChar;
 
     /**
      * Creates new form Company_Registration
      */
-    public Company_Registration() {
-        initComponents();
-    }
+public Company_Registration() {
+    initComponents();
+    setLocationRelativeTo(null);
+
+    // Capture default echo chars
+    defaultEchoChar = user_type_Password.getEchoChar();
+    defaultReEchoChar = user_type_Reenter_Password.getEchoChar();
+
+    // Show/hide password
+    showPasswordCompany = new JCheckBox("Show");
+    showPasswordCompany.setBounds(520, 430, 80, 30);
+    box.add(showPasswordCompany);
+    showPasswordCompany.addActionListener(e -> {
+        user_type_Password.setEchoChar(showPasswordCompany.isSelected() ? (char)0 : defaultEchoChar);
+        user_type_Password.repaint();
+    });
+
+    // Show/hide re-enter password
+    showRePasswordCompany = new JCheckBox("Show");
+    showRePasswordCompany.setBounds(520, 380, 80, 30);
+    box.add(showRePasswordCompany);
+    showRePasswordCompany.addActionListener(e -> {
+        user_type_Reenter_Password.setEchoChar(showRePasswordCompany.isSelected() ? (char)0 : defaultReEchoChar);
+        user_type_Reenter_Password.repaint();
+    });
+
+    login_here.setText("<html><nobr>Already have an account? <u><font color='blue'>Login here</font></u></nobr></html>");
+
+    login_here.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+    login_here.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            JOptionPane.showMessageDialog(
+                Company_Registration.this,
+                "Login page will be connected after module integration."
+            );
+        }
+    });
+
+    Register.addActionListener(this::RegisterActionPerformed);
+
+    Company.addActionListener(evt -> {
+        JOptionPane.showMessageDialog(this, "You are already on Company registration.");
+    });
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,8 +94,10 @@ public class Company_Registration extends javax.swing.JFrame {
         user_type_Email = new javax.swing.JTextField();
         Address = new javax.swing.JLabel();
         user_type_Address = new javax.swing.JTextField();
+        pass_checkbox = new javax.swing.JCheckBox();
         Password = new javax.swing.JLabel();
         user_type_Password = new javax.swing.JPasswordField();
+        reenter_checkbox = new javax.swing.JCheckBox();
         Reenter_password = new javax.swing.JLabel();
         user_type_Reenter_Password = new javax.swing.JPasswordField();
         Register = new javax.swing.JButton();
@@ -125,12 +177,20 @@ public class Company_Registration extends javax.swing.JFrame {
         box.add(user_type_Address);
         user_type_Address.setBounds(180, 330, 330, 30);
 
+        pass_checkbox.addActionListener(this::pass_checkboxActionPerformed);
+        box.add(pass_checkbox);
+        pass_checkbox.setBounds(485, 435, 19, 20);
+
         Password.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         Password.setText("Password                :");
         box.add(Password);
         Password.setBounds(30, 380, 140, 30);
         box.add(user_type_Password);
         user_type_Password.setBounds(180, 430, 330, 30);
+
+        reenter_checkbox.addActionListener(this::reenter_checkboxActionPerformed);
+        box.add(reenter_checkbox);
+        reenter_checkbox.setBounds(485, 385, 19, 20);
 
         Reenter_password.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         Reenter_password.setText("Re-enter password  :");
@@ -140,24 +200,24 @@ public class Company_Registration extends javax.swing.JFrame {
         user_type_Reenter_Password.setBounds(180, 380, 330, 30);
 
         getContentPane().add(box);
-        box.setBounds(20, 130, 520, 480);
+        box.setBounds(20, 150, 520, 480);
 
         Register.setBackground(new java.awt.Color(0, 191, 239));
         Register.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         Register.setText("Register");
         getContentPane().add(Register);
-        Register.setBounds(190, 626, 150, 40);
+        Register.setBounds(190, 660, 150, 40);
 
         login_here.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         login_here.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         login_here.setText("Already have account? Login here.");
         getContentPane().add(login_here);
-        login_here.setBounds(160, 670, 230, 30);
+        login_here.setBounds(160, 710, 250, 30);
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/9A1EE0B2-10E5-41BE-8D1C-91C264E52440.png"))); // NOI18N
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/D9E43D18-E51D-4BE8-BAE2-2F04E264F0B3.jpeg"))); // NOI18N
         background.setText("jLabel1");
         getContentPane().add(background);
-        background.setBounds(0, 0, 1280, 1206);
+        background.setBounds(0, 0, 1370, 770);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -169,10 +229,82 @@ public class Company_Registration extends javax.swing.JFrame {
     private void CompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompanyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CompanyActionPerformed
-
+    private User_Registration userlogin;
     private void SeekerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeekerActionPerformed
-        // TODO add your handling code here:
+          if (userlogin==null){
+          userlogin =new User_Registration ();
+          userlogin.setSize(1366,768);
+      } 
+      if (userlogin.isVisible()){
+          userlogin.setVisible(false);
+      }else
+          userlogin.setVisible(true);
+          userlogin.toFront();
+        
     }//GEN-LAST:event_SeekerActionPerformed
+
+    private void pass_checkboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pass_checkboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pass_checkboxActionPerformed
+
+    private void reenter_checkboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reenter_checkboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reenter_checkboxActionPerformed
+
+    private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {
+    String companyName = user_type_Company_Name.getText();
+    String username = user_username_.getText();
+    String contact = user_type_Contact.getText();
+    String email = user_type_Email.getText();
+    String address = user_type_Address.getText();
+    String password = new String(user_type_Password.getPassword());
+    String rePassword = new String(user_type_Reenter_Password.getPassword());
+
+    if (companyName.isEmpty() || username.isEmpty() || contact.isEmpty() || email.isEmpty() || address.isEmpty() || password.isEmpty() || rePassword.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill in all fields.");
+        return;
+    }
+
+    if (!password.equals(rePassword)) {
+        JOptionPane.showMessageDialog(this, "Passwords do not match.");
+        return;
+    }
+
+    // TODO: Add password hashing before saving to DB
+
+    try {
+        String url = "jdbc:mysql://localhost:3306/yourdatabase";
+        String dbUser = "root";
+        String dbPass = "mydadaisgreat";
+
+        Connection conn = DriverManager.getConnection(url, dbUser, dbPass);
+
+        String sql = "INSERT INTO companies (company_name, username, contact_no, email, address, password) VALUES (?, ?, ?, ?, ?, ?)";
+
+        PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setString(1, companyName);
+        pst.setString(2, username);
+        pst.setString(3, contact);
+        pst.setString(4, email);
+        pst.setString(5, address);
+        pst.setString(6, password);
+
+        int inserted = pst.executeUpdate();
+
+        if (inserted > 0) {
+            JOptionPane.showMessageDialog(this, "Company registered successfully!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Registration failed.");
+        }
+
+        pst.close();
+        conn.close();
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
 
     /**
      * @param args the command line arguments
@@ -214,6 +346,8 @@ public class Company_Registration extends javax.swing.JFrame {
     private javax.swing.JPanel box;
     private javax.swing.JLabel login_here;
     private javax.swing.JLabel logo;
+    private javax.swing.JCheckBox pass_checkbox;
+    private javax.swing.JCheckBox reenter_checkbox;
     private javax.swing.JPanel underline_company;
     private javax.swing.JTextField user_type_Address;
     private javax.swing.JTextField user_type_Company_Name;
