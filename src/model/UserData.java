@@ -9,13 +9,15 @@ package model;
  * @author hp
  */
 public class UserData {
+      private int companyId;
        private String model, brand, type, colour, numberPlate, price;
        private byte[] frontImage;
        private byte[] sideImage;
 
 
-    public UserData(String model, String brand, String type,
+    public UserData(int companyId,String model, String brand, String type,
                     String colour, String numberPlate, String price,byte[] frontImage, byte[] sideImage) {
+        this.companyId=companyId;
         this.model = model;
         this.brand = brand;
         this.type = type;
@@ -26,6 +28,10 @@ public class UserData {
         this.sideImage = sideImage;
     }
 
+    public UserData() {
+        
+    }
+    public int getCompanyId() {return companyId;}
     public String getModel() { return model; }
     public String getBrand() { return brand; }
     public String getVehicletype() { return type; }
@@ -35,6 +41,7 @@ public class UserData {
     public byte[] getFrontImage() {return frontImage;}
     public byte[] getSideImage() {return sideImage;}
     
+    public void setCompanyId(int companyId) {this.companyId = companyId;}
     public void setBrand(String brand) { this.brand = brand; }
     public void setModel(String model) { this.model = model; }
     public void setVehicletype(String type) { this.type = type; }

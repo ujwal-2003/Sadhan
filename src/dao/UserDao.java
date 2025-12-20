@@ -11,53 +11,52 @@ import database.MySqlConnection;
  * @author hp
  */
 public class UserDao {
-        MySqlConnection mysql = new MySqlConnection();
+      MySqlConnection mysql = MySqlConnection.getInstance();
         
-            public boolean checkVehicle(UserData user) {
-        String sql = "SELECT * FROM vehicleDetails WHERE numberPlate = ?";
-        Connection conn = mysql.openConnection();
+      public boolean checkVehicle(String numberPlate) {
+        String sql = "SELECT 1 FROM vehicleDetails WHERE numberPlate = ?";
+        Connection conn = mysql.getConnection();
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, user.getNumberPlate());
+            ps.setString(1, numberPlate);
             ResultSet rs = ps.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            System.out.println(e);
+             e.printStackTrace();
         } finally {
             mysql.closeConnection(conn);
         }
         return false;
     }
 
-  public void requestVehicleApproval(UserData user) {
+       public boolean requestVehicleApproval(UserData user) {
              String sql = """
-            INSERT INTO vehicle_details_request
-            (model, brand, type, colour, numberPlate, price, image_front, image_side, status)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'PENDING')
+            INSERT INTO vehicleDetails
+            (company_id, model, brand, type, colour, numberPlate, price, image_front, image_side, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')
         """;
 
-        Connection conn = mysql.openConnection();
+        Connection conn = mysql.getConnection();
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, user.getModel());
-            ps.setString(2, user.getBrand());
-            ps.setString(3, user.getVehicletype());
-            ps.setString(4, user.getColour());
-            ps.setString(5, user.getNumberPlate());
-            ps.setString(6, user.getPrice());
-            ps.setBytes(7, user.getFrontImage());
-            ps.setBytes(8, user.getSideImage());
+            ps.setInt(1, user.getCompanyId());
+            ps.setString(2, user.getModel());
+            ps.setString(3, user.getBrand());
+            ps.setString(4, user.getVehicletype());
+            ps.setString(5, user.getColour());
+            ps.setString(6, user.getNumberPlate());
+            ps.setString(7, user.getPrice());
+            ps.setBytes(8, user.getFrontImage());
+            ps.setBytes(9, user.getSideImage());
 
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);
-        } finally {
-            mysql.closeConnection(conn);
-        }
+            return ps.executeUpdate() > 0; // Return inside the block
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    } finally {
+        mysql.closeConnection(conn);
     }
-
-  
- 
+       }
 }
 
 

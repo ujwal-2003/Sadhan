@@ -4,14 +4,13 @@
  */
 package UserController;
 
-import dao.UserDao;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import javax.swing.JOptionPane;
-import view.requestVehicleApproval;
 import java.io.File;
 import java.nio.file.Files;
 import model.UserData;
+import view.requestVehicleApproval;
+import dao.UserDao;
 
 
 
@@ -38,9 +37,10 @@ public class userController {
 
     private void requestVehicle() {
         try {
-            UserData user = new UserData() ;
+            UserData user = new UserData();
 
             // 1️⃣ Get text data
+            user.setCompanyId(1);
             user.setBrand(view.getBrand().getText());
             user.setModel(view.getModel().getText());
             user.setVehicletype(view.getVehicletype().getText());
@@ -51,27 +51,26 @@ public class userController {
             // 2️⃣ Get images
             File front = view.getFrontImageFile();
             File side = view.getSideImageFile();
+           
 
-            if (front == null || side == null) {
+          if (front == null || side == null) {
                 JOptionPane.showMessageDialog(view, "Please select both images");
                 return;
             }
+           user.setFrontImage(Files.readAllBytes(front.toPath()));
+           user.setSideImage(Files.readAllBytes(side.toPath()));
 
-            user.setFrontImage(Files.readAllBytes(front.toPath()));
-            user.setSideImage(Files.readAllBytes(side.toPath()));
+            // 3️⃣ Save and check result
+            boolean success = userDao.requestVehicleApproval(user);
 
-            // 3️⃣ Save as REQUEST (PENDING)
-            userDao.requestVehicleApproval(user);
-
-            JOptionPane.showMessageDialog(view,
-                    "Vehicle request sent to admin for approval");
-
-            view.dispose(); // optional: close window
+            if (success) {
+                JOptionPane.showMessageDialog(view, "Vehicle request sent successfully!");
+                view.dispose();
+            } 
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(view,
-                    "Error while sending request");
+            JOptionPane.showMessageDialog(view, "Error: " + ex.getMessage());
         }
     }
   
