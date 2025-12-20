@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import javax.swing.*;
 
 
 /**
@@ -18,7 +19,10 @@ public class companyDashboard extends javax.swing.JFrame {
      */
 
     public companyDashboard() {
+        
         initComponents();
+       
+        
     }
 
     /**
@@ -31,7 +35,7 @@ public class companyDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jlogout = new javax.swing.JButton();
-        jadd = new javax.swing.JButton();
+        addVehicle = new javax.swing.JButton();
         jhistory = new javax.swing.JButton();
         llogo = new javax.swing.JLabel();
         llogout = new javax.swing.JLabel();
@@ -45,10 +49,9 @@ public class companyDashboard extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1366, 768));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logout_box_icon_206016 (1).png"))); // NOI18N
         jlogout.addActionListener(new java.awt.event.ActionListener() {
@@ -56,17 +59,15 @@ public class companyDashboard extends javax.swing.JFrame {
                 jlogoutActionPerformed(evt);
             }
         });
-        getContentPane().add(jlogout);
-        jlogout.setBounds(1210, 20, 37, 32);
+        getContentPane().add(jlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 20, 37, -1));
 
-        jadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/addnewdocument_118445 (1).png"))); // NOI18N
-        jadd.addActionListener(new java.awt.event.ActionListener() {
+        addVehicle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/addnewdocument_118445 (1).png"))); // NOI18N
+        addVehicle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jaddActionPerformed(evt);
+                addVehicleActionPerformed(evt);
             }
         });
-        getContentPane().add(jadd);
-        jadd.setBounds(6, 134, 42, 36);
+        getContentPane().add(addVehicle, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 134, 42, 36));
 
         jhistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/history-clock-button_icon-icons.com_72701 (2).png"))); // NOI18N
         jhistory.addActionListener(new java.awt.event.ActionListener() {
@@ -74,22 +75,18 @@ public class companyDashboard extends javax.swing.JFrame {
                 jhistoryActionPerformed(evt);
             }
         });
-        getContentPane().add(jhistory);
-        jhistory.setBounds(1160, 20, 37, 32);
+        getContentPane().add(jhistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 20, 37, -1));
 
         llogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
-        getContentPane().add(llogo);
-        llogo.setBounds(6, 6, 110, 110);
+        getContentPane().add(llogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, 110));
 
         llogout.setForeground(new java.awt.Color(255, 255, 255));
         llogout.setText("logout");
-        getContentPane().add(llogout);
-        llogout.setBounds(1210, 50, 37, 16);
+        getContentPane().add(llogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 50, 37, -1));
 
         lhistory.setForeground(new java.awt.Color(255, 255, 255));
         lhistory.setText("history");
-        getContentPane().add(lhistory);
-        lhistory.setBounds(1160, 50, 37, 16);
+        getContentPane().add(lhistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 50, 37, -1));
 
         jreport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/report_document_finance_business.png"))); // NOI18N
         jreport.addActionListener(new java.awt.event.ActionListener() {
@@ -97,14 +94,13 @@ public class companyDashboard extends javax.swing.JFrame {
                 jreportActionPerformed(evt);
             }
         });
-        getContentPane().add(jreport);
-        jreport.setBounds(1110, 20, 37, 32);
+        getContentPane().add(jreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 20, 37, -1));
 
         lreport.setForeground(new java.awt.Color(255, 255, 255));
         lreport.setText("report");
-        getContentPane().add(lreport);
-        lreport.setBounds(1110, 50, 37, 16);
+        getContentPane().add(lreport, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 50, 37, -1));
 
+        jprofile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
         jprofile.setText("profile");
         jprofile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -116,22 +112,23 @@ public class companyDashboard extends javax.swing.JFrame {
                 jprofileActionPerformed(evt);
             }
         });
-        getContentPane().add(jprofile);
-        jprofile.setBounds(1260, 10, 87, 65);
+        getContentPane().add(jprofile, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 10, 87, 65));
 
         view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/view_show_icon_124811 (1).png"))); // NOI18N
-        getContentPane().add(view);
-        view.setBounds(6, 182, 42, 32);
+        view.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewActionPerformed(evt);
+            }
+        });
+        getContentPane().add(view, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 182, 42, -1));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("view");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(54, 198, 24, 16);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 198, -1, -1));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("add");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(54, 154, 37, 16);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 154, 37, -1));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("Exit");
@@ -140,25 +137,33 @@ public class companyDashboard extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(1050, 20, 51, 32);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 20, 51, 32));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/companyDashboard.png"))); // NOI18N
-        jLabel3.setText("jLabel3");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 0, 1370, 768);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+       private history historypage;
     private void jhistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jhistoryActionPerformed
         // TODO add your handling code here:
+          if (adWindow==null){
+            historypage =new history();
+            historypage.setSize(920, 680);
+            
+        }
+        if (historypage.isVisible()){
+            historypage.setVisible(false);
+        }else{
+            historypage.setVisible(true);
+            historypage.toFront();
+        }
     }//GEN-LAST:event_jhistoryActionPerformed
      private login loginpage;
     private void jlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jlogoutActionPerformed
         // TODO add your handling code here:
-         if (adWindow==null){
+         if (loginpage==null){
             loginpage =new login();
             loginpage.setSize(1366, 768);
             
@@ -171,16 +176,40 @@ public class companyDashboard extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_jlogoutActionPerformed
-
-    private void jaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jaddActionPerformed
+    private requestVehicleApproval addVehicleFrame;
+    private void addVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVehicleActionPerformed
         // TODO add your handling code here:
+         if (addVehicleFrame == null || !addVehicleFrame.isDisplayable()) {
+          addVehicleFrame = new requestVehicleApproval ();
+          addVehicleFrame.setSize(920, 650);
+          
+        }
+        
+        if (addVehicleFrame.isVisible()){
+            addVehicleFrame.setVisible(false);
+        }else{
+            addVehicleFrame.setVisible(true);
+            addVehicleFrame.toFront();
+        }
+         
         
        
         
-    }//GEN-LAST:event_jaddActionPerformed
-
+    }//GEN-LAST:event_addVehicleActionPerformed
+      private report Reportpage;
     private void jreportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jreportActionPerformed
         // TODO add your handling code here:
+            if (Reportpage==null){
+           Reportpage =new report();
+            Reportpage.setSize(920, 650);
+            
+        }
+        if (Reportpage.isVisible()){
+            Reportpage.setVisible(false);
+        }else{
+            Reportpage.setVisible(true);
+            Reportpage.toFront();
+        }
     }//GEN-LAST:event_jreportActionPerformed
 
     private void jprofileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jprofileActionPerformed
@@ -209,6 +238,22 @@ public class companyDashboard extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jprofileMouseClicked
+    private view viewwind;
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
+        // TODO add your handling code here:
+         if (viewwind==null){
+            viewwind =new view();
+            viewwind.setSize(500, 550);
+            
+        }
+        if (viewwind.isVisible()){
+            viewwind.setVisible(false);
+        }else{
+            viewwind.setVisible(true);
+            viewwind.toFront();
+        }
+        
+    }//GEN-LAST:event_viewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,11 +281,11 @@ public class companyDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addVehicle;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JButton jadd;
     private javax.swing.JButton jhistory;
     private javax.swing.JButton jlogout;
     private javax.swing.JButton jprofile;

@@ -17,6 +17,7 @@ public class adminDashboard extends javax.swing.JFrame {
      */
     public adminDashboard() {
         initComponents();
+        setExtendedState(adminDashboard.NORMAL);
     }
 
     /**
@@ -35,17 +36,15 @@ public class adminDashboard extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jprofile = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1366, 768));
         setResizable(false);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         llogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
-        getContentPane().add(llogo);
-        llogo.setBounds(6, 6, 110, 110);
+        getContentPane().add(llogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, 110));
 
         jlogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logout_box_icon_206016 (1).png"))); // NOI18N
         jlogout.addActionListener(new java.awt.event.ActionListener() {
@@ -53,8 +52,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 jlogoutActionPerformed(evt);
             }
         });
-        getContentPane().add(jlogout);
-        jlogout.setBounds(1180, 20, 37, 32);
+        getContentPane().add(jlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 20, 37, -1));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setText("Vehicle Approval Request");
@@ -64,24 +62,20 @@ public class adminDashboard extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(980, 150, 280, 40);
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 110, 280, 40));
 
         llogout.setText("logout");
-        getContentPane().add(llogout);
-        llogout.setBounds(1180, 60, 37, 16);
+        getContentPane().add(llogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 60, 37, -1));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setText("Company");
         jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jButton3);
-        jButton3.setBounds(110, 150, 280, 40);
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 280, 40));
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton4.setText("Seeker");
         jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(jButton4);
-        jButton4.setBounds(540, 150, 280, 40);
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 110, 280, 40));
 
         jprofile.setText("profile");
         jprofile.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -94,13 +88,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 jprofileActionPerformed(evt);
             }
         });
-        getContentPane().add(jprofile);
-        jprofile.setBounds(1260, 10, 87, 65);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/admindashboard.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1370, 770);
+        getContentPane().add(jprofile, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 10, 87, 65));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("Exit");
@@ -109,8 +97,10 @@ public class adminDashboard extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(1050, 20, 51, 32);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 20, 51, 32));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/admindashboard.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);

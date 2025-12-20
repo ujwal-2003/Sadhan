@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
+import database.MySqlConnection;
 /**
  *
  * @author hp
@@ -15,9 +19,46 @@ public class userDashboard extends javax.swing.JFrame {
     /**
      * Creates new form userDashboard
      */
+
     public userDashboard() {
         initComponents();
+        
+            // IMPORTANT: Grid layout for scrollable cards
+        jPanel2.setLayout(new java.awt.GridLayout(0, 4, 15, 15));
+
+        // Load vehicles from database
+        loadVehicles();
+
+        setExtendedState(userDashboard.NORMAL);
     }
+        private void loadVehicles() {
+
+        jPanel2.removeAll();
+        MySqlConnection db = new MySqlConnection();
+
+        String sql = "SELECT name, price, image FROM vehicle";
+
+        try (Connection conn = db.openConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                vehicleitems item = new vehicleitems();
+                item.setVehicleName(rs.getString("name"));
+                item.setPrice(rs.getString("price"));
+                item.setImage(rs.getString("image"));
+
+                jPanel2.add(item);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,26 +71,26 @@ public class userDashboard extends javax.swing.JFrame {
 
         llogo = new javax.swing.JLabel();
         jlogout = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         jhistory = new javax.swing.JButton();
         llogout = new javax.swing.JLabel();
         lhistory = new javax.swing.JLabel();
         jprofile = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        view = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
-        setPreferredSize(new java.awt.Dimension(1366, 768));
         setResizable(false);
         setSize(new java.awt.Dimension(1366, 768));
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         llogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
-        getContentPane().add(llogo);
-        llogo.setBounds(6, 6, 110, 110);
+        getContentPane().add(llogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, 110));
 
         jlogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logout_box_icon_206016 (1).png"))); // NOI18N
         jlogout.addActionListener(new java.awt.event.ActionListener() {
@@ -57,8 +98,11 @@ public class userDashboard extends javax.swing.JFrame {
                 jlogoutActionPerformed(evt);
             }
         });
-        getContentPane().add(jlogout);
-        jlogout.setBounds(1210, 20, 37, 32);
+        getContentPane().add(jlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 20, 37, -1));
+
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTextField1.setText("Search Vehicle");
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 900, 31));
 
         jhistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/history-clock-button_icon-icons.com_72701 (2).png"))); // NOI18N
         jhistory.addActionListener(new java.awt.event.ActionListener() {
@@ -66,18 +110,15 @@ public class userDashboard extends javax.swing.JFrame {
                 jhistoryActionPerformed(evt);
             }
         });
-        getContentPane().add(jhistory);
-        jhistory.setBounds(1160, 20, 37, 32);
+        getContentPane().add(jhistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 20, 37, -1));
 
         llogout.setForeground(new java.awt.Color(255, 255, 255));
         llogout.setText("logout");
-        getContentPane().add(llogout);
-        llogout.setBounds(1210, 60, 37, 16);
+        getContentPane().add(llogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 60, 37, -1));
 
         lhistory.setForeground(new java.awt.Color(255, 255, 255));
         lhistory.setText("history");
-        getContentPane().add(lhistory);
-        lhistory.setBounds(1160, 60, 37, 16);
+        getContentPane().add(lhistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 60, 37, -1));
 
         jprofile.setText("profile");
         jprofile.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -90,8 +131,7 @@ public class userDashboard extends javax.swing.JFrame {
                 jprofileActionPerformed(evt);
             }
         });
-        getContentPane().add(jprofile);
-        jprofile.setBounds(1260, 10, 87, 65);
+        getContentPane().add(jprofile, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 10, 87, 65));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/searchmagnifierinterfacesymbol1_79893 (1).png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -99,37 +139,22 @@ public class userDashboard extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(1110, 90, 31, 31);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 90, -1, 31));
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jTextField1.setText("Search Vehicle");
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(200, 90, 900, 31);
+        jPanel1.add(jPanel3);
 
-        view.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/view_show_icon_124811 (1).png"))); // NOI18N
-        view.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewActionPerformed(evt);
-            }
-        });
-        getContentPane().add(view);
-        view.setBounds(1290, 110, 30, 32);
+        jScrollPane2.setViewportView(jPanel1);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText(" List");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(1290, 150, 37, 16);
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 720, 330));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/userdashboard.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1370, 770);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 140, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-        private login loginpage;
+    private login loginpage;
     private void jlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jlogoutActionPerformed
         // TODO add your handling code here:
         if (loginpage==null){
@@ -156,18 +181,25 @@ public class userDashboard extends javax.swing.JFrame {
     private void jprofileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jprofileActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jprofileActionPerformed
-
+      private history historypage;
     private void jhistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jhistoryActionPerformed
         // TODO add your handling code here:
+          if (historypage==null){
+            historypage =new history();
+            historypage.setSize(920, 680);
+            
+        }
+        if (historypage.isVisible()){
+            historypage.setVisible(false);
+        }else{
+            historypage.setVisible(true);
+            historypage.toFront();
+        }
     }//GEN-LAST:event_jhistoryActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_viewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,7 +229,10 @@ public class userDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jhistory;
     private javax.swing.JButton jlogout;
@@ -205,6 +240,5 @@ public class userDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel lhistory;
     private javax.swing.JLabel llogo;
     private javax.swing.JLabel llogout;
-    private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 }
