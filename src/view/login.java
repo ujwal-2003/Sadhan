@@ -4,6 +4,7 @@
  */
 package view;
 
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import sadhan.*;
 
@@ -20,13 +21,13 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
-        Login.setEnabled(false);
+        LoginBTN.setEnabled(false);
     }
     
     public void clear(){
         Username.setText("");
         Password.setText("");
-        Login.setEnabled(false);
+        LoginBTN.setEnabled(false);
     }
 
     /**
@@ -40,11 +41,11 @@ public class login extends javax.swing.JFrame {
 
         Welcome = new javax.swing.JLabel();
         Username = new javax.swing.JTextField();
+        register = new javax.swing.JButton();
         Password = new javax.swing.JPasswordField();
-        Login = new javax.swing.JButton();
+        LoginBTN = new javax.swing.JButton();
         Back = new javax.swing.JButton();
         forgotpassword = new javax.swing.JLabel();
-        register = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
         Show_password = new javax.swing.JLabel();
         show_password_button = new javax.swing.JButton();
@@ -63,34 +64,33 @@ public class login extends javax.swing.JFrame {
         getContentPane().add(Username);
         Username.setBounds(530, 270, 269, 35);
 
+        register.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        register.setText("Don't have an account? register here!");
+        getContentPane().add(register);
+        register.setBounds(530, 520, 300, 27);
+
         Password.setText("enterpassword");
         Password.addActionListener(this::PasswordActionPerformed);
         getContentPane().add(Password);
         Password.setBounds(530, 340, 269, 35);
 
-        Login.setBackground(new java.awt.Color(51, 255, 0));
-        Login.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Login.setText("Login");
-        Login.addActionListener(this::LoginActionPerformed);
-        getContentPane().add(Login);
-        Login.setBounds(620, 470, 100, 32);
+        LoginBTN.setBackground(new java.awt.Color(51, 255, 0));
+        LoginBTN.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        LoginBTN.setText("Login");
+        LoginBTN.addActionListener(this::LoginBTNBTNActionPerformed);
+        getContentPane().add(LoginBTN);
+        LoginBTN.setBounds(620, 470, 100, 32);
 
         Back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictures/back_icon (1).png"))); // NOI18N
         Back.addActionListener(this::BackActionPerformed);
         getContentPane().add(Back);
-        Back.setBounds(840, 510, 30, 30);
+        Back.setBounds(880, 540, 30, 30);
 
         forgotpassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         forgotpassword.setForeground(new java.awt.Color(51, 51, 255));
         forgotpassword.setText("forgot password?");
         getContentPane().add(forgotpassword);
         forgotpassword.setBounds(780, 430, 130, 20);
-
-        register.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        register.setForeground(new java.awt.Color(51, 51, 255));
-        register.setText("Don't have an account? register here!");
-        getContentPane().add(register);
-        register.setBounds(540, 510, 260, 20);
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pictures/logo.png"))); // NOI18N
         getContentPane().add(logo);
@@ -123,9 +123,9 @@ public class login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BackActionPerformed
 
-    private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
+    private void LoginBTNBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginBTNBTNActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_LoginActionPerformed
+    }//GEN-LAST:event_LoginBTNBTNActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,7 +154,7 @@ public class login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
-    private javax.swing.JButton Login;
+    private javax.swing.JButton LoginBTN;
     private javax.swing.JPasswordField Password;
     private javax.swing.JLabel Show_password;
     private javax.swing.JTextField Username;
@@ -162,7 +162,22 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel background;
     private javax.swing.JLabel forgotpassword;
     private javax.swing.JLabel logo;
-    private javax.swing.JLabel register;
+    private javax.swing.JButton register;
     private javax.swing.JButton show_password_button;
     // End of variables declaration//GEN-END:variables
+
+
+    public void addLoginListener(ActionListener listener) {
+        LoginBTN.addActionListener(listener);
+    }
+
+    public javax.swing.JPasswordField getPasswordField() {
+        return Password;
+    }
+
+    public javax.swing.JTextField getUsernameField() {
+        return Username;
+    }
+
+
 }

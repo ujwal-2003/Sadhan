@@ -47,4 +47,8 @@ public class UserDao {
         }
         return false;
     }
+
+    public boolean login(UserData user) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
