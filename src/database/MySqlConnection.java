@@ -17,7 +17,7 @@ public class MySqlConnection implements Database {
     private static MySqlConnection instance;
     private Connection connection;
     
-    private MySqlConnection() {
+    public MySqlConnection() {
         // This ensures nobody can use 'new MySqlConnection()' outside this class
     }
     // 1. ADD THIS: The static getInstance method
