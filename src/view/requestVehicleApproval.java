@@ -9,9 +9,6 @@ import java.awt.Image;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import model.UserData;
-import java.nio.file.Files;
-import java.io.IOException;
 
 
  
@@ -52,10 +49,8 @@ public class requestVehicleApproval extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         colour = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        numberPlate = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         insertImage2 = new javax.swing.JButton();
-        price = new javax.swing.JTextField();
         lblImage2 = new javax.swing.JLabel();
         insertImage1 = new javax.swing.JButton();
         brand = new javax.swing.JTextField();
@@ -63,15 +58,18 @@ public class requestVehicleApproval extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         requestButton = new javax.swing.JButton();
+        numberPlate = new javax.swing.JTextField();
+        price = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
-        setPreferredSize(new java.awt.Dimension(920, 680));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(920, 520));
+        jPanel1.setMaximumSize(new java.awt.Dimension(920, 650));
+        jPanel1.setMinimumSize(new java.awt.Dimension(920, 650));
+        jPanel1.setPreferredSize(new java.awt.Dimension(920, 650));
         jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -84,31 +82,29 @@ public class requestVehicleApproval extends javax.swing.JFrame {
         jPanel1.add(jLabel3);
         jLabel3.setBounds(60, 110, 114, 20);
         jPanel1.add(model);
-        model.setBounds(180, 110, 220, 22);
+        model.setBounds(180, 110, 220, 30);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Vehicle  Type   :");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(60, 150, 110, 20);
         jPanel1.add(type);
-        type.setBounds(180, 150, 220, 22);
+        type.setBounds(180, 150, 220, 30);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Colour              :");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(60, 190, 110, 20);
         jPanel1.add(colour);
-        colour.setBounds(180, 190, 220, 22);
+        colour.setBounds(180, 190, 220, 30);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Number Plate  :");
         jPanel1.add(jLabel6);
         jLabel6.setBounds(60, 230, 110, 20);
-        jPanel1.add(numberPlate);
-        numberPlate.setBounds(180, 230, 220, 22);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setText("Price                 :");
+        jLabel7.setText("Price per day   :");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(60, 270, 110, 20);
 
@@ -123,14 +119,6 @@ public class requestVehicleApproval extends javax.swing.JFrame {
         });
         jPanel1.add(insertImage2);
         insertImage2.setBounds(640, 570, 89, 20);
-
-        price.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                priceActionPerformed(evt);
-            }
-        });
-        jPanel1.add(price);
-        price.setBounds(180, 270, 220, 22);
 
         lblImage2.setBackground(new java.awt.Color(255, 255, 255));
         lblImage2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -153,8 +141,14 @@ public class requestVehicleApproval extends javax.swing.JFrame {
         });
         jPanel1.add(insertImage1);
         insertImage1.setBounds(630, 260, 89, 20);
+
+        brand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brandActionPerformed(evt);
+            }
+        });
         jPanel1.add(brand);
-        brand.setBounds(180, 70, 220, 22);
+        brand.setBounds(180, 70, 220, 30);
 
         lblImage1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblImage1.setForeground(new java.awt.Color(255, 255, 255));
@@ -183,11 +177,21 @@ public class requestVehicleApproval extends javax.swing.JFrame {
         });
         jPanel2.add(requestButton);
         requestButton.setBounds(130, 350, 130, 24);
+        jPanel2.add(numberPlate);
+        numberPlate.setBounds(160, 220, 220, 30);
+
+        price.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                priceActionPerformed(evt);
+            }
+        });
+        jPanel2.add(price);
+        price.setBounds(160, 260, 220, 30);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(20, 10, 400, 610);
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 670));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 650));
 
         pack();
         setLocationRelativeTo(null);
@@ -259,13 +263,94 @@ private File sideImageFile;
          lblImage2.setIcon(new ImageIcon(img));
        }
     }//GEN-LAST:event_insertImage2ActionPerformed
-
-    private void requestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestButtonActionPerformed
-        // TODO add your handling code here:
-       
-
         
+    private void requestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestButtonActionPerformed
+                                                  
+    // 1. DISABLE IMMEDIATELY to prevent double-triggering
+    requestButton.setEnabled(false);
+
+    // 1. VALIDATION
+    if (brand.getText().trim().isEmpty() || model.getText().trim().isEmpty() || 
+        numberPlate.getText().trim().isEmpty() || price.getText().trim().isEmpty() || colour.getText().trim().isEmpty()||
+            type.getText().trim().isEmpty()) {
+        
+        javax.swing.JOptionPane.showMessageDialog(this, "All text fields are required!");
+        requestButton.setEnabled(true);
+        return;
+    }
+
+    if (frontImageFile == null || sideImageFile == null) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Please upload both Front and Side images!");
+        requestButton.setEnabled(true);
+        return;
+    }
+
+    String plateNumber = numberPlate.getText().trim();   
+
+    try {
+        java.sql.Connection conn = database.MySqlConnection.getInstance().getConnection();
+
+        // 2. PRE-INSERTION CHECK
+        String checkSql = "SELECT COUNT(*) FROM vehicleDetails WHERE TRIM(numberPlate) = ?";
+        try (java.sql.PreparedStatement checkPstmt = conn.prepareStatement(checkSql)) {
+            checkPstmt.setString(1, plateNumber);
+            try (java.sql.ResultSet rs = checkPstmt.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Error: Vehicle with plate " + plateNumber + " is already registered!");
+                    requestButton.setEnabled(true);
+                    return; // Exit here if duplicate found
+                }
+            }
+        }
+
+        // 3. DATABASE INSERTION
+        String sql = "INSERT INTO vehicleDetails (company_id, model, brand, type, colour, numberPlate, price, image_front, image_side, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')";
+
+        try (java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, 1); 
+            pstmt.setString(2, model.getText().trim());
+            pstmt.setString(3, brand.getText().trim());
+            pstmt.setString(4, type.getText().trim());
+            pstmt.setString(5, colour.getText().trim());
+            pstmt.setString(6, plateNumber);
+            
+            double priceValue = Double.parseDouble(price.getText().trim().replaceAll("[^0-9.]", ""));
+            pstmt.setDouble(7, priceValue);
+
+            // Process Images using Try-with-Resources to ensure they close
+            try (java.io.FileInputStream fis1 = new java.io.FileInputStream(frontImageFile);
+                 java.io.FileInputStream fis2 = new java.io.FileInputStream(sideImageFile)) {
+                
+                pstmt.setBinaryStream(8, fis1, (int) frontImageFile.length());
+                pstmt.setBinaryStream(9, fis2, (int) sideImageFile.length());
+
+                int success = pstmt.executeUpdate();
+
+                if (success > 0) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Vehicle request sent successfully!");
+                    this.dispose(); 
+                    return; // CRITICAL: Stop all execution for this event immediately
+                }
+            }
+        }
+
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Invalid price format!");
+        requestButton.setEnabled(true);
+    } catch (java.sql.SQLException | java.io.FileNotFoundException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        requestButton.setEnabled(true);
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Unexpected Error: " + e.getMessage());
+        requestButton.setEnabled(true);
+    }
+
+       
     }//GEN-LAST:event_requestButtonActionPerformed
+
+    private void brandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brandActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_brandActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,8 +376,7 @@ private File sideImageFile;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             requestVehicleApproval view =new requestVehicleApproval();
-            userController controller =new userController(view);
-            controller.open();
+            view.setVisible(true);
         });
                 
     }
