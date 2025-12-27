@@ -4,18 +4,32 @@
  */
 package view;
 import database.MySqlConnection;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author hp
  */
 public class viewvehicle_details extends javax.swing.JPanel {
-
+   
     /**
      * Creates new form viewvehicle_details
      */
+
+    private VehicleRequest parentFrame;
     public viewvehicle_details() {
         initComponents();
+    }
+    // 2. ADD THIS SETTER TO THE CLASS
+    public void setParentFrame(VehicleRequest parent) {
+        this.parentFrame = parent;
     }
     // Inside viewvehicle_details class
 public void setVehicleData(String brand, String model, String type, String color, String plate, String price, java.io.File frontImg, java.io.File sideImg) {
@@ -48,7 +62,6 @@ private void displayImage(java.io.File file, javax.swing.JLabel label) {
     label.setIcon(new javax.swing.ImageIcon(img));
     label.setText("");
 }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,37 +91,34 @@ private void displayImage(java.io.File file, javax.swing.JLabel label) {
         jButton2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(102, 204, 255));
-        setLayout(null);
+        setMaximumSize(new java.awt.Dimension(920, 650));
+        setMinimumSize(new java.awt.Dimension(920, 650));
+        setPreferredSize(new java.awt.Dimension(920, 650));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Brand               :");
-        add(jLabel1);
-        jLabel1.setBounds(60, 70, 110, 16);
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 110, 16));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("model               :  ");
-        add(jLabel3);
-        jLabel3.setBounds(60, 110, 115, 20);
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 115, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Vehicle  Type   :");
-        add(jLabel4);
-        jLabel4.setBounds(60, 150, 110, 20);
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 110, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Colour              :");
-        add(jLabel5);
-        jLabel5.setBounds(60, 190, 110, 20);
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 110, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Number Plate  :");
-        add(jLabel6);
-        jLabel6.setBounds(60, 230, 110, 20);
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 110, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Price                 :");
-        add(jLabel7);
-        jLabel7.setBounds(60, 270, 110, 20);
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 110, -1));
 
         lblImage2.setBackground(new java.awt.Color(255, 255, 255));
         lblImage2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -117,8 +127,7 @@ private void displayImage(java.io.File file, javax.swing.JLabel label) {
         lblImage2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 5, true));
         lblImage2.setMaximumSize(new java.awt.Dimension(400, 300));
         lblImage2.setPreferredSize(new java.awt.Dimension(400, 300));
-        add(lblImage2);
-        lblImage2.setBounds(470, 320, 400, 300);
+        add(lblImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 320, -1, -1));
 
         lblImage1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblImage1.setForeground(new java.awt.Color(255, 255, 255));
@@ -126,8 +135,7 @@ private void displayImage(java.io.File file, javax.swing.JLabel label) {
         lblImage1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 5, true));
         lblImage1.setMinimumSize(new java.awt.Dimension(400, 300));
         lblImage1.setPreferredSize(new java.awt.Dimension(400, 300));
-        add(lblImage1);
-        lblImage1.setBounds(470, 10, 400, 300);
+        add(lblImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, -1, -1));
 
         jPanel2.setLayout(null);
 
@@ -160,7 +168,7 @@ private void displayImage(java.io.File file, javax.swing.JLabel label) {
         jPanel2.add(jLabel13);
         jLabel13.setBounds(160, 220, 220, 16);
 
-        jButton1.setBackground(new java.awt.Color(255, 51, 0));
+        jButton1.setBackground(new java.awt.Color(255, 51, 51));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("Reject");
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -172,7 +180,7 @@ private void displayImage(java.io.File file, javax.swing.JLabel label) {
         jPanel2.add(jButton1);
         jButton1.setBounds(250, 370, 80, 30);
 
-        jButton2.setBackground(new java.awt.Color(102, 255, 102));
+        jButton2.setBackground(new java.awt.Color(51, 255, 51));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setText("Accept");
         jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -184,53 +192,90 @@ private void displayImage(java.io.File file, javax.swing.JLabel label) {
         jPanel2.add(jButton2);
         jButton2.setBounds(30, 370, 80, 30);
 
-        add(jPanel2);
-        jPanel2.setBounds(20, 10, 400, 610);
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 400, 610));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-   // 1. Get the plate from the UI
-    String plate = jLabel13.getText(); 
+      // 1. Get the plate number
+    String plate = jLabel13.getText().trim();
 
-    try {
-        // Use the imported class directly
-        java.sql.Connection conn = MySqlConnection.getInstance().getConnection();
-        String sql = "UPDATE vehicleDetails SET status = 'Approved' WHERE numberPlate = ?";
-        java.sql.PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, plate);
-        
-        int rowsUpdated = pstmt.executeUpdate();
-        
-        if (rowsUpdated > 0) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Vehicle Approved! It is now visible to customers.");
-            javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error: Vehicle not found in database.");
+    // 2. Add a Confirmation Dialog so it's not accidental
+    int response = javax.swing.JOptionPane.showConfirmDialog(this, 
+            "Are you sure you want to APPROVE this vehicle?", 
+            "Confirm Approval", 
+            javax.swing.JOptionPane.YES_NO_OPTION);
+
+    if (response == javax.swing.JOptionPane.YES_OPTION) {
+        try {
+            java.sql.Connection conn = database.MySqlConnection.getInstance().getConnection();
+            
+            // 3. Update Status
+            // Note: If your vehicleinfo list looks for 'accepted', use 'accepted' here.
+            String sql = "UPDATE vehicleDetails SET status = 'approved', rejection_reason = NULL WHERE numberPlate = ?";
+            
+            java.sql.PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, plate);
+
+            int rowsUpdated = pstmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Vehicle Approved Successfully!");
+                
+                // 4. Refresh the main list and close this window
+                refreshAndClose(); 
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error: Vehicle record not found.");
+            }
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
         }
-    } catch (java.sql.SQLException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
     }
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      int response = javax.swing.JOptionPane.showConfirmDialog(this, 
-        "Reject this vehicle?", "Confirm", javax.swing.JOptionPane.YES_NO_OPTION);
-        
-    if (response == javax.swing.JOptionPane.YES_OPTION) {
-        String plate = jLabel13.getText();
-        try {
-            java.sql.Connection conn = MySqlConnection.getInstance().getConnection();
-            String sql = "UPDATE vehicleDetails SET status = 'Rejected' WHERE numberPlate = ?";
-            java.sql.PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, plate);
-            pstmt.executeUpdate();
+       int response = JOptionPane.showConfirmDialog(this, 
+            "Are you sure you want to reject this vehicle?", "Confirm Rejection", 
+            JOptionPane.YES_NO_OPTION);
             
-            javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
-        } catch (java.sql.SQLException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        if (response == JOptionPane.YES_OPTION) {
+            String reason = JOptionPane.showInputDialog(this, "Enter reason for rejection:");
+
+            if (reason == null) return; 
+            if (reason.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "A reason is required to reject a vehicle.");
+                return;
+            }
+
+            String plate = jLabel13.getText().trim();
+            
+            try {
+                Connection conn = MySqlConnection.getInstance().getConnection();
+                String sql = "UPDATE vehicleDetails SET status = 'rejected', rejection_reason = ? WHERE numberPlate = ?";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, reason.trim());
+                pstmt.setString(2, plate);
+                
+                if (pstmt.executeUpdate() > 0) {
+                    JOptionPane.showMessageDialog(this, "Vehicle Rejected.");
+                    refreshAndClose();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage() + 
+                    "\n(Check if 'rejection_reason' column exists in your DB)");
+            }
         }
     }
+    // Helper to refresh the list and close the current window
+    private void refreshAndClose() {
+        if (parentFrame != null) {
+            // Passing empty string to load all pending requests again
+            parentFrame.loadRequests(""); 
+        }
+        // Closes the JFrame that contains this JPanel
+        SwingUtilities.getWindowAncestor(this).dispose();
+    
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
