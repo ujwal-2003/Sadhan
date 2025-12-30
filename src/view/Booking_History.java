@@ -39,13 +39,13 @@ public class Booking_History extends javax.swing.JFrame {
 
         Bookinghistory = new javax.swing.JLabel();
         customer_ = new javax.swing.JTextField();
-        search = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         loadbooking = new javax.swing.JButton();
         viewdetails = new javax.swing.JButton();
         back = new javax.swing.JButton();
         customer = new javax.swing.JLabel();
+        search1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -58,21 +58,14 @@ public class Booking_History extends javax.swing.JFrame {
         });
         getContentPane().setLayout(null);
 
-        Bookinghistory.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Bookinghistory.setFont(new java.awt.Font("High Tower Text", 1, 36)); // NOI18N
         Bookinghistory.setText("Booking History");
         getContentPane().add(Bookinghistory);
-        Bookinghistory.setBounds(360, 20, 210, 40);
+        Bookinghistory.setBounds(300, 20, 380, 60);
 
         customer_.addActionListener(this::customer_ActionPerformed);
         getContentPane().add(customer_);
         customer_.setBounds(370, 110, 120, 22);
-
-        search.setBackground(new java.awt.Color(0, 102, 51));
-        search.setForeground(new java.awt.Color(255, 255, 255));
-        search.setText("Search");
-        search.addActionListener(this::searchActionPerformed);
-        getContentPane().add(search);
-        search.setBounds(505, 110, 70, 23);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -115,41 +108,19 @@ public class Booking_History extends javax.swing.JFrame {
         getContentPane().add(customer);
         customer.setBounds(230, 110, 130, 20);
 
+        search1.setBackground(new java.awt.Color(0, 102, 51));
+        search1.setForeground(new java.awt.Color(255, 255, 255));
+        search1.setText("Search");
+        search1.addActionListener(this::search1ActionPerformed);
+        getContentPane().add(search1);
+        search1.setBounds(510, 110, 70, 23);
+
         setBounds(0, 0, 934, 658);
     }// </editor-fold>//GEN-END:initComponents
 
     private void customer_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customer_ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_customer_ActionPerformed
-
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        // TODO add your handling code here:
-        String customerName = customer_.getText().trim();
-        if (customerName.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a customer name to search");
-            return;
-        }
-
-        BookingHistoryDAO dao = new BookingHistoryDAO();
-        List<VehicleBooking> list = dao.getAllBookingHistory();
-
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-
-        for (VehicleBooking v : list) {
-            if (v.fullName.toLowerCase().contains(customerName.toLowerCase())) {
-                model.addRow(new Object[]{
-                        v.bookingId,
-                        v.fullName,
-                        v.pickupDate,
-                        v.returnDate,
-                        v.pickupLocation,
-                        v.returnLocation,
-                        v.driverOption
-                });
-            }
-        }
-    }//GEN-LAST:event_searchActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
@@ -185,6 +156,43 @@ public class Booking_History extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
 
+    private void search1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search1ActionPerformed
+        // TODO add your handling code here:
+        // 1. Get text from search field
+    String customerName = customer_.getText().trim();
+
+    // 2. Validation
+    if (customerName.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter customer name");
+        return;
+    }
+
+    // 3. Call DAO
+    BookingHistoryDAO dao = new BookingHistoryDAO();
+    List<VehicleBooking> list = dao.searchByCustomerName(customerName);
+
+    // 4. Load data into table
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0);
+
+    for (VehicleBooking v : list) {
+        model.addRow(new Object[]{
+            v.bookingId,
+            v.fullName,
+            v.pickupDate,
+            v.returnDate,
+            v.pickupLocation,
+            v.returnLocation,
+            v.driverOption
+        });
+    }
+
+    // 5. If no data found
+    if (list.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No record found");
+    }
+    }//GEN-LAST:event_search1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -218,7 +226,7 @@ public class Booking_History extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton loadbooking;
-    private javax.swing.JButton search;
+    private javax.swing.JButton search1;
     private javax.swing.JButton viewdetails;
     // End of variables declaration//GEN-END:variables
 }

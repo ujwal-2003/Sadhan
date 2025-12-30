@@ -60,13 +60,13 @@
         <Component class="javax.swing.JLabel" name="customer_details">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="MV Boli" size="18" style="1"/>
+              <Font name="Arial" size="18" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Customer Details"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="280" y="110" width="170" height="16"/>
+              <AbsoluteConstraints x="280" y="110" width="200" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -151,7 +151,7 @@
         <Component class="javax.swing.JLabel" name="booking_details">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="MV Boli" size="18" style="3"/>
+              <Font name="Arial" size="18" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Booking Details"/>
           </Properties>

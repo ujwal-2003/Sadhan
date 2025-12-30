@@ -81,10 +81,10 @@ public class Vehicle_booking_form extends javax.swing.JFrame {
         jPanel1.add(vehicle_booking_form);
         vehicle_booking_form.setBounds(520, 0, 350, 90);
 
-        customer_details.setFont(new java.awt.Font("MV Boli", 1, 18)); // NOI18N
+        customer_details.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         customer_details.setText("Customer Details");
         jPanel1.add(customer_details);
-        customer_details.setBounds(280, 110, 170, 16);
+        customer_details.setBounds(280, 110, 200, 20);
 
         full_name.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 12)); // NOI18N
         full_name.setText("Full Name");
@@ -116,7 +116,7 @@ public class Vehicle_booking_form extends javax.swing.JFrame {
         jPanel1.add(province);
         province.setBounds(750, 280, 50, 16);
 
-        booking_details.setFont(new java.awt.Font("MV Boli", 3, 18)); // NOI18N
+        booking_details.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         booking_details.setText("Booking Details");
         jPanel1.add(booking_details);
         booking_details.setBounds(260, 340, 150, 25);
