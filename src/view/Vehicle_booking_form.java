@@ -223,10 +223,10 @@ public class Vehicle_booking_form extends javax.swing.JFrame {
         ok.setBackground(new java.awt.Color(51, 153, 0));
         ok.setFont(new java.awt.Font("Broadway", 3, 14)); // NOI18N
         ok.setForeground(new java.awt.Color(204, 255, 255));
-        ok.setText("OK");
+        ok.setText("Submit");
         ok.addActionListener(this::okActionPerformed);
         jPanel1.add(ok);
-        ok.setBounds(660, 660, 72, 24);
+        ok.setBounds(620, 660, 120, 30);
 
         self_drive.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 12)); // NOI18N
         self_drive.setText("Self-Drive");
