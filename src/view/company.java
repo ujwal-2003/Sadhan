@@ -4,20 +4,125 @@
  */
 package view;
 
+import database.MySqlConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.BoxLayout;
+import javax.swing.ScrollPaneConstants;
+
 /**
  *
  * @author hp
  */
-public class view extends javax.swing.JFrame {
+public class company extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(view.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(company.class.getName());
 
     /**
      * Creates new form view
      */
-    public view() {
+    public company() {
         initComponents();
+        // 1. Layout and Scroll Settings
+    jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
+    jScrollPane1.setViewportView(jPanel2);
+    jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
+
+    // 2. Add Search Listeners
+    addSearchEvents();
+
+    // 3. AUTO-REFRESH LOGIC
+    // This triggers every time you click back onto this window
+    this.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+        @Override
+        public void windowGainedFocus(java.awt.event.WindowEvent e) {
+            // Reload only if the search bar is empty or has default text
+            String currentSearch = jTextField1.getText().trim();
+            if (currentSearch.isEmpty() || currentSearch.equals("search company")) {
+                loadCompanies("");
+            }
+        }
+        @Override
+        public void windowLostFocus(java.awt.event.WindowEvent e) {
+            // Do nothing when leaving the window
+        }
+    });
+
+    // 4. Initial load
+    loadCompanies("");
+   
     }
+    private void loadCompanies(String query) {
+        jPanel2.removeAll();
+        
+        // Search by username OR email using wildcards
+        String sql = "SELECT username, email FROM companies WHERE username LIKE ? OR email LIKE ?";
+
+        try (Connection conn = MySqlConnection.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, "%" + query + "%");
+            pstmt.setString(2, "%" + query + "%");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                companybookings item = new companybookings();
+                item.setShortData(rs.getString("username"), rs.getString("email"));
+                
+                // Align to top-left and restrict width to prevent horizontal scrolling
+                item.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+                item.setMaximumSize(new java.awt.Dimension(880, 60));
+                
+                jPanel2.add(item);
+            }
+            
+            // Push all items to the top of the container
+            jPanel2.add(javax.swing.Box.createVerticalGlue());
+
+        } catch (SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+
+    private void addSearchEvents() {
+        // Trigger search as user types
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                String query = jTextField1.getText().trim();
+                // If text is default placeholder, don't filter
+                if (query.equals("search company")) {
+                    loadCompanies("");
+                } else {
+                    loadCompanies(query);
+                }
+            }
+        });
+
+        // Clear placeholder text when user clicks the search box
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (jTextField1.getText().equals("search company")) {
+                    jTextField1.setText("");
+                }
+            }
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (jTextField1.getText().isEmpty()) {
+                    jTextField1.setText("search company");
+                }
+            }
+        });
+    }
+
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,22 +133,61 @@ public class view extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel2 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(920, 650));
+        setMinimumSize(new java.awt.Dimension(920, 650));
+        setPreferredSize(new java.awt.Dimension(920, 650));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new java.awt.GridLayout());
+        jScrollPane1.setViewportView(jPanel2);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 900, 560));
+
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextField1.setText("search company");
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 540, 30));
+
+        jPanel1.setBackground(new java.awt.Color(102, 204, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(920, 650));
+        jPanel1.setMinimumSize(new java.awt.Dimension(920, 650));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Search companies :");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addComponent(jLabel1)
+                .addContainerGap(656, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(611, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 650));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    // Manually add the KeyReleased event to jTextField1 in your IDE or here:
+     
+    
     /**
      * @param args the command line arguments
      */
@@ -66,9 +210,14 @@ public class view extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new view().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new company().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
