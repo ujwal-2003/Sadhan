@@ -212,11 +212,6 @@ public class User_Manage_Account extends javax.swing.JFrame {
         setEditable(false);
     }//GEN-LAST:event_CancelActionPerformed
 
-public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(() -> {
-        new User_Manage_Account("testuser").setVisible(true);
-    });
-}
 
     /**
      * @param args the command line arguments

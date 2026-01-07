@@ -217,11 +217,6 @@ public class Company_Manage_Account extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-public static void main(String[] args) {
-    javax.swing.SwingUtilities.invokeLater(() -> {
-        new Company_Manage_Account("test_company").setVisible(true);
-    });
-}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
