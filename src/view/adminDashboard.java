@@ -8,16 +8,24 @@ package view;
  *
  * @author hp
  */
-public class adminDashboard extends javax.swing.JFrame {
+public class AdminDashboard extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(adminDashboard.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdminDashboard.class.getName());
 
     /**
-     * Creates new form adminDashboard
+     * Creates new form AdminDashboard
      */
-    public adminDashboard() {
+    private int adminId;
+   public AdminDashboard(int adminId) {
+        this.adminId = adminId; // Save the ID for later use
         initComponents();
-        setExtendedState(adminDashboard.NORMAL);
+        setExtendedState(AdminDashboard.NORMAL);
+    }
+
+    // 3. Keep the old one if you want to prevent errors in other parts of the app
+    public AdminDashboard() {
+        initComponents();
+        setExtendedState(AdminDashboard.NORMAL);
     }
 
     /**
@@ -37,6 +45,8 @@ public class adminDashboard extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jprofile = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,7 +62,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 jlogoutActionPerformed(evt);
             }
         });
-        getContentPane().add(jlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 20, 37, -1));
+        getContentPane().add(jlogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 20, 37, -1));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setText("Vehicle Approval Request");
@@ -65,16 +75,26 @@ public class adminDashboard extends javax.swing.JFrame {
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 110, 280, 40));
 
         llogout.setText("logout");
-        getContentPane().add(llogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 60, 37, -1));
+        getContentPane().add(llogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 60, 37, -1));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setText("Company");
         jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 280, 40));
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton4.setText("Seeker");
         jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 110, 280, 40));
 
         jprofile.setText("profile");
@@ -97,7 +117,18 @@ public class adminDashboard extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 20, 51, 32));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 22, 51, 30));
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/history-clock-button_icon-icons.com_72701 (2).png"))); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 23, 50, 30));
+
+        jLabel2.setText("Bookings");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 60, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/admindashboard.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -136,42 +167,80 @@ public class adminDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
+      private admin_VehicleRequest requestpage;
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new adminDashboard().setVisible(true));
+        // 1. If the window doesn't exist or was closed, create a new one
+    if (requestpage == null || !requestpage.isDisplayable()) {
+        requestpage = new admin_VehicleRequest();
+        requestpage.setSize(920, 680);
     }
+    
+    // 2. Toggle Visibility
+    if (requestpage.isVisible()) {
+        requestpage.setVisible(false);
+    } else {
+        requestpage.setVisible(true);
+        requestpage.toFront();
+        
+
+    }
+    }//GEN-LAST:event_jButton2ActionPerformed
+     private admin_companylist companysearch;
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+   
+        if (companysearch == null) {
+            companysearch = new admin_companylist();
+            companysearch.setSize(920, 680);
+        }
+        
+        
+        
+        if (companysearch.isVisible()) {
+            companysearch.setVisible(false);
+        } else {
+            companysearch.setVisible(true);
+            companysearch.toFront();
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+        private admin_userlist seekersearch;
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+             if (seekersearch == null) {
+            seekersearch = new admin_userlist();
+            seekersearch.setSize(920, 680);
+        }
+        
+        
+        
+        if (seekersearch.isVisible()) {
+            seekersearch.setVisible(false);
+        } else {
+            seekersearch.setVisible(true);
+            seekersearch.toFront();
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+               // 1. Create the instance of the JFrame
+    view.admin_bookings bookingsWindow = new view.admin_bookings();
+    
+    // 2. Make it visible
+    bookingsWindow.setVisible(true);
+    
+    // 3. Bring it to the front in case it's hidden behind other windows
+    bookingsWindow.toFront();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jlogout;
     private javax.swing.JButton jprofile;
     private javax.swing.JLabel llogo;

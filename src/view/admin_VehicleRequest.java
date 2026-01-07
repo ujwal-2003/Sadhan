@@ -1,149 +1,129 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-import database.MySqlConnection;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.SQLException;
+import UserController.admin_VehicleRequestController;
+import model.admin_VehicleRequestModel;
+
+import javax.swing.BoxLayout;
 import javax.swing.ScrollPaneConstants;
+import java.awt.event.WindowEvent;
+
+import java.util.List;
+
+
 
 /**
  *
  * @author hp
  */
-public class VehicleRequest extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VehicleRequest.class.getName());
+public class admin_VehicleRequest extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VehicleRequest
-     */
-    public VehicleRequest() {
-        initComponents();
-        // 1. UI Layout Setup
-    jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
-    jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    private admin_VehicleRequestController controller;
+
+    public admin_VehicleRequest() {
+    initComponents();
+
+    // Controller
+    this.controller = new admin_VehicleRequestController(this);
+
+    // IMPORTANT: Only ONE layout (BoxLayout)
+    jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.Y_AXIS));
+
+    // Smooth scrolling
     jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
+    jScrollPane1.setVerticalScrollBarPolicy(
+            ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS
+    );
 
-    // 2. Initialize Events (Only once!)
     addSearchEvents();
+    setupWindowFocus();
 
-    // 3. Smart Refresh Logic
-    this.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-        @Override
-        public void windowGainedFocus(java.awt.event.WindowEvent e) {
-            String currentSearch = jTextField1.getText().trim();
-            // Ensure this string matches your jTextField1 default text exactly
-            if (currentSearch.isEmpty() || currentSearch.equals("search vehicles")) {
-                loadRequests("");
-            }
-        }
-        @Override
-        public void windowLostFocus(java.awt.event.WindowEvent e) {}
-    });
-
-    // Note: We removed the manual loadRequests("") here because 
-    // windowGainedFocus will trigger automatically when the frame opens.
-
-    }
-  public final void loadRequests(String query) {
-    jPanel2.removeAll();
-    // Use BoxLayout so items stack vertically
-    jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.Y_AXIS));
-
-    // Updated SQL to include Plate and Company ID search
-    String sql = "SELECT brand, model, numberPlate, price, company_id FROM vehicleDetails " +
-                 "WHERE status = 'pending' AND (" +
-                 "brand LIKE ? OR " +
-                 "model LIKE ? OR " +
-                 "numberPlate LIKE ? OR " +
-                 "company_id LIKE ?)";
-
-    try (Connection conn = MySqlConnection.getInstance().getConnection();
-         java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        
-        String searchPattern = "%" + query + "%";
-        // Map the searchPattern to all 4 placeholders
-        pstmt.setString(1, searchPattern);
-        pstmt.setString(2, searchPattern);
-        pstmt.setString(3, searchPattern);
-        pstmt.setString(4, searchPattern);
-        
-        ResultSet rs = pstmt.executeQuery();
-
-        while (rs.next()) {
-            String fullName = rs.getString("brand") + " " + rs.getString("model");
-            String plate = rs.getString("numberPlate");
-            String vehiclePrice = rs.getString("price");
-            String companyId = rs.getString("company_id");
-
-            addVehicleRequest(fullName, plate, vehiclePrice, companyId);
-        }
-        
-        // Push items to the top
-        jPanel2.add(javax.swing.Box.createVerticalGlue());
-
-    } catch (SQLException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-    }
-
-    jPanel2.revalidate();
-    jPanel2.repaint();
+    // PASTE IT HERE:
+    this.controller.refreshData(""); 
 }
-    // ADD THIS MISSING METHOD
-    private void addVehicleRequest(String name, String plate, String price, String companyId) {
-     
-    // 1. Instantiate your custom 'request' panel
-    view.request row = new view.request();
-    
-    // 2. Set the data inside the row
-    row.setShortData(name, plate, price, companyId);
-    
-    // 3. IMPORTANT: Pass 'this' so the row knows which frame to refresh later
-    row.setMainFrame(this);
-    
-    // 4. Add the row to your container (jPanel2)
-    jPanel2.add(row);
+     public admin_VehicleRequestController getController() {
+    return this.controller;
 }
-    
-    
- private void addSearchEvents() {
-    jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-        @Override
-        public void keyReleased(java.awt.event.KeyEvent evt) {
-            String query = jTextField1.getText().trim();
-            // Ensure this matches the text set in Design/initComponents
-            if (query.equals("search vehicles") || query.isEmpty()) {
-                loadRequests("");
-            } else {
-                loadRequests(query);
-            }
-        }
-    });
 
-    jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
-        @Override
-        public void focusGained(java.awt.event.FocusEvent evt) {
-            if (jTextField1.getText().equals("search vehicles")) {
-                jTextField1.setText("");
-            }
-        }
-        @Override
-        public void focusLost(java.awt.event.FocusEvent evt) {
-            if (jTextField1.getText().isEmpty()) {
-                jTextField1.setText("search vehicles");
-            }
-        }
-    });
-
+// Add this so the popups can trigger a refresh
+   public void loadRequests(String query) {
+      if (this.controller != null) {
+        this.controller.refreshData(query);
     }
-  
+}
+    // =========================
+    // Populate vehicle requests
+    // =========================
+    public void populateTable(java.util.List<admin_VehicleRequestModel> requests) {
+        jPanel2.removeAll();
 
+        for (admin_VehicleRequestModel req : requests) {
+            admin_vehiclerequestitems row = new admin_vehiclerequestitems();
+            row.setShortData(
+                    req.getFullName(),
+                    req.getPlate(),
+                    req.getPrice(),
+                    req.getCompanyId()
+            );
+            row.setMainFrame(this);
+            jPanel2.add(row);
+        }
 
-    
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+
+    // =========================
+    // Search field events
+    // =========================
+    private void addSearchEvents() {
+
+        // Live search
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                if (controller != null) {
+                    controller.refreshData(jTextField1.getText().trim());
+                }
+            }
+        });
+
+        // Placeholder handling
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (jTextField1.getText().equals("search vehicles")) {
+                    jTextField1.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (jTextField1.getText().isEmpty()) {
+                    jTextField1.setText("search vehicles");
+                }
+            }
+        });
+    }
+    private void setupWindowFocus() {
+        this.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(java.awt.event.WindowEvent e) {
+                if (controller != null) {
+                    String searchText = jTextField1.getText().trim();
+                    if (searchText.equals("search vehicles")) searchText = "";
+                    controller.refreshData(searchText);
+                }
+            }
+
+            @Override
+            public void windowLostFocus(java.awt.event.WindowEvent e) {
+                // Do nothing
+            }
+        });
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -161,9 +141,7 @@ public class VehicleRequest extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(920, 650));
         setMinimumSize(new java.awt.Dimension(920, 650));
-        setPreferredSize(new java.awt.Dimension(920, 650));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
@@ -178,7 +156,7 @@ public class VehicleRequest extends javax.swing.JFrame {
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane1.setViewportView(jPanel2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -226,10 +204,12 @@ public class VehicleRequest extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> new VehicleRequest().setVisible(true));
-    }
+    /**
+ * Main method to run the Vehicle Request window
+ */
 
+
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -237,5 +217,6 @@ public class VehicleRequest extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
 
 }
