@@ -3,20 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/prachisilwal/Sadhan/src/view/Company_Registration_Panel.java</file>
-            <file>file:/Users/prachisilwal/Sadhan/src/view/User_Registration_Panel.java</file>
-            <file>file:/Users/prachisilwal/Sadhan/src/model/Company.java</file>
-            <file>file:/Users/prachisilwal/Sadhan/src/dao/CompanyDao.java</file>
-            <file>file:/Users/prachisilwal/Sadhan/src/Controller/CompanyController.java</file>
-            <file>file:/Users/prachisilwal/Sadhan/src/view/RegistrationFrame.java</file>
-            <file>file:/Users/prachisilwal/Sadhan/src/dao/SeekerDao.java</file>
             <file>file:/Users/prachisilwal/Sadhan/src/view/Company_Manage_Account.java</file>
-            <file>file:/Users/prachisilwal/Sadhan/src/model/Seeker.java</file>
-            <file>file:/Users/prachisilwal/Sadhan/src/Controller/SeekerController.java</file>
-            <file>file:/Users/prachisilwal/Sadhan/src/util/RegistrationResult.java</file>
-            <file>file:/Users/prachisilwal/Sadhan/src/database/Database.java</file>
-            <file>file:/Users/prachisilwal/Sadhan/src/database/MySqlConnection.java</file>
             <file>file:/Users/prachisilwal/Sadhan/src/view/User_Manage_Account.java</file>
+            <file>file:/Users/prachisilwal/Sadhan/src/model/UserAccount.java</file>
+            <file>file:/Users/prachisilwal/Sadhan/src/dao/UserAccountDao.java</file>
+            <file>file:/Users/prachisilwal/Sadhan/src/UserController/UserAccountController.java</file>
+            <file>file:/Users/prachisilwal/Sadhan/src/UserController/CompanyAccountController.java</file>
+            <file>file:/Users/prachisilwal/Sadhan/src/UserController/SeekerController.java</file>
         </group>
     </open-files>
 </project-private>
