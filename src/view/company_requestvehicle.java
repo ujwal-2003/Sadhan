@@ -4,32 +4,34 @@
  */
 package view;
 
-import UserController.userController;
 import java.awt.Image;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-
-
- 
-
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import model.company_vehiclerequestModel;
+import UserController.company_vehiclerequestController;
 /**
  *
  * @author hp
  */
-public class requestVehicleApproval extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(requestVehicleApproval.class.getName());
+public class company_requestvehicle extends javax.swing.JFrame {
 
-    /**
-     * Creates new form addVehicle
-     */
-  
-    public requestVehicleApproval() {
+    private int companyId;
+    private File frontImageFile;
+    private File sideImageFile;
+
+    public company_requestvehicle(int companyId) {
+        this.companyId = companyId;
         initComponents();
-       
-
     }
+
+    // Default constructor for NetBeans
+    public company_requestvehicle() {
+        initComponents();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -159,6 +161,7 @@ public class requestVehicleApproval extends javax.swing.JFrame {
         jPanel1.add(lblImage1);
         lblImage1.setBounds(470, 10, 400, 300);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(null);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -201,151 +204,66 @@ public class requestVehicleApproval extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_priceActionPerformed
 
-private File frontImageFile;
-private File sideImageFile;
     private void insertImage1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertImage1ActionPerformed
-        // TODO add your handling code here:
-       
-
-        JFileChooser chooser = new JFileChooser();
-        chooser.setDialogTitle("Select Image");
-
-        // allow only image files
-       chooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
-        "Image Files", "jpg", "png", "jpeg"
-        )
-        );
-
-       int result = chooser.showOpenDialog(this);
-
-       if (result == JFileChooser.APPROVE_OPTION) {
-
-           frontImageFile = chooser.getSelectedFile();
-
-        ImageIcon icon = new ImageIcon(frontImageFile.getAbsolutePath());
-        Image img = icon.getImage().getScaledInstance(
-                lblImage1.getWidth(),
-                lblImage1.getHeight(),
-                Image.SCALE_SMOOTH
-        );
-
-         lblImage1.setIcon(new ImageIcon(img));
-       }
-
+          frontImageFile = chooseImage(lblImage1, "Select Front Image");
     }//GEN-LAST:event_insertImage1ActionPerformed
 
     private void insertImage2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertImage2ActionPerformed
-        // TODO add your handling code here:
-
-          JFileChooser chooser = new JFileChooser();
-          chooser.setDialogTitle("Select Image");
-
-        // allow only image files
-       chooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
-        "Image Files", "jpg", "png", "jpeg"
-        )
-        );
-
-       int result = chooser.showOpenDialog(this);
-
-       if (result == JFileChooser.APPROVE_OPTION) {
-
-           sideImageFile = chooser.getSelectedFile();
-
-
-        ImageIcon icon = new ImageIcon(sideImageFile.getAbsolutePath());
-        Image img =icon.getImage().getScaledInstance(
-                      lblImage2.getWidth(),
-                      lblImage2.getHeight(),
-                      Image.SCALE_SMOOTH
-              );
-
-         lblImage2.setIcon(new ImageIcon(img));
-       }
+        sideImageFile = chooseImage(lblImage2, "Select Side Image");
     }//GEN-LAST:event_insertImage2ActionPerformed
-        
+     private File chooseImage(javax.swing.JLabel label, String dialogTitle) {
+    JFileChooser chooser = new JFileChooser();
+    chooser.setDialogTitle(dialogTitle);
+    chooser.setFileFilter(
+        new javax.swing.filechooser.FileNameExtensionFilter(
+            "Image Files", "jpg", "png", "jpeg")
+    );
+
+    int result = chooser.showOpenDialog(this);
+    if (result == JFileChooser.APPROVE_OPTION) {
+        File file = chooser.getSelectedFile();
+        Image img = new ImageIcon(file.getAbsolutePath()).getImage()
+                .getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+        label.setIcon(new ImageIcon(img));
+        return file;
+    }
+    return null;
+} 
     private void requestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestButtonActionPerformed
-                                                  
-    // 1. DISABLE IMMEDIATELY to prevent double-triggering
-    requestButton.setEnabled(false);
-
-    // 1. VALIDATION
-    if (brand.getText().trim().isEmpty() || model.getText().trim().isEmpty() || 
-        numberPlate.getText().trim().isEmpty() || price.getText().trim().isEmpty() || colour.getText().trim().isEmpty()||
-            type.getText().trim().isEmpty()) {
-        
-        javax.swing.JOptionPane.showMessageDialog(this, "All text fields are required!");
-        requestButton.setEnabled(true);
-        return;
-    }
-
-    if (frontImageFile == null || sideImageFile == null) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Please upload both Front and Side images!");
-        requestButton.setEnabled(true);
-        return;
-    }
-
-    String plateNumber = numberPlate.getText().trim();   
-
-    try {
-        java.sql.Connection conn = database.MySqlConnection.getInstance().getConnection();
-
-        // 2. PRE-INSERTION CHECK
-        String checkSql = "SELECT COUNT(*) FROM vehicleDetails WHERE TRIM(numberPlate) = ?";
-        try (java.sql.PreparedStatement checkPstmt = conn.prepareStatement(checkSql)) {
-            checkPstmt.setString(1, plateNumber);
-            try (java.sql.ResultSet rs = checkPstmt.executeQuery()) {
-                if (rs.next() && rs.getInt(1) > 0) {
-                    javax.swing.JOptionPane.showMessageDialog(this, "Error: Vehicle with plate " + plateNumber + " is already registered!");
-                    requestButton.setEnabled(true);
-                    return; // Exit here if duplicate found
-                }
-            }
+        if (frontImageFile == null || sideImageFile == null) {
+            JOptionPane.showMessageDialog(this, "Please upload both images!");
+            return;
         }
 
-        // 3. DATABASE INSERTION
-        String sql = "INSERT INTO vehicleDetails (company_id, model, brand, type, colour, numberPlate, price, image_front, image_side, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')";
+        try {
+            company_vehiclerequestModel request = new company_vehiclerequestModel();
+            request.setCompanyId(companyId);
+            request.setBrand(brand.getText().trim());
+            request.setModel(model.getText().trim());
+            request.setType(type.getText().trim());
+            request.setColour(colour.getText().trim());
+            request.setNumberPlate(numberPlate.getText().trim());
+            request.setPrice(Double.parseDouble(price.getText().trim()));
+            request.setFrontImage(frontImageFile);
+            request.setSideImage(sideImageFile);
 
-        try (java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, 1); 
-            pstmt.setString(2, model.getText().trim());
-            pstmt.setString(3, brand.getText().trim());
-            pstmt.setString(4, type.getText().trim());
-            pstmt.setString(5, colour.getText().trim());
-            pstmt.setString(6, plateNumber);
-            
-            double priceValue = Double.parseDouble(price.getText().trim().replaceAll("[^0-9.]", ""));
-            pstmt.setDouble(7, priceValue);
+            company_vehiclerequestController controller =
+                    new company_vehiclerequestController();
 
-            // Process Images using Try-with-Resources to ensure they close
-            try (java.io.FileInputStream fis1 = new java.io.FileInputStream(frontImageFile);
-                 java.io.FileInputStream fis2 = new java.io.FileInputStream(sideImageFile)) {
-                
-                pstmt.setBinaryStream(8, fis1, (int) frontImageFile.length());
-                pstmt.setBinaryStream(9, fis2, (int) sideImageFile.length());
+            String result = controller.submitRequest(request);
 
-                int success = pstmt.executeUpdate();
-
-                if (success > 0) {
-                    javax.swing.JOptionPane.showMessageDialog(this, "Vehicle request sent successfully!");
-                    this.dispose(); 
-                    return; // CRITICAL: Stop all execution for this event immediately
-                }
+            if ("SUCCESS".equals(result)) {
+                JOptionPane.showMessageDialog(this, "Vehicle request sent successfully!");
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, result);
             }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid price!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
-
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Invalid price format!");
-        requestButton.setEnabled(true);
-    } catch (java.sql.SQLException | java.io.FileNotFoundException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        requestButton.setEnabled(true);
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Unexpected Error: " + e.getMessage());
-        requestButton.setEnabled(true);
-    }
-
-       
     }//GEN-LAST:event_requestButtonActionPerformed
 
     private void brandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brandActionPerformed
@@ -355,31 +273,7 @@ private File sideImageFile;
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            requestVehicleApproval view =new requestVehicleApproval();
-            view.setVisible(true);
-        });
-                
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField brand;
@@ -405,40 +299,6 @@ private File sideImageFile;
     // End of variables declaration//GEN-END:variables
 
  
-public void addUserListener(java.awt.event.ActionListener al) {
-    requestButton.addActionListener(al);
-}
-
-public javax.swing.JTextField getModel() {
-    return model;
-}
-
-public javax.swing.JTextField getBrand() {
-    return brand;
-}
-
-public javax.swing.JTextField getVehicletype() {
-    return type;
-}
-
-public javax.swing.JTextField getColour() {
-    return colour;
-}
-
-public javax.swing.JTextField getNumberPlate() {
-    return numberPlate;
-}
-
-public javax.swing.JTextField getPrice() {
-    return price;
-}
-public File getFrontImageFile() {
-    return frontImageFile;
-}
-
-public File getSideImageFile() {
-    return sideImageFile;
-}
 }
 
 

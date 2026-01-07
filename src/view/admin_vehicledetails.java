@@ -3,65 +3,57 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
-import database.MySqlConnection;
-import java.io.File;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+
+import UserController.admin_VehicleRequestController;
+import java.awt.Image;
 
 /**
  *
  * @author hp
  */
-public class viewvehicle_details extends javax.swing.JPanel {
-   
-    /**
-     * Creates new form viewvehicle_details
-     */
+public class admin_vehicledetails extends javax.swing.JPanel {
 
-    private VehicleRequest parentFrame;
-    public viewvehicle_details() {
+    private admin_VehicleRequest parentFrame;
+    private admin_VehicleRequestController controller;
+
+    public admin_vehicledetails() {
         initComponents();
     }
-    // 2. ADD THIS SETTER TO THE CLASS
-    public void setParentFrame(VehicleRequest parent) {
+
+    /** Set parent frame and controller */
+    public void setParentFrame(admin_VehicleRequest parent, admin_VehicleRequestController controller) {
         this.parentFrame = parent;
+        this.controller = controller;
     }
-    // Inside viewvehicle_details class
-public void setVehicleData(String brand, String model, String type, String color, String plate, String price, java.io.File frontImg, java.io.File sideImg) {
-    jLabel9.setText(brand);
-    jLabel10.setText(model);
-    jLabel11.setText(type);
-    jLabel12.setText(color);
-    jLabel13.setText(plate);
-    jLabel2.setText(price);
 
-    // Set Front Image
-    if (frontImg != null) {
-        displayImage(frontImg, lblImage1);
-    }
-    // Set Side Image
-    if (sideImg != null) {
-        displayImage(sideImg, lblImage2);
-    }
-}
+    /** Set vehicle details */
+    public void setVehicleData(String brand, String model, String type, String color,
+                               String plate, String price, java.io.File frontImg, java.io.File sideImg) {
+        jLabel9.setText(brand);
+        jLabel10.setText(model);
+        jLabel11.setText(type);
+        jLabel12.setText(color);
+        jLabel13.setText(plate);
+        jLabel2.setText(price);
 
-// Helper method to scale images for the admin labels
-private void displayImage(java.io.File file, javax.swing.JLabel label) {
-   javax.swing.ImageIcon icon = new javax.swing.ImageIcon(file.getAbsolutePath());
+        if (frontImg != null) displayImage(frontImg, lblImage1);
+        if (sideImg != null) displayImage(sideImg, lblImage2);
+    }
+
+    /** Display image in label with scaling */
+    private void displayImage(java.io.File file, javax.swing.JLabel label) {
+        javax.swing.ImageIcon icon = new javax.swing.ImageIcon(file.getAbsolutePath());
+        int width = label.getWidth() > 0 ? label.getWidth() : 400;
+        int height = label.getHeight() > 0 ? label.getHeight() : 300;
+        Image img = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        label.setIcon(new javax.swing.ImageIcon(img));
+        label.setText("");
+    }
+
     
-    // If width is 0, use the design width of 400
-    int width = label.getWidth() > 0 ? label.getWidth() : 400;
-    int height = label.getHeight() > 0 ? label.getHeight() : 300;
     
-    java.awt.Image img = icon.getImage().getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
-    label.setIcon(new javax.swing.ImageIcon(img));
-    label.setText("");
-}
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,6 +129,7 @@ private void displayImage(java.io.File file, javax.swing.JLabel label) {
         lblImage1.setPreferredSize(new java.awt.Dimension(400, 300));
         add(lblImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, -1, -1));
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(null);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -178,7 +171,7 @@ private void displayImage(java.io.File file, javax.swing.JLabel label) {
             }
         });
         jPanel2.add(jButton1);
-        jButton1.setBounds(250, 370, 80, 30);
+        jButton1.setBounds(280, 420, 80, 30);
 
         jButton2.setBackground(new java.awt.Color(51, 255, 51));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -190,92 +183,21 @@ private void displayImage(java.io.File file, javax.swing.JLabel label) {
             }
         });
         jPanel2.add(jButton2);
-        jButton2.setBounds(30, 370, 80, 30);
+        jButton2.setBounds(150, 420, 80, 30);
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 400, 610));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      // 1. Get the plate number
-    String plate = jLabel13.getText().trim();
-
-    // 2. Add a Confirmation Dialog so it's not accidental
-    int response = javax.swing.JOptionPane.showConfirmDialog(this, 
-            "Are you sure you want to APPROVE this vehicle?", 
-            "Confirm Approval", 
-            javax.swing.JOptionPane.YES_NO_OPTION);
-
-    if (response == javax.swing.JOptionPane.YES_OPTION) {
-        try {
-            java.sql.Connection conn = database.MySqlConnection.getInstance().getConnection();
-            
-            // 3. Update Status
-            // Note: If your vehicleinfo list looks for 'accepted', use 'accepted' here.
-            String sql = "UPDATE vehicleDetails SET status = 'approved', rejection_reason = NULL WHERE numberPlate = ?";
-            
-            java.sql.PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, plate);
-
-            int rowsUpdated = pstmt.executeUpdate();
-
-            if (rowsUpdated > 0) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Vehicle Approved Successfully!");
-                
-                // 4. Refresh the main list and close this window
-                refreshAndClose(); 
-            } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Error: Vehicle record not found.");
-            }
-        } catch (java.sql.SQLException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
-        }
+         if (controller != null && parentFrame != null) {
+        controller.approveVehicle(jLabel13.getText().trim(), parentFrame);
     }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       int response = JOptionPane.showConfirmDialog(this, 
-            "Are you sure you want to reject this vehicle?", "Confirm Rejection", 
-            JOptionPane.YES_NO_OPTION);
-            
-        if (response == JOptionPane.YES_OPTION) {
-            String reason = JOptionPane.showInputDialog(this, "Enter reason for rejection:");
-
-            if (reason == null) return; 
-            if (reason.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "A reason is required to reject a vehicle.");
-                return;
-            }
-
-            String plate = jLabel13.getText().trim();
-            
-            try {
-                Connection conn = MySqlConnection.getInstance().getConnection();
-                String sql = "UPDATE vehicleDetails SET status = 'rejected', rejection_reason = ? WHERE numberPlate = ?";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, reason.trim());
-                pstmt.setString(2, plate);
-                
-                if (pstmt.executeUpdate() > 0) {
-                    JOptionPane.showMessageDialog(this, "Vehicle Rejected.");
-                    refreshAndClose();
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage() + 
-                    "\n(Check if 'rejection_reason' column exists in your DB)");
-            }
-        }
+           if (controller != null && parentFrame != null) {
+        controller.rejectVehicle(jLabel13.getText().trim(), parentFrame);
     }
-    // Helper to refresh the list and close the current window
-    private void refreshAndClose() {
-        if (parentFrame != null) {
-            // Passing empty string to load all pending requests again
-            parentFrame.loadRequests(""); 
-        }
-        // Closes the JFrame that contains this JPanel
-        SwingUtilities.getWindowAncestor(this).dispose();
-    
-
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -299,13 +221,5 @@ private void displayImage(java.io.File file, javax.swing.JLabel label) {
     private javax.swing.JLabel lblImage1;
     private javax.swing.JLabel lblImage2;
     // End of variables declaration//GEN-END:variables
-public static void main(String[] args) {
-    javax.swing.JFrame frame = new javax.swing.JFrame();
-    frame.setContentPane(new viewvehicle_details()); // Put your panel in a window
-    frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-    frame.pack();
-    frame.setSize(920, 670);
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
-}
+
 }

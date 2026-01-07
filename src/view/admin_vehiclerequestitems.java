@@ -3,44 +3,49 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import database.MySqlConnection;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
+import UserController.admin_VehicleRequestController;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author hp
  */
-public class request extends javax.swing.JPanel {
-    // 1. ADD THIS FIELD: To hold the reference to the main list frame
-    private VehicleRequest mainFrame;
-    /**
-     * Creates new form request
-     */
-    
-    public request() {
+public class admin_vehiclerequestitems extends javax.swing.JPanel {
+
+    private admin_VehicleRequest mainFrame;
+
+    public admin_vehiclerequestitems() {
         initComponents();
-        this.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, java.awt.Color.BLACK));
-       
+        setupAppearance();
     }
-    // 2. ADD THIS SETTER: So VehicleRequest can pass itself to this row
-    public void setMainFrame(VehicleRequest frame) {
+
+    private void setupAppearance() {
+        // Bottom border separator for visual clarity between items
+        this.setBorder(
+            javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, java.awt.Color.LIGHT_GRAY)
+        );
+    }
+
+    /**
+     * Associates this item with the parent frame to access the main controller.
+     */
+    public void setMainFrame(admin_VehicleRequest frame) {
         this.mainFrame = frame;
     }
-    
+
+    /**
+     * Populates the labels with vehicle data.
+     */
     public void setShortData(String name, String plate, String priceValue, String companyId) {
-    model.setText(name);      
-    jLabel1.setText("Vec.ID :"+plate);   
-    // Appending " / Day" or " / Hr" to the price label
-    price.setText("Rs. " + priceValue + "/Day"); 
-    jLabel2.setText("Comp.ID :"+companyId);
-}
-    // 2. This is the logic for when the admin clicks "View"
+        SwingUtilities.invokeLater(() -> {
+            model.setText(name != null ? name : "Unknown Vehicle");
+            jLabel1.setText("Vec.ID : " + (plate != null ? plate : "N/A"));
+            price.setText("Rs. " + (priceValue != null ? priceValue : "0") + "/Day");
+            jLabel2.setText("Comp.ID : " + (companyId != null ? companyId : "N/A"));
+        });
+    
+
+    }
 
 
 
@@ -107,82 +112,22 @@ public class request extends javax.swing.JPanel {
     }//GEN-LAST:event_formAncestorRemoved
    
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-         String plateNumber = jLabel1.getText().replace("Vec.ID :", "").trim();
-    // 1. Fetching all details including company_id and price
-    String sql = "SELECT * FROM vehicleDetails WHERE numberPlate = ?";
-
-    try (Connection conn = MySqlConnection.getInstance().getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+       // 1. Extract the plate number from the label accurately
+        String plateLabel = jLabel1.getText();
+        if (!plateLabel.contains("Vec.ID :")) return;
         
-        pstmt.setString(1, plateNumber);
-        ResultSet rs = pstmt.executeQuery();
-
-        if (rs.next()) {
-            // Create the detail panel instance
-            viewvehicle_details detailsPanel = new viewvehicle_details();
-            
-            // 2. IMPORTANT: Pass the mainFrame reference to the details panel
-            // This allows the details panel to call loadRequestsFromDB() later
-            detailsPanel.setParentFrame(this.mainFrame);
-            
-            // Convert BLOBs to temporary files for display
-            File frontImg = saveBlobToTempFile(rs.getBlob("image_front"), "front_" + plateNumber);
-            File sideImg = saveBlobToTempFile(rs.getBlob("image_side"), "side_" + plateNumber);
-
-            // 2. Format the price and company ID display
-            String formattedPrice = "Rs. " + rs.getString("price") + "/Day";
-            String companyInfo = rs.getString("company_id"); // Ensure this column exists in DB
-
-            // 3. Pass data to detailsPanel
-            // NOTE: If you want to show Company ID in the big window, 
-            // you should update the setVehicleData method in viewvehicle_details.java too!
-            detailsPanel.setVehicleData(
-                rs.getString("brand"),
-                rs.getString("model"),
-                rs.getString("type"),
-                rs.getString("colour"),
-                plateNumber,
-                formattedPrice,
-                frontImg,
-                sideImg
-            );
-
-            // 4. Setup and Show the Window
-            javax.swing.JFrame detailWindow = new javax.swing.JFrame("Review Vehicle: " + plateNumber + " (ID: " + companyInfo + ")");
-            detailWindow.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
-            detailWindow.add(detailsPanel);
-            detailWindow.pack();
-            detailWindow.setSize(940, 700);
-            detailWindow.setLocationRelativeTo(null);
-            detailWindow.setVisible(true);
-        }
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error fetching full details: " + e.getMessage());
-    }
-    } // <--- THIS BRACE CLOSES viewActionPerformed
-
-    // This method MUST be outside of viewActionPerformed
-    private File saveBlobToTempFile(java.sql.Blob blob, String prefix) throws Exception {
-        if (blob == null) return null;
+        String plateNumber = plateLabel.replace("Vec.ID :", "").trim();
         
-        File tempFile = File.createTempFile(prefix, ".jpg");
-        tempFile.deleteOnExit(); 
-        
-        // Correct Try-with-resources syntax
-        try (InputStream is = blob.getBinaryStream();
-             FileOutputStream fos = new FileOutputStream(tempFile)) {
-            
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = is.read(buffer)) != -1) {
-                fos.write(buffer, 0, bytesRead);
+        // 2. Delegate the detail view logic to the existing main controller
+        if (mainFrame != null) {
+            admin_VehicleRequestController controller = mainFrame.getController();
+            if (controller != null) {
+                controller.handleViewDetails(plateNumber, mainFrame);
             }
-        } 
-        return tempFile;
-       
-    
-        
-        
+        } else {
+            java.util.logging.Logger.getLogger(admin_vehiclerequestitems.class.getName())
+                .log(java.util.logging.Level.SEVERE, "Parent frame reference is missing.");
+        }
     
     }//GEN-LAST:event_viewActionPerformed
 
@@ -194,13 +139,5 @@ public class request extends javax.swing.JPanel {
     private javax.swing.JLabel price;
     private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
-public static void main(String[] args) {
-    javax.swing.JFrame frame = new javax.swing.JFrame();
-    frame.add(new request()); // Add your panel to a new window
-    frame.pack();
-    frame.setSize(800, 100); // Give it a small size since it's a list item
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
-    
-}
+
 }
