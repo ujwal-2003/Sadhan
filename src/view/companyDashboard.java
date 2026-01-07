@@ -291,10 +291,10 @@ public class CompanyDashboard extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_jlogoutActionPerformed
-    private requestVehicleApproval addVehicleFrame;
+    private company_requestvehicle addVehicleFrame;
     private void addVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVehicleActionPerformed
         if (addVehicleFrame == null || !addVehicleFrame.isDisplayable()) {
-            addVehicleFrame = new requestVehicleApproval(this.companyId); 
+            addVehicleFrame = new company_requestvehicle(this.companyId); 
             addVehicleFrame.setSize(920, 680);
         }
 
@@ -326,12 +326,12 @@ public class CompanyDashboard extends javax.swing.JFrame {
       
 
     }//GEN-LAST:event_jprofileMouseClicked
-    private vechicleStatus viewwind;
+    private company_vehicleStatuslist viewwind;
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
        // FIX: Pass 'this.companyId' so this window only shows 
         // vehicles belonging to THIS company.
         if (viewwind == null || !viewwind.isDisplayable()) {
-            viewwind = new vechicleStatus(this.companyId); 
+            viewwind = new company_vehicleStatuslist(this.companyId); 
             viewwind.setSize(1000, 680);
         }
         
@@ -345,7 +345,7 @@ public class CompanyDashboard extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Pass the ID so the window knows WHICH company's requests to show
-         bookingmanagement bookingWindow = new bookingmanagement(this.companyId);
+         company_bookingmanagementlist bookingWindow = new company_bookingmanagementlist(this.companyId);
         bookingWindow.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 

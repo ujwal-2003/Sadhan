@@ -53,7 +53,7 @@ public class UserDashboard extends javax.swing.JFrame {
         items_container.setLayout(new GridLayout(0, 5, 20, 20));
 
         for (UserDashboardModel v : vehicles) {
-            vehicleitems item = new vehicleitems();
+            User_vehicleicon item = new User_vehicleicon();
             
             // Map Model data to the UI Component
             item.setLoggedInUserId(this.loggedInUserId);
@@ -80,7 +80,7 @@ public class UserDashboard extends javax.swing.JFrame {
     }
 
     public void showBookingPopup(UserDashboardModel vehicle, File frontImg, File sideImg) {
-        booknow detailsPanel = new booknow();
+        User_vehiclebooknow detailsPanel = new User_vehiclebooknow();
         detailsPanel.setLoggedInUserId(this.loggedInUserId);
         detailsPanel.setParentFrame(this);
         
