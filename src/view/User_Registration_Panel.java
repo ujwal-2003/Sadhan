@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
-import Controller.SeekerController;
+import UserController.SeekerController;
 import util.RegistrationResult;
 
 
@@ -92,7 +92,7 @@ public class User_Registration_Panel extends javax.swing.JPanel {
         Seeker.setBounds(340, 80, 160, 45);
 
         Full_Name.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        Full_Name.setText("Company Name      :");
+        Full_Name.setText("Full Name               : ");
         box.add(Full_Name);
         Full_Name.setBounds(30, 140, 140, 35);
 

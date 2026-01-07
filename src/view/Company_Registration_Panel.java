@@ -4,7 +4,7 @@
  */
 package view;
 
-import Controller.CompanyController;
+import UserController.CompanyController;
 import util.RegistrationResult;
 
 /**

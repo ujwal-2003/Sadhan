@@ -4,20 +4,55 @@
  */
 package view;
 
+import UserController.CompanyAccountController;
+import model.CompanyAccount;
+import javax.swing.JOptionPane;
 /**
  *
  * @author prachisilwal
  */
 public class Company_Manage_Account extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Company_Manage_Account.class.getName());
+    private final CompanyAccountController controller = new CompanyAccountController();
+    private String loggedInCompany;
+    private boolean editing = false;
+
+    private String originalCompanyName, originalContact, originalEmail, originalAddress;
 
     /**
      * Creates new form Company_Manage_Account
      */
-    public Company_Manage_Account() {
+    public Company_Manage_Account(String username) {
         initComponents();
+        loggedInCompany = username;
+
+        user_username_.setText(username);
+        user_username_.setEditable(false);
+
+        setEditable(false);
+        Cancel.setVisible(false);
+
+        loadCompanyData();
+        setVisible(true);
     }
+
+    private void loadCompanyData() {
+        CompanyAccount company = controller.load(loggedInCompany);
+
+    if (company != null) {
+        user_type_Full_Name.setText(company.getCompanyName());
+        user_type_contact.setText(company.getContact());
+        user_type_Email.setText(company.getEmail());
+        user_type_Address.setText(company.getAddress());
+    } else {
+        JOptionPane.showMessageDialog(this, "Unable to load company data");
+    }
+}
+    private void setEditable(boolean value) {
+    user_type_Full_Name.setEditable(value);
+    user_type_contact.setEditable(value);
+    user_type_Email.setEditable(value);
+    user_type_Address.setEditable(value);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,7 +76,6 @@ public class Company_Manage_Account extends javax.swing.JFrame {
         Address = new javax.swing.JLabel();
         user_type_Address = new javax.swing.JTextField();
         Update_Profile = new javax.swing.JButton();
-        Change_Password = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
         Logout = new javax.swing.JButton();
 
@@ -101,26 +135,20 @@ public class Company_Manage_Account extends javax.swing.JFrame {
         Update_Profile.setText("Update Profile");
         Update_Profile.addActionListener(this::Update_ProfileActionPerformed);
         box.add(Update_Profile);
-        Update_Profile.setBounds(20, 410, 200, 40);
-
-        Change_Password.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        Change_Password.setText("Change Password");
-        Change_Password.addActionListener(this::Change_PasswordActionPerformed);
-        box.add(Change_Password);
-        Change_Password.setBounds(280, 410, 200, 40);
+        Update_Profile.setBounds(150, 410, 190, 50);
 
         Cancel.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         Cancel.setText("Cancel");
         Cancel.addActionListener(this::CancelActionPerformed);
         box.add(Cancel);
-        Cancel.setBounds(170, 455, 150, 32);
+        Cancel.setBounds(170, 465, 150, 30);
 
         Logout.setBackground(new java.awt.Color(43, 219, 43));
         Logout.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         Logout.setText("Logout");
         Logout.addActionListener(this::LogoutActionPerformed);
         box.add(Logout);
-        Logout.setBounds(170, 490, 150, 40);
+        Logout.setBounds(170, 500, 150, 40);
 
         getContentPane().add(box);
         box.setBounds(0, 0, 500, 550);
@@ -138,63 +166,40 @@ public class Company_Manage_Account extends javax.swing.JFrame {
 
     private void Update_ProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Update_ProfileActionPerformed
         if (!editing) {
-            // Switch to edit mode
-            editing = true;
-            Update_Profile.setText("Save");
-            Cancel.setVisible(true);
+        editing = true;
+        Update_Profile.setText("Save");
+        Cancel.setVisible(true);
 
-            // Store original values for cancel
-            originalFullName = user_type_Full_Name.getText();
-            originalContact = user_type_contact.getText();
-            originalEmail = user_type_Email.getText();
-            originalAddress = user_type_Address.getText();
+        originalCompanyName = user_type_Full_Name.getText();
+        originalContact = user_type_contact.getText();
+        originalEmail = user_type_Email.getText();
+        originalAddress = user_type_Address.getText();
 
-            user_type_Full_Name.setEditable(true);
-            user_type_contact.setEditable(true);
-            user_type_Email.setEditable(true);
-            user_type_Address.setEditable(true);
+        setEditable(true);
+        return;
+    }
 
-            javax.swing.JOptionPane.showMessageDialog(this, "You can now edit your profile.");
-            return;
-        }
+    CompanyAccount company = new CompanyAccount();
+    company.setCompanyUsername(loggedInCompany);
+    company.setCompanyName(user_type_Full_Name.getText().trim());
+    company.setContact(user_type_contact.getText().trim());
+    company.setEmail(user_type_Email.getText().trim());
+    company.setAddress(user_type_Address.getText().trim());
 
-        // SAVE MODE
-        String fullName = user_type_Full_Name.getText().trim();
-        String contact = user_type_contact.getText().trim();
-        String email = user_type_Email.getText().trim();
-        String address = user_type_Address.getText().trim();
-        String username = user_username_.getText().trim();
+    var result = controller.update(company);
 
-        if (fullName.isEmpty() || contact.isEmpty() || email.isEmpty() || address.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Please fill all the fields.");
-            return;
-        }
+    JOptionPane.showMessageDialog(this, result.getMessage());
 
-        boolean updated = updateUserProfileInDB(username, fullName, contact, email, address);
-
-        if (updated) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Profile updated successfully!");
-            editing = false;
-            Update_Profile.setText("Update Profile");
-            Cancel.setVisible(false);
-
-            user_type_Full_Name.setEditable(false);
-            user_type_contact.setEditable(false);
-            user_type_Email.setEditable(false);
-            user_type_Address.setEditable(false);
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Failed to update profile. Please try again.");
-        }
+    if (result.isSuccess()) {
+        editing = false;
+        Update_Profile.setText("Update Profile");
+        Cancel.setVisible(false);
+        setEditable(false);
+    }
     }//GEN-LAST:event_Update_ProfileActionPerformed
 
-    private void Change_PasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Change_PasswordActionPerformed
-        User_ChangePassword dialog = new User_ChangePassword(this, true);
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
-    }//GEN-LAST:event_Change_PasswordActionPerformed
-
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
-        user_type_Full_Name.setText(originalFullName);
+        user_type_Full_Name.setText(originalCompanyName);
         user_type_contact.setText(originalContact);
         user_type_Email.setText(originalEmail);
         user_type_Address.setText(originalAddress);
@@ -202,46 +207,26 @@ public class Company_Manage_Account extends javax.swing.JFrame {
         editing = false;
         Update_Profile.setText("Update Profile");
         Cancel.setVisible(false);
-
-        user_type_Full_Name.setEditable(false);
-        user_type_contact.setEditable(false);
-        user_type_Email.setEditable(false);
-        user_type_Address.setEditable(false);
+        setEditable(false);
     }//GEN-LAST:event_CancelActionPerformed
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
-        this.dispose(); // Close current window
+        this.dispose();
     }//GEN-LAST:event_LogoutActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+public static void main(String[] args) {
+    javax.swing.SwingUtilities.invokeLater(() -> {
+        new Company_Manage_Account("test_company").setVisible(true);
+    });
+}
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Company_Manage_Account().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Address;
     private javax.swing.JButton Cancel;
-    private javax.swing.JButton Change_Password;
     private javax.swing.JLabel Company_Name;
     private javax.swing.JLabel Contact;
     private javax.swing.JLabel Email;
@@ -256,4 +241,5 @@ public class Company_Manage_Account extends javax.swing.JFrame {
     private javax.swing.JTextField user_username_;
     private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
+
 }
