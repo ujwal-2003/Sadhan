@@ -6,6 +6,9 @@ package dao;
 
 import model.Company;
 import java.sql.*;
+import util.RegistrationResult; 
+import java.sql.*;
+import database.MySqlConnection;
 
 /**
  *
@@ -13,31 +16,57 @@ import java.sql.*;
  */
 public class CompanyDao {
 
-    private String url = "jdbc:mysql://localhost:3306/yourdatabase";
-    private String dbUser = "root";
-    private String dbPass = "mydadaisgreat";
+    // 1. Save Company (Registration)
+    public RegistrationResult saveCompany(String name, String user, String contact, 
+                                          String email, String address, String pass, 
+                                          String security, byte[] qrData) {
+        
+        String sql = "INSERT INTO companies (company_name, username, contact_no, email, address, password, security_question_answer, qr_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        try (Connection conn = MySqlConnection.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, name);
+            pstmt.setString(2, user);
+            pstmt.setString(3, contact);
+            pstmt.setString(4, email);
+            pstmt.setString(5, address);
+            pstmt.setString(6, pass);
+            pstmt.setString(7, security);
+            
+            if (qrData != null) {
+                pstmt.setBytes(8, qrData); 
+            } else {
+                pstmt.setNull(8, java.sql.Types.LONGVARBINARY);
+            }
+            
+            int rows = pstmt.executeUpdate();
+            return rows > 0 ? new RegistrationResult(true, "Success") : new RegistrationResult(false, "Failed");
+            
+        } catch (SQLException e) {
+            return new RegistrationResult(false, "DB Error: " + e.getMessage());
+        }
+    }
 
-public boolean registerCompany(Company company) throws SQLException {
-    try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-
-        String sql = "INSERT INTO companies (company_name, username, contact_no, email, address, password, security_question_answer) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPass);
+    // 2. Login Company
+    public int loginCompany(String username, String password) throws SQLException {
+        String sql = "SELECT id FROM companies WHERE username = ? AND password = ?";
+        
+        // Using the Singleton connection here too for consistency
+        try (Connection conn = MySqlConnection.getInstance().getConnection();
              PreparedStatement pst = conn.prepareStatement(sql)) {
-
-            pst.setString(1, company.getName());
-            pst.setString(2, company.getUsername());
-            pst.setString(3, company.getContact());
-            pst.setString(4, company.getEmail());
-            pst.setString(5, company.getAddress());
-            pst.setString(6, company.getPassword());
-            pst.setString(7, company.getSecurityAnswer());
-
-            return pst.executeUpdate() > 0;
+            
+            pst.setString(1, username);
+            pst.setString(2, password);
+            
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id"); 
+                }
+            }
+        } catch (Exception e) {
+            throw new SQLException("Login Query Failed", e);
         }
-    } catch (ClassNotFoundException e) {
-        throw new SQLException("MySQL Driver not found", e);
-        }
+        return -1; 
     }
 }
