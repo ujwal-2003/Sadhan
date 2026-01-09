@@ -1,6 +1,4 @@
-user_registration.form
-company_registration.form
 nbproject/private/
 /build/
-
-nbproject/private/
+dist/
+.DS_Store
