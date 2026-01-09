@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
-import UserController.SeekerController;
+import UserController.seekerRegisterController;
 import util.RegistrationResult;
+import javax.swing.ImageIcon;
+import java.net.URL;
 
 
 /**
@@ -16,10 +18,42 @@ public class User_Registration_Panel extends javax.swing.JPanel {
     /**
      * Creates new form Registration
      */
+    private seekerRegisterController controller = new seekerRegisterController();
     public User_Registration_Panel() {
         initComponents();
-        Login_here.addActionListener(e -> LoginHereActionPerformed());
+        loadImagesSafely();
+        
+        // --- UI Initial State for Seeker Panel ---
+        Company.setEnabled(true);
+        Seeker.setEnabled(false); // Disable Seeker because we are already on this panel
+        
+        // Position underline under "Seeker" button (X=340)
+        underline_company.setBounds(340, 120, 160, 4);
     }
+    private void loadImagesSafely() {
+        try {
+            // Using the path from your Company panel for consistency
+            URL logoUrl = getClass().getResource("/images/Sadhan Logo.jpeg");
+            URL bgUrl = getClass().getResource("/images/bg picture (1).jpeg");
+            if (logoUrl != null) logo.setIcon(new ImageIcon(logoUrl));
+            if (bgUrl != null) background.setIcon(new ImageIcon(bgUrl));
+        } catch (Exception e) {
+            System.err.println("Error loading images: " + e.getMessage());
+        }
+    }
+   private void clearFields() {
+        user_type_Company_Name.setText(""); // Acts as "Full Name"
+        user_username_.setText("");
+        user_type_Contact.setText("");
+        user_type_Email.setText("");
+        user_type_Address.setText("");
+        user_type_Password.setText("");
+        user_type_Reenter_Password.setText("");
+        user_type_Security_Question.setText("");
+        pass_checkbox.setSelected(false);
+        reenter_checkbox.setSelected(false);
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,11 +66,11 @@ public class User_Registration_Panel extends javax.swing.JPanel {
 
         box = new javax.swing.JPanel();
         Heading = new javax.swing.JLabel();
+        underline_company = new javax.swing.JPanel();
         Company = new javax.swing.JButton();
-        underline_seeker = new javax.swing.JPanel();
         Seeker = new javax.swing.JButton();
-        Full_Name = new javax.swing.JLabel();
-        user_type_Full_Name = new javax.swing.JTextField();
+        Company_Name = new javax.swing.JLabel();
+        user_type_Company_Name = new javax.swing.JTextField();
         username = new javax.swing.JLabel();
         user_username_ = new javax.swing.JTextField();
         Contact = new javax.swing.JLabel();
@@ -54,11 +88,13 @@ public class User_Registration_Panel extends javax.swing.JPanel {
         Security_Question = new javax.swing.JLabel();
         user_type_Security_Question = new javax.swing.JTextField();
         Register = new javax.swing.JButton();
-        Account = new javax.swing.JLabel();
         Login_here = new javax.swing.JButton();
         logo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
+        setMaximumSize(new java.awt.Dimension(1366, 768));
+        setMinimumSize(new java.awt.Dimension(1366, 768));
+        setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         box.setBackground(new java.awt.Color(57, 174, 221));
@@ -72,17 +108,17 @@ public class User_Registration_Panel extends javax.swing.JPanel {
         box.add(Heading);
         Heading.setBounds(80, 10, 400, 50);
 
+        underline_company.setBackground(new java.awt.Color(0, 0, 0));
+        underline_company.setMinimumSize(new java.awt.Dimension(10, 3));
+        box.add(underline_company);
+        underline_company.setBounds(340, 120, 160, 4);
+
         Company.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         Company.setText("Company");
         Company.setIconTextGap(5);
         Company.addActionListener(this::CompanyActionPerformed);
         box.add(Company);
         Company.setBounds(40, 80, 160, 45);
-
-        underline_seeker.setBackground(new java.awt.Color(0, 0, 0));
-        underline_seeker.setMinimumSize(new java.awt.Dimension(10, 3));
-        box.add(underline_seeker);
-        underline_seeker.setBounds(340, 120, 160, 4);
 
         Seeker.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         Seeker.setText("Seeker");
@@ -91,14 +127,14 @@ public class User_Registration_Panel extends javax.swing.JPanel {
         box.add(Seeker);
         Seeker.setBounds(340, 80, 160, 45);
 
-        Full_Name.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        Full_Name.setText("Full Name               : ");
-        box.add(Full_Name);
-        Full_Name.setBounds(30, 140, 140, 35);
+        Company_Name.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        Company_Name.setText("Full Name                :");
+        box.add(Company_Name);
+        Company_Name.setBounds(30, 140, 140, 35);
 
-        user_type_Full_Name.addActionListener(this::user_type_Full_NameActionPerformed);
-        box.add(user_type_Full_Name);
-        user_type_Full_Name.setBounds(180, 140, 340, 35);
+        user_type_Company_Name.addActionListener(this::user_type_Company_NameActionPerformed);
+        box.add(user_type_Company_Name);
+        user_type_Company_Name.setBounds(180, 140, 340, 35);
 
         username.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         username.setText("username_              :");
@@ -107,7 +143,7 @@ public class User_Registration_Panel extends javax.swing.JPanel {
         box.add(user_username_);
         user_username_.setBounds(180, 200, 340, 35);
 
-        Contact.setText("Contact no.               :");
+        Contact.setText("Contact no.                     :");
         box.add(Contact);
         Contact.setBounds(30, 260, 140, 35);
         box.add(user_type_Contact);
@@ -159,49 +195,45 @@ public class User_Registration_Panel extends javax.swing.JPanel {
         user_type_Security_Question.setBounds(180, 580, 340, 35);
 
         Register.setBackground(new java.awt.Color(43, 219, 43));
-        Register.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        Register.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         Register.setText("Register");
         Register.addActionListener(this::RegisterActionPerformed);
         box.add(Register);
-        Register.setBounds(180, 630, 190, 45);
+        Register.setBounds(250, 630, 110, 30);
 
-        Account.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        Account.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Account.setText("Already have account?");
-        box.add(Account);
-        Account.setBounds(180, 680, 190, 30);
-
-        Login_here.setBackground(new java.awt.Color(102, 204, 255));
-        Login_here.setText("Login here.");
+        Login_here.setText("already have an account ?, login here !");
+        Login_here.addActionListener(this::Login_hereActionPerformed);
         box.add(Login_here);
-        Login_here.setBounds(220, 710, 100, 25);
+        Login_here.setBounds(180, 680, 250, 30);
 
-        add(box, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 550, 750));
+        add(box, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 550, 740));
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/98159746-5A93-446F-97EE-9D6082B19BC5_4_5005_c.jpeg"))); // NOI18N
-        add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 120));
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 110));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/User Registration image.png"))); // NOI18N
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/WhatsApp Image 2025-12-30 at 11.14.16 PM.jpeg"))); // NOI18N
         background.setText("jLabel1");
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 770));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompanyActionPerformed
-        RegistrationFrame frame =
-        (RegistrationFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
-
-    if (frame != null) {
-        frame.showCard("company");
-    }
-    }//GEN-LAST:event_CompanyActionPerformed
-
     private void SeekerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeekerActionPerformed
+          // 1. Change Label Text
+    Company_Name.setText("Full Name             :");
     
+    // 2. Update Button States
+    Seeker.setEnabled(false); // Disable Seeker (it's now active)
+    Company.setEnabled(true); // Enable Company
+    
+    // 3. Move the Underline (visual indicator)
+    underline_company.setBounds(Seeker.getX(), underline_company.getY(), Seeker.getWidth(), 4);
+    
+    // 4. Optional: Clear fields when switching types
+    clearFields();
     }//GEN-LAST:event_SeekerActionPerformed
 
-    private void user_type_Full_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_type_Full_NameActionPerformed
+    private void user_type_Company_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_type_Company_NameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_user_type_Full_NameActionPerformed
+    }//GEN-LAST:event_user_type_Company_NameActionPerformed
 
     private void pass_checkboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pass_checkboxActionPerformed
         if (pass_checkbox.isSelected()) {
@@ -224,37 +256,64 @@ public class User_Registration_Panel extends javax.swing.JPanel {
     }//GEN-LAST:event_user_type_Security_QuestionActionPerformed
 
     private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
-    SeekerController controller = new SeekerController();
+     String fullName = user_type_Company_Name.getText().trim(); 
+        String usernameText = user_username_.getText().trim();
+        String contact = user_type_Contact.getText().trim();
+        String email = user_type_Email.getText().trim();
+        String address = user_type_Address.getText().trim();
+        String password = new String(user_type_Password.getPassword());
+        String confirmPassword = new String(user_type_Reenter_Password.getPassword());
+        String securityAnswer = user_type_Security_Question.getText().trim();
 
-    RegistrationResult result = controller.registerSeeker(
-            user_type_Full_Name.getText(),
-            user_username_.getText(),
-            user_type_Contact.getText(),
-            user_type_Email.getText(),
-            user_type_Address.getText(),
-            new String(user_type_Password.getPassword()),
-            new String(user_type_Reenter_Password.getPassword()),
-            user_type_Security_Question.getText()
-    );
+        if (fullName.isEmpty() || usernameText.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please fill in all required fields.");
+            return;
+        }
 
-    javax.swing.JOptionPane.showMessageDialog(this, result.getMessage());
-   
+        RegistrationResult result = controller.registerSeeker(
+                fullName, usernameText, contact, email, address, 
+                password, confirmPassword, securityAnswer
+        );
+
+        if (result.isSuccess()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Account Created Successfully!");
+            clearFields();
+            
+            // Redirect to Login standalone window
+            new view.login().setVisible(true);
+            java.awt.Window currentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+            if (currentWindow != null) currentWindow.dispose();
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, result.getMessage(), "Registration Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    
+    
     }//GEN-LAST:event_RegisterActionPerformed
-  private void LoginHereActionPerformed() {
-    RegistrationFrame frame =
-        (RegistrationFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
 
-    if (frame != null) {
-        frame.showCard("login");
-    }
-}
+    private void Login_hereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login_hereActionPerformed
+      new view.login().setVisible(true);
+        java.awt.Window currentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (currentWindow != null) currentWindow.dispose();
+    
+    }//GEN-LAST:event_Login_hereActionPerformed
+
+    private void CompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompanyActionPerformed
+      java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (parentWindow instanceof RegistrationFrame) {
+            RegistrationFrame frame = (RegistrationFrame) parentWindow;
+            frame.showCard("company"); // Switch to the Company card
+            clearFields(); // Clean up seeker fields before leaving
+        }
+    }//GEN-LAST:event_CompanyActionPerformed
+  
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Account;
     private javax.swing.JLabel Address;
     private javax.swing.JButton Company;
+    private javax.swing.JLabel Company_Name;
     private javax.swing.JLabel Contact;
     private javax.swing.JLabel Email;
-    private javax.swing.JLabel Full_Name;
     private javax.swing.JLabel Heading;
     private javax.swing.JButton Login_here;
     private javax.swing.JLabel Password;
@@ -267,11 +326,11 @@ public class User_Registration_Panel extends javax.swing.JPanel {
     private javax.swing.JLabel logo;
     private javax.swing.JCheckBox pass_checkbox;
     private javax.swing.JCheckBox reenter_checkbox;
-    private javax.swing.JPanel underline_seeker;
+    private javax.swing.JPanel underline_company;
     private javax.swing.JTextField user_type_Address;
+    private javax.swing.JTextField user_type_Company_Name;
     private javax.swing.JTextField user_type_Contact;
     private javax.swing.JTextField user_type_Email;
-    private javax.swing.JTextField user_type_Full_Name;
     private javax.swing.JPasswordField user_type_Password;
     private javax.swing.JPasswordField user_type_Reenter_Password;
     private javax.swing.JTextField user_type_Security_Question;
@@ -279,3 +338,4 @@ public class User_Registration_Panel extends javax.swing.JPanel {
     private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
 }
+
