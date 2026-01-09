@@ -8,6 +8,6 @@ package UserController;
  *
  * @author hp
  */
-public class userController {
+public class Company_VehicleController {
     
 }
