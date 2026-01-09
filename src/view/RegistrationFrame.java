@@ -36,20 +36,6 @@ public class RegistrationFrame extends JFrame {
     mainPanel.repaint();
    }
   
-    public static void main(String[] args) {
-        // Setting a system-wide Look and Feel (Optional but recommended)
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (Exception e) { /* Default to basic if Nimbus fails */ }
-
-        java.awt.EventQueue.invokeLater(() -> {
-            new RegistrationFrame();
-        });
-    }
+ 
 
 }
