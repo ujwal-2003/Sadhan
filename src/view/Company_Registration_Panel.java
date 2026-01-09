@@ -1,394 +1,388 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-package view;
-import UserController.companyRegisterController;
-import util.RegistrationResult;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import java.io.File;
-import java.net.URL;
+<?xml version="1.0" encoding="UTF-8" ?>
 
-/**
- *
- * @author prachisilwal
- */
-public class Company_Registration_Panel extends javax.swing.JPanel {
-     private companyRegisterController controller = new companyRegisterController();
-     private String qrPath = "";
-    /**
-     * Creates new form Company_Registration
-     */
-    public Company_Registration_Panel() {
-    initComponents();
-    loadImagesSafely();
-    
-    // UI Initial State
-    Company.setEnabled(false); 
-    Seeker.setEnabled(true);
-    underline_company.setBounds(40, 120, 160, 4);
-    
-   
-}
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1366, 768]"/>
+    </Property>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1366, 768]"/>
+    </Property>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1366, 768]"/>
+    </Property>
+  </Properties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="3"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,3,0,0,0,5,86"/>
+  </AuxValues>
 
-    private void loadImagesSafely() {
-        try {
-            URL logoUrl = getClass().getResource("/images/Sadhan Logo.jpeg");
-            URL bgUrl = getClass().getResource("/images/bg picture (1).jpeg");
-            if (logoUrl != null) logo.setIcon(new ImageIcon(logoUrl));
-            if (bgUrl != null) background.setIcon(new ImageIcon(bgUrl));
-        } catch (Exception e) {
-            System.err.println("Error loading images: " + e.getMessage());
-        }
-    }
-    private void uploadQRActionPerformed() {
-    JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image files", "jpg", "png", "jpeg"));
-    
-    int result = fileChooser.showOpenDialog(this);
-    
-    // Only proceed if the user actually clicked "Open"
-    if (result == JFileChooser.APPROVE_OPTION) {
-        File selectedFile = fileChooser.getSelectedFile();
-        qrPath = selectedFile.getAbsolutePath();
-        
-        // Scaling logic...
-        int width = (QR.getWidth() > 0) ? QR.getWidth() : 120;
-        int height = (QR.getHeight() > 0) ? QR.getHeight() : 90;
+  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+    <Property name="useNullLayout" type="boolean" value="false"/>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="box">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="dd" green="ae" red="39" type="rgb"/>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="410" y="10" width="550" height="740"/>
+        </Constraint>
+      </Constraints>
 
-        ImageIcon icon = new ImageIcon(new ImageIcon(qrPath).getImage()
-            .getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH));
-        
-        QR.setText("");
-        QR.setIcon(icon);
-    } 
-    // If result == JFileChooser.CANCEL_OPTION, the method simply ends, which is what we want!
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="Heading">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="2b" green="db" red="2b" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="24" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="RENT YOUR ADVENTURE"/>
+            <Property name="opaque" type="boolean" value="true"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="80" y="10" width="400" height="50"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Container class="javax.swing.JPanel" name="underline_company">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[10, 3]"/>
+            </Property>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="40" y="120" width="160" height="4"/>
+            </Constraint>
+          </Constraints>
 
-}
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+        </Container>
+        <Component class="javax.swing.JButton" name="Company">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="24" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Company"/>
+            <Property name="iconTextGap" type="int" value="5"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CompanyActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="40" y="80" width="160" height="45"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JButton" name="Seeker">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="24" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Seeker"/>
+            <Property name="iconTextGap" type="int" value="5"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SeekerActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="340" y="80" width="160" height="45"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Company_Name">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Company Name       :"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="30" y="140" width="140" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JTextField" name="user_type_Company_Name">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="user_type_Company_NameActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="180" y="140" width="340" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="username">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="username_              :"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="30" y="200" width="140" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JTextField" name="user_username_">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="180" y="200" width="340" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Contact">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Contact no.               :"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="30" y="260" width="140" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JTextField" name="user_type_Contact">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="180" y="260" width="340" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Email">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Email                       :"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="30" y="320" width="140" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JTextField" name="user_type_Email">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="180" y="320" width="340" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Address">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Address                   :"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="30" y="380" width="140" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JTextField" name="user_type_Address">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="180" y="380" width="340" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Password">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Password                :"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="30" y="440" width="140" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="pass_checkbox">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pass_checkboxActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="490" y="440" width="-1" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="user_type_Password">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="180" y="440" width="340" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Reenter_password">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Re-enter password  :"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="30" y="500" width="140" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="reenter_checkbox">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reenter_checkboxActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="490" y="500" width="-1" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="user_type_Reenter_Password">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="180" y="500" width="340" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Security_Question">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Security Question    :   What&apos;s your favourite place ?"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="30" y="550" width="340" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JTextField" name="user_type_Security_Question">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="user_type_Security_QuestionActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="180" y="580" width="340" height="35"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="QR">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="QR preview"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="630" width="120" height="90"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JButton" name="Register">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="2b" green="db" red="2b" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Register"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RegisterActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="250" y="630" width="110" height="30"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JButton" name="Login_here">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="already have an account ?, login here !"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Login_hereActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="180" y="680" width="250" height="30"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Upload your QR"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="593" width="130" height="20"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="logo">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/logo.png"/>
+        </Property>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="10" y="10" width="110" height="110"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="background">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/bg picture (1).jpeg"/>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="0" y="0" width="-1" height="770"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+  </SubComponents>
+</Form>
 
-      private void clearFields() {
-        user_type_Company_Name.setText("");
-        user_username_.setText("");
-        user_type_Contact.setText("");
-        user_type_Email.setText("");
-        user_type_Address.setText("");
-        user_type_Password.setText("");
-        user_type_Reenter_Password.setText("");
-        user_type_Security_Question.setText("");
-        QR.setIcon(null);
-        QR.setText("QR Preview");
-        qrPath = "";
-    }
-
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        box = new javax.swing.JPanel();
-        Heading = new javax.swing.JLabel();
-        underline_company = new javax.swing.JPanel();
-        Company = new javax.swing.JButton();
-        Seeker = new javax.swing.JButton();
-        Company_Name = new javax.swing.JLabel();
-        user_type_Company_Name = new javax.swing.JTextField();
-        username = new javax.swing.JLabel();
-        user_username_ = new javax.swing.JTextField();
-        Contact = new javax.swing.JLabel();
-        user_type_Contact = new javax.swing.JTextField();
-        Email = new javax.swing.JLabel();
-        user_type_Email = new javax.swing.JTextField();
-        Address = new javax.swing.JLabel();
-        user_type_Address = new javax.swing.JTextField();
-        Password = new javax.swing.JLabel();
-        pass_checkbox = new javax.swing.JCheckBox();
-        user_type_Password = new javax.swing.JPasswordField();
-        Reenter_password = new javax.swing.JLabel();
-        reenter_checkbox = new javax.swing.JCheckBox();
-        user_type_Reenter_Password = new javax.swing.JPasswordField();
-        Security_Question = new javax.swing.JLabel();
-        user_type_Security_Question = new javax.swing.JTextField();
-        QR = new javax.swing.JLabel();
-        Register = new javax.swing.JButton();
-        Login_here = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        logo = new javax.swing.JLabel();
-        background = new javax.swing.JLabel();
-
-        setMaximumSize(new java.awt.Dimension(1366, 768));
-        setMinimumSize(new java.awt.Dimension(1366, 768));
-        setPreferredSize(new java.awt.Dimension(1366, 768));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        box.setBackground(new java.awt.Color(57, 174, 221));
-        box.setLayout(null);
-
-        Heading.setBackground(new java.awt.Color(43, 219, 43));
-        Heading.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        Heading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Heading.setText("RENT YOUR ADVENTURE");
-        Heading.setOpaque(true);
-        box.add(Heading);
-        Heading.setBounds(80, 10, 400, 50);
-
-        underline_company.setBackground(new java.awt.Color(0, 0, 0));
-        underline_company.setMinimumSize(new java.awt.Dimension(10, 3));
-        box.add(underline_company);
-        underline_company.setBounds(40, 120, 160, 4);
-
-        Company.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        Company.setText("Company");
-        Company.setIconTextGap(5);
-        Company.addActionListener(this::CompanyActionPerformed);
-        box.add(Company);
-        Company.setBounds(40, 80, 160, 45);
-
-        Seeker.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        Seeker.setText("Seeker");
-        Seeker.setIconTextGap(5);
-        Seeker.addActionListener(this::SeekerActionPerformed);
-        box.add(Seeker);
-        Seeker.setBounds(340, 80, 160, 45);
-
-        Company_Name.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        Company_Name.setText("Company Name       :");
-        box.add(Company_Name);
-        Company_Name.setBounds(30, 140, 140, 35);
-
-        user_type_Company_Name.addActionListener(this::user_type_Company_NameActionPerformed);
-        box.add(user_type_Company_Name);
-        user_type_Company_Name.setBounds(180, 140, 340, 35);
-
-        username.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        username.setText("username_              :");
-        box.add(username);
-        username.setBounds(30, 200, 140, 35);
-        box.add(user_username_);
-        user_username_.setBounds(180, 200, 340, 35);
-
-        Contact.setText("Contact no.               :");
-        box.add(Contact);
-        Contact.setBounds(30, 260, 140, 35);
-        box.add(user_type_Contact);
-        user_type_Contact.setBounds(180, 260, 340, 35);
-
-        Email.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        Email.setText("Email                       :");
-        box.add(Email);
-        Email.setBounds(30, 320, 140, 35);
-        box.add(user_type_Email);
-        user_type_Email.setBounds(180, 320, 340, 35);
-
-        Address.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        Address.setText("Address                   :");
-        box.add(Address);
-        Address.setBounds(30, 380, 140, 35);
-        box.add(user_type_Address);
-        user_type_Address.setBounds(180, 380, 340, 35);
-
-        Password.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        Password.setText("Password                :");
-        box.add(Password);
-        Password.setBounds(30, 440, 140, 35);
-
-        pass_checkbox.addActionListener(this::pass_checkboxActionPerformed);
-        box.add(pass_checkbox);
-        pass_checkbox.setBounds(490, 440, 19, 35);
-        box.add(user_type_Password);
-        user_type_Password.setBounds(180, 440, 340, 35);
-
-        Reenter_password.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        Reenter_password.setText("Re-enter password  :");
-        box.add(Reenter_password);
-        Reenter_password.setBounds(30, 500, 140, 35);
-
-        reenter_checkbox.addActionListener(this::reenter_checkboxActionPerformed);
-        box.add(reenter_checkbox);
-        reenter_checkbox.setBounds(490, 500, 19, 35);
-        box.add(user_type_Reenter_Password);
-        user_type_Reenter_Password.setBounds(180, 500, 340, 35);
-
-        Security_Question.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        Security_Question.setText("Security Question    :   What's your favourite place ?");
-        box.add(Security_Question);
-        Security_Question.setBounds(30, 550, 340, 35);
-
-        user_type_Security_Question.addActionListener(this::user_type_Security_QuestionActionPerformed);
-        box.add(user_type_Security_Question);
-        user_type_Security_Question.setBounds(180, 580, 340, 35);
-
-        QR.setText("QR preview");
-        box.add(QR);
-        QR.setBounds(20, 630, 120, 90);
-
-        Register.setBackground(new java.awt.Color(43, 219, 43));
-        Register.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        Register.setText("Register");
-        Register.addActionListener(this::RegisterActionPerformed);
-        box.add(Register);
-        Register.setBounds(250, 630, 110, 30);
-
-        Login_here.setText("already have an account ?, login here !");
-        Login_here.addActionListener(this::Login_hereActionPerformed);
-        box.add(Login_here);
-        Login_here.setBounds(180, 680, 250, 30);
-
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setText("Upload your QR");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-        box.add(jButton1);
-        jButton1.setBounds(20, 593, 130, 20);
-
-        add(box, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 550, 740));
-
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
-        logo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 110));
-
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg picture (1).jpeg"))); // NOI18N
-        add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void user_type_Security_QuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_type_Security_QuestionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_user_type_Security_QuestionActionPerformed
-
-    private void reenter_checkboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reenter_checkboxActionPerformed
-        if (reenter_checkbox.isSelected()) {
-            user_type_Reenter_Password.setEchoChar((char) 0);
-        } else {
-            user_type_Reenter_Password.setEchoChar('•');
-        }
-    }//GEN-LAST:event_reenter_checkboxActionPerformed
-
-    private void pass_checkboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pass_checkboxActionPerformed
-        if (pass_checkbox.isSelected()) {
-            user_type_Password.setEchoChar((char) 0);
-        } else {
-            user_type_Password.setEchoChar('•');
-        }
-    }//GEN-LAST:event_pass_checkboxActionPerformed
-
-    private void user_type_Company_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_type_Company_NameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_user_type_Company_NameActionPerformed
-
-    private void SeekerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeekerActionPerformed
-    java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
-    if (parentWindow instanceof RegistrationFrame) {
-        RegistrationFrame frame = (RegistrationFrame) parentWindow;
-        // Switches to Seeker view
-        frame.showCard("seeker"); 
-        clearFields();
-    }
-
-    }//GEN-LAST:event_SeekerActionPerformed
-
-    private void CompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompanyActionPerformed
-         
-    }//GEN-LAST:event_CompanyActionPerformed
-
-    private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
-         // 1. Collect Data from UI
-        String companyName = user_type_Company_Name.getText();
-        String usernameText = user_username_.getText();
-        String contact = user_type_Contact.getText();
-        String email = user_type_Email.getText();
-        String address = user_type_Address.getText();
-        String password = new String(user_type_Password.getPassword());
-        String confirmPassword = new String(user_type_Reenter_Password.getPassword());
-        String securityQuestion = user_type_Security_Question.getText();
-
-        // 2. Validation
-        if (companyName.isEmpty() || usernameText.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Please fill in all required fields.");
-            return;
-        }
-
-        // 3. Call Controller for Registration
-        RegistrationResult result = controller.registerCompany(
-            companyName,
-            usernameText,
-            contact,
-            email,
-            address,
-            password,
-            confirmPassword,
-            securityQuestion,
-            qrPath // Pass the class-level qrPath variable here
-    );
-    if (result.isSuccess()) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Account Created Successfully!");
-    
-    clearFields();
-
-    // 1. Open the new Login window
-    // Replace 'Login_Frame' with your actual Login class name
-    view.login loginView = new view.login(); 
-    loginView.setVisible(true);
-    loginView.setLocationRelativeTo(null); // Centers the window
-
-    // 2. Close the current Registration window
-    java.awt.Window currentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
-    if (currentWindow != null) {
-        currentWindow.dispose();
-    }
-}
-   
-    }//GEN-LAST:event_RegisterActionPerformed
-
-    private void Login_hereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login_hereActionPerformed
-// 1. Open the new standalone window
-    new view.login().setVisible(true);
-    
-    // 2. Immediately close the current Registration window
-    java.awt.Window currentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
-    if (currentWindow != null) {
-        currentWindow.dispose();
-    }
-    }//GEN-LAST:event_Login_hereActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-               uploadQRActionPerformed();       
-    }//GEN-LAST:event_jButton1ActionPerformed
-    
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Address;
-    private javax.swing.JButton Company;
-    private javax.swing.JLabel Company_Name;
-    private javax.swing.JLabel Contact;
-    private javax.swing.JLabel Email;
-    private javax.swing.JLabel Heading;
-    private javax.swing.JButton Login_here;
-    private javax.swing.JLabel Password;
-    private javax.swing.JLabel QR;
-    private javax.swing.JLabel Reenter_password;
-    private javax.swing.JButton Register;
-    private javax.swing.JLabel Security_Question;
-    private javax.swing.JButton Seeker;
-    private javax.swing.JLabel background;
-    private javax.swing.JPanel box;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel logo;
-    private javax.swing.JCheckBox pass_checkbox;
-    private javax.swing.JCheckBox reenter_checkbox;
-    private javax.swing.JPanel underline_company;
-    private javax.swing.JTextField user_type_Address;
-    private javax.swing.JTextField user_type_Company_Name;
-    private javax.swing.JTextField user_type_Contact;
-    private javax.swing.JTextField user_type_Email;
-    private javax.swing.JPasswordField user_type_Password;
-    private javax.swing.JPasswordField user_type_Reenter_Password;
-    private javax.swing.JTextField user_type_Security_Question;
-    private javax.swing.JTextField user_username_;
-    private javax.swing.JLabel username;
-    // End of variables declaration//GEN-END:variables
-}
 
