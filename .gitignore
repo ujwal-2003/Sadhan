@@ -1,1 +1,15 @@
+# Build output
 /build/
+
+# NetBeans files
+nbproject/private/
+nbproject/project.properties
+
+# NetBeans form files (UI designers)
+user_registration.form
+company_registration.form
+
+# Dashboard / generated folder
+ujwal-dashboard-features
+
+
