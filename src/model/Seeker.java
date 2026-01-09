@@ -9,7 +9,7 @@ package model;
  * @author prachisilwal
  */
 
-public class Seeker {
+public class seeker {
     private String fullName;
     private String username;
     private String contact;
@@ -18,7 +18,7 @@ public class Seeker {
     private String password;
     private String securityAnswer;
 
-    public Seeker(String fullName, String username, String contact, String email,
+    public seeker(String fullName, String username, String contact, String email,
                 String address, String password, String securityAnswer) {
         this.fullName = fullName;
         this.username = username;
