@@ -4,9 +4,11 @@
  */
 package view;
 
-import UserController.UserAccountController;
-import javax.swing.JOptionPane;
-import model.UserAccount;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -14,43 +16,56 @@ import model.UserAccount;
  */
 public class User_Manage_Account extends javax.swing.JFrame {
     
-    private final UserAccountController controller = new UserAccountController();
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(User_Manage_Account.class.getName());
     private String loggedInUsername;
     private boolean editing = false;
     
     private String originalFullName, originalContact, originalEmail, originalAddress;
 
+
     public User_Manage_Account(String username) {
         initComponents();
         loggedInUsername = username;
-
+        
         user_username_.setText(loggedInUsername);
+        
+        user_type_Full_Name.setEditable(false);
+        user_type_contact.setEditable(false);
+        user_type_Email.setEditable(false);
+        user_type_Address.setEditable(false);   
         user_username_.setEditable(false);
-
-        setEditable(false);
+        
         Cancel.setVisible(false);
-
-        loadUserData();
-        setVisible(true);
+        
+        loadUserData(loggedInUsername);
     }
     
-    private void loadUserData() {
-            UserAccount user = controller.load(loggedInUsername);
-            if (user != null) {
-            user_type_Full_Name.setText(user.getFullName());
-            user_type_contact.setText(user.getContact());
-            user_type_Email.setText(user.getEmail());
-            user_type_Address.setText(user.getAddress());
-        } else {
-        JOptionPane.showMessageDialog(this, "Unable to load user data");
-    }
-}
+    public void loadUserData(String username) {
+        String url = "jdbc:mysql://localhost:3306/yourdatabase";
+        String dbUser = "root";
+        String dbPass = "mydadaisgreat";
 
-    private void setEditable(boolean value) {
-        user_type_Full_Name.setEditable(value);
-        user_type_contact.setEditable(value);
-        user_type_Email.setEditable(value);
-        user_type_Address.setEditable(value);
+        String sql = "SELECT full_name, contact_no, email, address FROM customers WHERE username = ?";
+
+        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPass);
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setString(1, username);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    user_type_Full_Name.setText(rs.getString("full_name"));
+                    user_type_contact.setText(rs.getString("contact_no"));
+                    user_type_Email.setText(rs.getString("email"));
+                    user_type_Address.setText(rs.getString("address"));
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(this, "User not found in database.");
+                }
+            }
+
+        } catch (SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
+        }
     }
 
     /**
@@ -75,11 +90,12 @@ public class User_Manage_Account extends javax.swing.JFrame {
         Address = new javax.swing.JLabel();
         user_type_Address = new javax.swing.JTextField();
         Update_Profile = new javax.swing.JButton();
+        Change_Password = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
         Logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(null);
 
         box.setBackground(new java.awt.Color(57, 174, 221));
         box.setLayout(null);
@@ -134,22 +150,29 @@ public class User_Manage_Account extends javax.swing.JFrame {
         Update_Profile.setText("Update Profile");
         Update_Profile.addActionListener(this::Update_ProfileActionPerformed);
         box.add(Update_Profile);
-        Update_Profile.setBounds(150, 410, 190, 50);
+        Update_Profile.setBounds(20, 410, 200, 40);
+
+        Change_Password.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        Change_Password.setText("Change Password");
+        Change_Password.addActionListener(this::Change_PasswordActionPerformed);
+        box.add(Change_Password);
+        Change_Password.setBounds(280, 410, 200, 40);
 
         Cancel.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         Cancel.setText("Cancel");
         Cancel.addActionListener(this::CancelActionPerformed);
         box.add(Cancel);
-        Cancel.setBounds(170, 465, 150, 30);
+        Cancel.setBounds(170, 455, 150, 32);
 
         Logout.setBackground(new java.awt.Color(43, 219, 43));
         Logout.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         Logout.setText("Logout");
         Logout.addActionListener(this::LogoutActionPerformed);
         box.add(Logout);
-        Logout.setBounds(170, 500, 150, 40);
+        Logout.setBounds(170, 490, 150, 40);
 
-        getContentPane().add(box, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 550));
+        getContentPane().add(box);
+        box.setBounds(0, 0, 500, 550);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -159,46 +182,8 @@ public class User_Manage_Account extends javax.swing.JFrame {
     }//GEN-LAST:event_user_type_Full_NameActionPerformed
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
-        this.dispose();
+    this.dispose(); // Close current window
     }//GEN-LAST:event_LogoutActionPerformed
-
-    private void Update_ProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Update_ProfileActionPerformed
-        if (!editing) {
-        editing = true;
-        Update_Profile.setText("Save");
-        Cancel.setVisible(true);
-
-        originalFullName = user_type_Full_Name.getText();
-        originalContact = user_type_contact.getText();
-        originalEmail = user_type_Email.getText();
-        originalAddress = user_type_Address.getText();
-
-        setEditable(true);
-        return;
-    }
-
-    UserAccount user = new UserAccount();
-    user.setUsername(loggedInUsername);
-    user.setFullName(user_type_Full_Name.getText().trim());
-    user.setContact(user_type_contact.getText().trim());
-    user.setEmail(user_type_Email.getText().trim());
-    user.setAddress(user_type_Address.getText().trim());
-
-    var result = controller.update(user);
-
-    JOptionPane.showMessageDialog(this, result.getMessage());
-
-    if (result.isSuccess()) {
-        editing = false;
-        Update_Profile.setText("Update Profile");
-        Cancel.setVisible(false);
-        setEditable(false);
-    }
-    }//GEN-LAST:event_Update_ProfileActionPerformed
-
-    private void user_username_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_username_ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_user_username_ActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
         user_type_Full_Name.setText(originalFullName);
@@ -209,10 +194,99 @@ public class User_Manage_Account extends javax.swing.JFrame {
         editing = false;
         Update_Profile.setText("Update Profile");
         Cancel.setVisible(false);
-        setEditable(false);
+
+        user_type_Full_Name.setEditable(false);
+        user_type_contact.setEditable(false);
+        user_type_Email.setEditable(false);
+        user_type_Address.setEditable(false);
     }//GEN-LAST:event_CancelActionPerformed
 
+    private void Update_ProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Update_ProfileActionPerformed
+        if (!editing) {
+            // Switch to edit mode
+            editing = true;
+            Update_Profile.setText("Save");
+            Cancel.setVisible(true);
 
+            // Store original values for cancel
+            originalFullName = user_type_Full_Name.getText();
+            originalContact = user_type_contact.getText();
+            originalEmail = user_type_Email.getText();
+            originalAddress = user_type_Address.getText();
+
+            user_type_Full_Name.setEditable(true);
+            user_type_contact.setEditable(true);
+            user_type_Email.setEditable(true);
+            user_type_Address.setEditable(true);
+
+            javax.swing.JOptionPane.showMessageDialog(this, "You can now edit your profile.");
+            return;
+        }
+
+        // SAVE MODE
+        String fullName = user_type_Full_Name.getText().trim();
+        String contact = user_type_contact.getText().trim();
+        String email = user_type_Email.getText().trim();
+        String address = user_type_Address.getText().trim();
+        String username = user_username_.getText().trim();
+
+        if (fullName.isEmpty() || contact.isEmpty() || email.isEmpty() || address.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please fill all the fields.");
+            return;
+        }
+
+        boolean updated = updateUserProfileInDB(username, fullName, contact, email, address);
+
+        if (updated) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Profile updated successfully!");
+            editing = false;
+            Update_Profile.setText("Update Profile");
+            Cancel.setVisible(false);
+
+            user_type_Full_Name.setEditable(false);
+            user_type_contact.setEditable(false);
+            user_type_Email.setEditable(false);
+            user_type_Address.setEditable(false);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Failed to update profile. Please try again.");
+        }
+    }//GEN-LAST:event_Update_ProfileActionPerformed
+
+    private void user_username_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_username_ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_user_username_ActionPerformed
+
+    private void Change_PasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Change_PasswordActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_Change_PasswordActionPerformed
+
+    public boolean updateUserProfileInDB(String username, String fullName, String contact, String email, String address) {
+        String url = "jdbc:mysql://localhost:3306/yourdatabase";
+        String dbUser = "root";
+        String dbPassword = "mydadaisgreat";
+
+        String updateSQL = "UPDATE customers SET full_name = ?, contact_no = ?, email = ?, address = ? WHERE username = ?";
+
+        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
+             PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
+
+            pstmt.setString(1, fullName);
+            pstmt.setString(2, contact);
+            pstmt.setString(3, email);
+            pstmt.setString(4, address);
+            pstmt.setString(5, username);
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+
+        } catch (SQLException e) {
+            logger.log(java.util.logging.Level.SEVERE, "Error updating profile", e);
+            javax.swing.JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+            return false;
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -220,6 +294,7 @@ public class User_Manage_Account extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Address;
     private javax.swing.JButton Cancel;
+    private javax.swing.JButton Change_Password;
     private javax.swing.JLabel Contact;
     private javax.swing.JLabel Email;
     private javax.swing.JLabel Full_Name;

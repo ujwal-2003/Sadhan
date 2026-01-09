@@ -7,11 +7,12 @@ import dao.admin_bookingsDAO;
 import model.admin_bookingsModel;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
- * @author prachisilwal
+ * @author hp
  */
-public class admin_bookingsController {   
+public class admin_bookingsController {
     private admin_bookingsDAO dao;
 
     public admin_bookingsController() {
@@ -40,6 +41,5 @@ public class admin_bookingsController {
                 b.getTotalPrice()
             });
         }
-}
-    
+    }
 }

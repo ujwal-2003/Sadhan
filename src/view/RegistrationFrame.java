@@ -24,22 +24,32 @@ public class RegistrationFrame extends JFrame {
         add(mainPanel);
 
         setTitle("Registration");
-        setSize(1370, 770);
+        setSize(1366, 768);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
-
     public void showCard(String name) {
-        cardLayout.show(mainPanel, name);
-    }
-
+    java.awt.CardLayout cl = (java.awt.CardLayout) mainPanel.getLayout(); 
+    cl.show(mainPanel, name);
+    mainPanel.revalidate();
+    mainPanel.repaint();
+   }
+  
     public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new RegistrationFrame();
+        // Setting a system-wide Look and Feel (Optional but recommended)
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (Exception e) { /* Default to basic if Nimbus fails */ }
+
+        java.awt.EventQueue.invokeLater(() -> {
+            new RegistrationFrame();
         });
     }
+
 }

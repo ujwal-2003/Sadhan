@@ -5,7 +5,7 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.*;
 
 public class MySqlConnection implements Database {
@@ -14,32 +14,57 @@ public class MySqlConnection implements Database {
      *
      * @return
      */
-    @Override
-    public Connection openConnection() {
-        try {
-            String username = "root";
-            String password = "actofgod12345";
-            String database = "Sadhan";
-            Connection connection;
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/" + database,
-                    username,
-                    password
-            );
-
-            if (connection != null) {
-                System.out.println("Connection successful");
-            } else {
-                System.out.println("Connection unsuccessful");
-            }
-
-            return connection;
-
-        } catch (SQLException e) {
-            System.out.println("Error while connecting: " + e.getMessage());
-            return null;
-        }
+    private static MySqlConnection instance;
+    private Connection connection;
+    
+    public MySqlConnection() {
+        // This ensures nobody can use 'new MySqlConnection()' outside this class
     }
+    // 1. ADD THIS: The static getInstance method
+    public static MySqlConnection getInstance() {
+        if (instance == null) {
+            instance = new MySqlConnection();
+        }
+        return instance;
+    }
+
+    // 2. ADD THIS: A method to get or open the connection
+    public Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                connection = openConnection();
+            }
+        } catch (SQLException e) {
+            System.out.println("Detailed Connection Error: " + e.getMessage());
+        }
+        return connection;
+    }
+    @Override
+    
+   public Connection openConnection() {
+    // 1. Define your credentials here
+    String USERNAME = "root";              // Your MySQL username
+    String PASSWORD = "actofgod12345";     // Your MySQL password
+    String DATABASE = "Sadhan";            // Your database name
+    String URL = "jdbc:mysql://localhost:3306/" + DATABASE; //
+
+    try {
+        // Load the MySQL Driver
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        
+        // Establish the connection using the variables
+        Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        
+        System.out.println("Successfully connected to database: " + DATABASE);
+        return conn;
+
+    } catch (Exception e) {
+        // This will print the exact reason for failure in NetBeans
+        System.out.println("CRITICAL: Failed to open connection -> " + e.getMessage());
+        return null;
+    }
+}
+
 
     @Override
     public void closeConnection(Connection conn) {
@@ -49,7 +74,7 @@ public class MySqlConnection implements Database {
                 System.out.println("Connection closed");
             }
         } catch (SQLException e) {
-            System.out.println("Error while closing: " + e.getMessage());
+            System.out.println(e);
         }
     }
 
@@ -60,7 +85,7 @@ public class MySqlConnection implements Database {
             return stmt.executeQuery(query);
 
         } catch (SQLException e) {
-            System.out.println("Error in runQuery: " + e.getMessage());
+            System.out.println(e);
             return null;
         }
     }
@@ -72,10 +97,11 @@ public class MySqlConnection implements Database {
             return stmt.executeUpdate(query);
 
         } catch (SQLException e) {
-            System.out.println("Error in executeUpdate: " + e.getMessage());
+            System.out.println(e);
             return -1;
         }
     }
+
 }
 
 

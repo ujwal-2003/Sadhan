@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dao;
-import database.MySqlConnection; 
+import database.MySqlConnection; // Assume you have a DB connection class
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +12,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-
 /**
  *
- * @author prachisilwal
+ * @author hp
  */
 public class admin_bookingsDAO {
-    
+
     public List<admin_bookingsModel> searchBookings(String query) {
         List<admin_bookingsModel> list = new ArrayList<>();
 

@@ -8,20 +8,16 @@ package util;
  *
  * @author prachisilwal
  */
+ 
 public class RegistrationResult {
-    private boolean success;
-    private String message;
+    private final boolean success;
+    private final String message;
 
     public RegistrationResult(boolean success, String message) {
         this.success = success;
         this.message = message;
     }
 
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public String getMessage() {
-        return message;
-    }    
+    public boolean isSuccess() { return success; }
+    public String getMessage() { return message; }
 }

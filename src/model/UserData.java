@@ -9,5 +9,5 @@ package model;
  * @author hp
  */
 public class UserData {
-    
+   
 }

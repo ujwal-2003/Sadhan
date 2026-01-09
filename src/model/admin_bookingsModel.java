@@ -6,10 +6,10 @@ package model;
 
 /**
  *
- * @author prachisilwal
- */
+ * @author hp
+ */   
 public class admin_bookingsModel {
-        private int companyId, vehicleId, userId, totalDays; // Added totalDays
+    private int companyId, vehicleId, userId, totalDays; // Added totalDays
     private String companyName, userName, location, vehicleName, startDate, endDate, pricePerDay, totalPrice;
 
     public admin_bookingsModel(int companyId, int vehicleId, int userId, String companyName, String userName, 
@@ -46,5 +46,4 @@ public class admin_bookingsModel {
     public String getTotalPrice() { return totalPrice; }
 }
     
-
 

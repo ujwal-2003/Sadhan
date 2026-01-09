@@ -280,7 +280,7 @@ public class User_Registration_Panel extends javax.swing.JPanel {
             clearFields();
             
             // Redirect to Login standalone window
-            new view.login().setVisible(true);
+           
             java.awt.Window currentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
             if (currentWindow != null) currentWindow.dispose();
         } else {
@@ -291,10 +291,7 @@ public class User_Registration_Panel extends javax.swing.JPanel {
     }//GEN-LAST:event_RegisterActionPerformed
 
     private void Login_hereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login_hereActionPerformed
-      new view.login().setVisible(true);
-        java.awt.Window currentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
-        if (currentWindow != null) currentWindow.dispose();
-    
+    // TODO add your handling code here:
     }//GEN-LAST:event_Login_hereActionPerformed
 
     private void CompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompanyActionPerformed
@@ -338,4 +335,3 @@ public class User_Registration_Panel extends javax.swing.JPanel {
     private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
 }
-
