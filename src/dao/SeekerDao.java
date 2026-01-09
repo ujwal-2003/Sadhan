@@ -13,11 +13,11 @@ import java.sql.*;
  */
 public class SeekerDao {
     
-    private final String url = "jdbc:mysql://localhost:3306/yourdatabase";
+    private final String url = "jdbc:mysql://localhost:3306/sadhan";
     private final String dbUser = "root";
-    private final String dbPass = "mydadaisgreat";
+    private final String dbPass = "actofgod12345";
 
-    public boolean registerSeeker(Seeker seeker) throws SQLException {
+    public boolean registerSeeker(seekerRegisterModel seeker) throws SQLException {
         String sql = "INSERT INTO customers (full_name, username, contact_no, email, address, password, security_question_answer) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -36,4 +36,5 @@ public class SeekerDao {
             return inserted > 0;
         }
     }
+    
 }
