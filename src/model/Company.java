@@ -9,25 +9,38 @@ package model;
  * @author prachisilwal
  */
 public class Company {
-    private String name, username, contact, email, address, password, securityAnswer;
+    private String companyName;
+    private String username;
+    private String contact;
+    private String email;
+    private String address;
+    private String password;
+    private String securityQuestion;
+    private String qrPath;
 
-    // Constructor, getters and setters
-    public Company(String name, String username, String contact, String email, String address, String password, String securityAnswer) {
-        this.name = name;
+    // Constructor
+    public Company(String companyName, String username, String contact, String email, 
+                        String address, String password, String securityQuestion, String qrPath) {
+        this.companyName = companyName;
         this.username = username;
         this.contact = contact;
         this.email = email;
         this.address = address;
         this.password = password;
-        this.securityAnswer = securityAnswer;
+        this.securityQuestion = securityQuestion;
+        this.qrPath = qrPath;
     }
 
-    public String getName() { return name; }
+    // Getters and Setters
+    public String getCompanyName() { return companyName; }
     public String getUsername() { return username; }
     public String getContact() { return contact; }
     public String getEmail() { return email; }
     public String getAddress() { return address; }
     public String getPassword() { return password; }
-    public String getSecurityAnswer() { return securityAnswer; }
+    public String getSecurityQuestion() { return securityQuestion; }
+    public String getQrPath() { return qrPath; }
 }
+
+
 

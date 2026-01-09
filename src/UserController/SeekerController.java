@@ -14,56 +14,23 @@ import model.Seeker;
 public class SeekerController {
     private SeekerDao seekerDao = new SeekerDao();
 
-    public RegistrationResult registerSeeker(
-            String fullName,
-            String username,
-            String contact,
-            String email,
-            String address,
-            String password,
-            String rePassword,
-            String securityAnswer) {
+       public RegistrationResult registerSeeker(String fullName, String user, String contact, 
+                                        String email, String address, String pass, 
+                                        String rePass, String security) {
+    if (!pass.equals(rePass)) {
+        return new RegistrationResult(false, "Passwords do not match.");
+    }
 
-        
-        if (fullName.isBlank() || username.isBlank() || contact.isBlank()
-                || email.isBlank() || address.isBlank()
-                || password.isBlank() || rePassword.isBlank()
-                || securityAnswer.isBlank()) {
+   
+    seekerRegisterModel seeker = new seekerRegisterModel(fullName, user, contact, email, address, pass, security);
 
-            return new RegistrationResult(false, "All fields are required.");
-        }
-
-        if (!password.equals(rePassword)) {
-            return new RegistrationResult(false, "Passwords do not match.");
-        }
-        
-        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            return new RegistrationResult(false, "Invalid email format.");
-        }
-
-        if (!contact.matches("\\d{10}")) {
-            return new RegistrationResult(false, "Contact number must be 10 digits.");
-        }
-
-        Seeker seeker = new Seeker(
-                fullName, username, contact, email,
-                address, password, securityAnswer
-        );
-
-        try {
-            boolean success = seekerDao.registerSeeker(seeker);
-
-            if (success) {
-                return new RegistrationResult(true, "Seeker registered successfully!");
-            } else {
-                return new RegistrationResult(false, "Registration failed.");
-            }
-
-        } catch (Exception e) {
-            if (e.getMessage().contains("Duplicate")) {
-                return new RegistrationResult(false, "Username or email already exists.");
-            }
-            return new RegistrationResult(false, "Database error.");
-        }
+    
+    try {
+        boolean success = seekerDao.registerSeeker(seeker);
+        return success ? new RegistrationResult(true, "Success!") : new RegistrationResult(false, "Failed.");
+    } catch (Exception e) {
+        return new RegistrationResult(false, "Database error.");
     }
 }
+}
+

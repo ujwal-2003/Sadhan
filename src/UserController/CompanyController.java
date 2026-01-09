@@ -14,59 +14,25 @@ import java.sql.SQLException;
 public class CompanyController {
     private CompanyDao companyDao = new CompanyDao();
     
- public RegistrationResult registerCompany(
-            String name,
-            String username,
-            String contact,
-            String email,
-            String address,
-            String password,
-            String rePassword,
-            String securityAnswer) {
+    public RegistrationResult registerCompany(String name, String user, String contact, 
+                                              String email, String address, String pass, 
+                                              String rePass, String security, String qrPath) {
 
-        if (name.isBlank() || username.isBlank() || contact.isBlank() ||
-            email.isBlank() || address.isBlank() || password.isBlank() ||
-            rePassword.isBlank() || securityAnswer.isBlank()) {
-
-            return new RegistrationResult(false, "All fields are required!");
-        }
-
-        if (!password.equals(rePassword)) {
+        if (!pass.equals(rePass)) {
             return new RegistrationResult(false, "Passwords do not match!");
         }
 
-        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            return new RegistrationResult(false, "Invalid email format!");
-        }
-
-        if (!contact.matches("\\d{10}")) {
-            return new RegistrationResult(false, "Contact number must be 10 digits!");
-        }
-
-        Company company = new Company(
-                name.trim(),
-                username.trim(),
-                contact.trim(),
-                email.trim(),
-                address.trim(),
-                password,
-                securityAnswer.trim()
-        );
-
-        try {
-            boolean success = companyDao.registerCompany(company);
-
-            if (success) {
-                return new RegistrationResult(true, "Company registered successfully!");
-            } else {
-                return new RegistrationResult(false, "Registration failed.");
+         byte[] qrData = null;
+        if (qrPath != null && !qrPath.isEmpty()) {
+            try {
+                qrData = Files.readAllBytes(Paths.get(qrPath));
+            } catch (Exception e) {
+                return new RegistrationResult(false, "Failed to process QR Image: " + e.getMessage());
             }
-
-        } catch (SQLException e) {
-            if (e.getMessage().contains("Duplicate")) {
-                return new RegistrationResult(false, "Username or email already exists!");
-            }
-            return new RegistrationResult(false, "Database error occurred.");
         }
+
+       }
+
+ return CompanyDao.saveCompany(name, user, contact, email, address, pass, security, qrData);
     }
 }
