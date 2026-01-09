@@ -1,6 +1,5 @@
-
-/build/
-ujwal-dashboard-features
+user_registration.form
+company_registration.form
 nbproject/private/
-src/database/
+/build/
 

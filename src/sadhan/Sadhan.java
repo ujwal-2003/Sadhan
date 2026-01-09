@@ -4,42 +4,50 @@
  */
 package sadhan;
 
+
+
+
 import database.Database;
+
 import database.MySqlConnection;
-import view.login;
+
+
+
+/**
+
+ *
+
+ * @author User
+
+ */
 
 public class Sadhan {
 
-    private static final java.util.logging.Logger logger =
-            java.util.logging.Logger.getLogger(Sadhan.class.getName());
+
+
+    /**
+
+     * @param args the command line arguments
+
+     */
 
     public static void main(String[] args) {
 
-        // Set Nimbus Look & Feel BEFORE creating UI
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info :
-                    javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (Exception ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        // TODO code application logic here
 
-        // Start UI
-        java.awt.EventQueue.invokeLater(() -> {
-            new login().setVisible(true);
-        });
+       Database db = new MySqlConnection();
 
-        // Test DB connection (optional but OK)
-        Database db = new MySqlConnection();
-        if (db.openConnection() != null) {
-            System.out.println("Connection successful");
-        } else {
-            System.out.println("Connection failed");
-        }
+       if(db.openConnection() !=null){
+
+           System.out.println("Connectioon succesful");
+
+         
+
+       }else{
+
+           System.out.println("Not successful");
+
+       }
     }
 }
 
