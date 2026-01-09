@@ -35,12 +35,22 @@ public class MySqlConnection implements Database {
                 connection = openConnection();
             }
         } catch (SQLException e) {
+
             System.out.println("Detailed Connection Error: " + e.getMessage());
+
+            System.out.println(e);
+
         }
         return connection;
     }
+
+    /**
+     *
+     * @return
+     */
     @Override
     
+
    public Connection openConnection() {
     // 1. Define your credentials here
     String USERNAME = "root";              // Your MySQL username
@@ -64,6 +74,7 @@ public class MySqlConnection implements Database {
         return null;
     }
 }
+
 
 
     @Override
@@ -101,5 +112,4 @@ public class MySqlConnection implements Database {
             return -1;
         }
     }
-
 }
