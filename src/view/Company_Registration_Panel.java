@@ -3,24 +3,84 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
-
-import UserController.CompanyController;
+import UserController.companyRegisterController;
 import util.RegistrationResult;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import java.io.File;
+import java.net.URL;
 
 /**
  *
  * @author prachisilwal
  */
 public class Company_Registration_Panel extends javax.swing.JPanel {
-private CompanyController controller = new CompanyController();
+     private companyRegisterController controller = new companyRegisterController();
+     private String qrPath = "";
     /**
      * Creates new form Company_Registration
      */
     public Company_Registration_Panel() {
-        initComponents();
-            Login_here.addActionListener(e -> LoginHereActionPerformed());
+    initComponents();
+    loadImagesSafely();
+    
+    // UI Initial State
+    Company.setEnabled(false); 
+    Seeker.setEnabled(true);
+    underline_company.setBounds(40, 120, 160, 4);
+    
+   
+}
 
+    private void loadImagesSafely() {
+        try {
+            URL logoUrl = getClass().getResource("/images/Sadhan Logo.jpeg");
+            URL bgUrl = getClass().getResource("/images/bg picture (1).jpeg");
+            if (logoUrl != null) logo.setIcon(new ImageIcon(logoUrl));
+            if (bgUrl != null) background.setIcon(new ImageIcon(bgUrl));
+        } catch (Exception e) {
+            System.err.println("Error loading images: " + e.getMessage());
+        }
     }
+    private void uploadQRActionPerformed() {
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image files", "jpg", "png", "jpeg"));
+    
+    int result = fileChooser.showOpenDialog(this);
+    
+    // Only proceed if the user actually clicked "Open"
+    if (result == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        qrPath = selectedFile.getAbsolutePath();
+        
+        // Scaling logic...
+        int width = (QR.getWidth() > 0) ? QR.getWidth() : 120;
+        int height = (QR.getHeight() > 0) ? QR.getHeight() : 90;
+
+        ImageIcon icon = new ImageIcon(new ImageIcon(qrPath).getImage()
+            .getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH));
+        
+        QR.setText("");
+        QR.setIcon(icon);
+    } 
+    // If result == JFileChooser.CANCEL_OPTION, the method simply ends, which is what we want!
+
+}
+
+      private void clearFields() {
+        user_type_Company_Name.setText("");
+        user_username_.setText("");
+        user_type_Contact.setText("");
+        user_type_Email.setText("");
+        user_type_Address.setText("");
+        user_type_Password.setText("");
+        user_type_Reenter_Password.setText("");
+        user_type_Security_Question.setText("");
+        QR.setIcon(null);
+        QR.setText("QR Preview");
+        qrPath = "";
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,11 +116,14 @@ private CompanyController controller = new CompanyController();
         user_type_Security_Question = new javax.swing.JTextField();
         QR = new javax.swing.JLabel();
         Register = new javax.swing.JButton();
-        Account = new javax.swing.JLabel();
         Login_here = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         logo = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
+        setMaximumSize(new java.awt.Dimension(1366, 768));
+        setMinimumSize(new java.awt.Dimension(1366, 768));
+        setPreferredSize(new java.awt.Dimension(1366, 768));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         box.setBackground(new java.awt.Color(57, 174, 221));
@@ -94,7 +157,7 @@ private CompanyController controller = new CompanyController();
         Seeker.setBounds(340, 80, 160, 45);
 
         Company_Name.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        Company_Name.setText("Company Name      :");
+        Company_Name.setText("Company Name       :");
         box.add(Company_Name);
         Company_Name.setBounds(30, 140, 140, 35);
 
@@ -160,37 +223,36 @@ private CompanyController controller = new CompanyController();
         box.add(user_type_Security_Question);
         user_type_Security_Question.setBounds(180, 580, 340, 35);
 
-        QR.setText("jLabel1");
+        QR.setText("QR preview");
         box.add(QR);
-        QR.setBounds(410, 630, 130, 110);
+        QR.setBounds(20, 630, 120, 90);
 
         Register.setBackground(new java.awt.Color(43, 219, 43));
-        Register.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        Register.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         Register.setText("Register");
         Register.addActionListener(this::RegisterActionPerformed);
         box.add(Register);
-        Register.setBounds(180, 630, 190, 45);
+        Register.setBounds(250, 630, 110, 30);
 
-        Account.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        Account.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Account.setText("Already have account?");
-        box.add(Account);
-        Account.setBounds(180, 680, 190, 30);
-
-        Login_here.setBackground(new java.awt.Color(51, 204, 255));
-        Login_here.setText("Login here.");
+        Login_here.setText("already have an account ?, login here !");
+        Login_here.addActionListener(this::Login_hereActionPerformed);
         box.add(Login_here);
-        Login_here.setBounds(220, 710, 100, 25);
+        Login_here.setBounds(180, 680, 250, 30);
 
-        add(box, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 550, 750));
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
+        jButton1.setText("Upload your QR");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+        box.add(jButton1);
+        jButton1.setBounds(20, 593, 130, 20);
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Sadhan Logo.jpeg"))); // NOI18N
+        add(box, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 550, 740));
+
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
         logo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 120));
+        add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 110));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/D9E43D18-E51D-4BE8-BAE2-2F04E264F0B3.jpeg"))); // NOI18N
-        background.setText("jLabel1");
-        add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 770));
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg picture (1).jpeg"))); // NOI18N
+        add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
     }// </editor-fold>//GEN-END:initComponents
 
     private void user_type_Security_QuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_type_Security_QuestionActionPerformed
@@ -218,43 +280,86 @@ private CompanyController controller = new CompanyController();
     }//GEN-LAST:event_user_type_Company_NameActionPerformed
 
     private void SeekerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeekerActionPerformed
-    RegistrationFrame frame = (RegistrationFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
-    if (frame != null) {
-        frame.showCard("seeker");
+    java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+    if (parentWindow instanceof RegistrationFrame) {
+        RegistrationFrame frame = (RegistrationFrame) parentWindow;
+        // Switches to Seeker view
+        frame.showCard("seeker"); 
+        clearFields();
     }
 
     }//GEN-LAST:event_SeekerActionPerformed
 
     private void CompanyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompanyActionPerformed
-    
+         
     }//GEN-LAST:event_CompanyActionPerformed
 
     private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
-    RegistrationResult result = controller.registerCompany(
-            user_type_Company_Name.getText(),
-            user_username_.getText(),
-            user_type_Contact.getText(),
-            user_type_Email.getText(),
-            user_type_Address.getText(),
-            new String(user_type_Password.getPassword()),
-            new String(user_type_Reenter_Password.getPassword()),
-            user_type_Security_Question.getText()
+         // 1. Collect Data from UI
+        String companyName = user_type_Company_Name.getText();
+        String usernameText = user_username_.getText();
+        String contact = user_type_Contact.getText();
+        String email = user_type_Email.getText();
+        String address = user_type_Address.getText();
+        String password = new String(user_type_Password.getPassword());
+        String confirmPassword = new String(user_type_Reenter_Password.getPassword());
+        String securityQuestion = user_type_Security_Question.getText();
+
+        // 2. Validation
+        if (companyName.isEmpty() || usernameText.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please fill in all required fields.");
+            return;
+        }
+
+        // 3. Call Controller for Registration
+        RegistrationResult result = controller.registerCompany(
+            companyName,
+            usernameText,
+            contact,
+            email,
+            address,
+            password,
+            confirmPassword,
+            securityQuestion,
+            qrPath // Pass the class-level qrPath variable here
     );
-
-    javax.swing.JOptionPane.showMessageDialog(this, result.getMessage());
+    if (result.isSuccess()) {
+    javax.swing.JOptionPane.showMessageDialog(this, "Account Created Successfully!");
     
-    }//GEN-LAST:event_RegisterActionPerformed
-    private void LoginHereActionPerformed() {
-    RegistrationFrame frame =
-        (RegistrationFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+    clearFields();
 
-    if (frame != null) {
-        frame.showCard("login");
+    // 1. Open the new Login window
+    // Replace 'Login_Frame' with your actual Login class name
+    view.login loginView = new view.login(); 
+    loginView.setVisible(true);
+    loginView.setLocationRelativeTo(null); // Centers the window
+
+    // 2. Close the current Registration window
+    java.awt.Window currentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+    if (currentWindow != null) {
+        currentWindow.dispose();
     }
 }
+   
+    }//GEN-LAST:event_RegisterActionPerformed
+
+    private void Login_hereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login_hereActionPerformed
+// 1. Open the new standalone window
+    new view.login().setVisible(true);
+    
+    // 2. Immediately close the current Registration window
+    java.awt.Window currentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+    if (currentWindow != null) {
+        currentWindow.dispose();
+    }
+    }//GEN-LAST:event_Login_hereActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+               uploadQRActionPerformed();       
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Account;
     private javax.swing.JLabel Address;
     private javax.swing.JButton Company;
     private javax.swing.JLabel Company_Name;
@@ -270,6 +375,7 @@ private CompanyController controller = new CompanyController();
     private javax.swing.JButton Seeker;
     private javax.swing.JLabel background;
     private javax.swing.JPanel box;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel logo;
     private javax.swing.JCheckBox pass_checkbox;
     private javax.swing.JCheckBox reenter_checkbox;
@@ -285,3 +391,4 @@ private CompanyController controller = new CompanyController();
     private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
 }
+
