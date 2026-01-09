@@ -35,36 +35,35 @@ public class MySqlConnection implements Database {
                 connection = openConnection();
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("Detailed Connection Error: " + e.getMessage());
         }
         return connection;
     }
     @Override
     
-    public Connection openConnection() {
-        try {
-          
-            String username = "root";
-            String password = "actofgod12345";
-            String database = "Sadhan";
-            // Load Driver (Optional in modern JDBC but safer to include)
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            
-            Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/" + database,
-                    username,
-                    password
-            );
-           System.out.println("Connection successful to: " + "sadhan");
-            return conn;
-            
+   public Connection openConnection() {
+    // 1. Define your credentials here
+    String USERNAME = "root";              // Your MySQL username
+    String PASSWORD = "actofgod12345";     // Your MySQL password
+    String DATABASE = "Sadhan";            // Your database name
+    String URL = "jdbc:mysql://localhost:3306/" + DATABASE; //
 
-       } catch (Exception e) {
-            System.out.println("Failed to open connection: " + e.getMessage());
-            return null;
-        }
-            
- }
+    try {
+        // Load the MySQL Driver
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        
+        // Establish the connection using the variables
+        Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        
+        System.out.println("Successfully connected to database: " + DATABASE);
+        return conn;
+
+    } catch (Exception e) {
+        // This will print the exact reason for failure in NetBeans
+        System.out.println("CRITICAL: Failed to open connection -> " + e.getMessage());
+        return null;
+    }
+}
 
 
     @Override
@@ -102,6 +101,7 @@ public class MySqlConnection implements Database {
             return -1;
         }
     }
+
 }
 
 
