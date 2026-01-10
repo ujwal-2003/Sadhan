@@ -21,7 +21,7 @@ public class login extends javax.swing.JFrame {
     
      public login() {
         initComponents();
-        
+
         // 2. Initialize the single controller
         this.controller = new loginController(this);
     }
@@ -195,7 +195,7 @@ public class login extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 110));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Untitled design (4) (1).png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login-image.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
 
         pack();
