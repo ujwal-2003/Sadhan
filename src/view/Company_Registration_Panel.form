@@ -373,7 +373,7 @@
     <Component class="javax.swing.JLabel" name="background">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/bg picture (1).jpeg"/>
+          <Image iconType="3" name="/images/bg picture.jpg"/>
         </Property>
       </Properties>
       <Constraints>
