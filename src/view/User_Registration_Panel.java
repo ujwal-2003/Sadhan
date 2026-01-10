@@ -211,7 +211,7 @@ public class User_Registration_Panel extends javax.swing.JPanel {
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
         add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 110));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/WhatsApp Image 2025-12-30 at 11.14.16 PM.jpeg"))); // NOI18N
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg picture.jpg"))); // NOI18N
         background.setText("jLabel1");
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 770));
     }// </editor-fold>//GEN-END:initComponents

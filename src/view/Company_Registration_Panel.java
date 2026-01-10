@@ -251,7 +251,7 @@ public class Company_Registration_Panel extends javax.swing.JPanel {
         logo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 110, 110));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg picture (1).jpeg"))); // NOI18N
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg picture.jpg"))); // NOI18N
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
     }// </editor-fold>//GEN-END:initComponents
 
